@@ -101,6 +101,49 @@
           }
         }
       }
+    },
+    "react-pdf-components": {
+      "root": "libs/react-pdf-components",
+      "sourceRoot": "libs/react-pdf-components/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/react-pdf-components",
+            "tsConfig": "libs/react-pdf-components/tsconfig.lib.json",
+            "project": "libs/react-pdf-components/package.json",
+            "entryFile": "libs/react-pdf-components/src/index.ts",
+            "external": ["react/jsx-runtime"],
+            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "assets": [
+              {
+                "glob": "libs/react-pdf-components/README.md",
+                "input": ".",
+                "output": "."
+              }
+            ]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/react-pdf-components/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/react-pdf-components"],
+          "options": {
+            "jestConfig": "libs/react-pdf-components/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
