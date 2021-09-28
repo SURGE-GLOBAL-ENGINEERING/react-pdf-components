@@ -2,7 +2,7 @@ import ReactPDF, { Document, Font, PDFViewer } from '@react-pdf/renderer';
 import { useMemo } from 'react';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import styles from './app.module.scss';
-import Demos from './components';
+import ComponentPreviews from './components';
 
 Font.register({
   family: 'Open Sans',
@@ -25,10 +25,11 @@ Font.register({
     },
   ],
 });
+
 export function App() {
   const routes = useMemo(() => {
     const r = [];
-    for (const [key, value] of Object.entries(Demos)) {
+    for (const [key, value] of Object.entries(ComponentPreviews)) {
       r.push({
         label: key,
         component: value,
@@ -46,7 +47,7 @@ export function App() {
           <ul>
             {routes.map((r) => (
               <li key={r.label}>
-                <Link to={`${r.label}-demo`}>{r.label}</Link>
+                <Link to={`${r.label}-prev`}>{r.label}</Link>
               </li>
             ))}
           </ul>
@@ -54,7 +55,7 @@ export function App() {
 
         <Switch>
           {routes.map((r) => (
-            <Route key={r.label} path={`/${r.label}-demo`}>
+            <Route key={r.label} path={`/${r.label}-prev`}>
               <WithPDFViewer>
                 {/* casting to any type as child can have different prop-types */}
                 {r.component.default({ children: undefined }) as any}

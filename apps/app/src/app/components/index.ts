@@ -1,6 +1,5 @@
-
-import * as TestComponent from "./TestCompo/test-compo-demo"
+import * as TextPreview from "./text-preview";
 
 export default {
-    TestComponent,
+  TextPreview,
 }

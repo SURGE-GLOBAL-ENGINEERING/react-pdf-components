@@ -1,9 +1,11 @@
 import { TextNode } from '@atticus/react-pdf-components';
 import { Page } from '@react-pdf/renderer';
-import React, { FunctionComponent } from 'react';
+import { FC } from 'react';
+
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface TestCompoProps {}
-const TestCompo: FunctionComponent<TestCompoProps> = () => {
+interface TextPreviewProps { }
+
+const TextPreview: FC<TextPreviewProps> = () => {
   return (
     <Page size="A4">
       <TextNode fontSize={50} bold italic>
@@ -28,4 +30,5 @@ const TestCompo: FunctionComponent<TestCompoProps> = () => {
     </Page>
   );
 };
-export default TestCompo;
+
+export default TextPreview;
