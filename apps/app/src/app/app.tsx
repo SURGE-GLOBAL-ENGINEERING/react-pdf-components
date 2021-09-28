@@ -1,8 +1,8 @@
-import styles from './app.module.scss';
-import ReactPDF, { PDFViewer, Document, Font } from '@react-pdf/renderer';
-import Demos from './components';
+import ReactPDF, { Document, Font, PDFViewer } from '@react-pdf/renderer';
 import { useMemo } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import styles from './app.module.scss';
+import Demos from './components';
 
 Font.register({
   family: 'Open Sans',

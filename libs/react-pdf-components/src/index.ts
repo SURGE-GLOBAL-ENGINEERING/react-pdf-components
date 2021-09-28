@@ -1,1 +1,2 @@
-export * from './lib/components/test-component/ReactPdfComponents';
+export * from './lib/components/TextNode';
+
