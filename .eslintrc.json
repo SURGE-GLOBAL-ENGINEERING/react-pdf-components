@@ -24,7 +24,16 @@
     {
       "files": ["*.ts", "*.tsx"],
       "extends": ["plugin:@nrwl/nx/typescript"],
-      "rules": {}
+      "rules": {
+        "semi": "error",
+        "no-unused-vars": "error",
+        "no-duplicate-imports": "error",
+        "no-empty-function": "error",
+        "no-use-before-define": "error",
+        "@typescript-eslint/no-use-before-define": ["error"],
+        "no-shadow": "off",
+        "@typescript-eslint/no-shadow": ["error"]
+      }
     },
     {
       "files": ["*.js", "*.jsx"],
