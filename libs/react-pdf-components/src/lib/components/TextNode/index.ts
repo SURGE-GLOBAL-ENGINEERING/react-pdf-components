@@ -1,4 +1,2 @@
-import { TextNode } from "./text-node"
-export {
-    TextNode
-}
+import { TextNode } from './text-node';
+export { TextNode };
