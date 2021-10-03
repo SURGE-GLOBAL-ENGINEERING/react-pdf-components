@@ -3,7 +3,7 @@ import { Text, View } from '@react-pdf/renderer';
 /* eslint-disable-next-line */
 export interface ReactPdfComponentsProps {}
 
-export function ReactPdfComponents(props: ReactPdfComponentsProps) {
+export function ReactPdfComponents() {
   return (
     <View>
       <Text> Hello World! </Text>

@@ -3,7 +3,7 @@ import { Page } from '@react-pdf/renderer';
 import { FC } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface TextPreviewProps { }
+interface TextPreviewProps {}
 
 const TextPreview: FC<TextPreviewProps> = () => {
   return (
