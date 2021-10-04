@@ -5,11 +5,6 @@ cache:
   paths:
     - node_modules/
 
-before_script:
-  - export
-# variables:
-#   FIREBASE_TOKEN: "$FIREBASE_TOKEN"
-
 stages:
   - test
   - build
@@ -82,7 +77,6 @@ deploy:dev:preview:
       artifacts: true
   script:
     - echo "Deploying applications for preview"
-    - export
     - npm run firebase:deploy:preview -- "rpc-${CI_MERGE_REQUEST_IID}" -P default --token $FIREBASE_TOKEN
   only:
     - merge_requests
