@@ -5,8 +5,8 @@ cache:
   paths:
     - node_modules/
 
-before_script:
-  - npm i
+variables:
+  FIREBASE_TOKEN: ${FIREBASE_TOKEN}
 
 stages:
   - test
@@ -17,6 +17,8 @@ stages:
 
 test-apps:
   stage: test
+  before_script:
+    - npm i
   script:
     - echo "Start testing applications"
     - npm run lint app
@@ -27,6 +29,8 @@ test-apps:
 
 test-libs:
   stage: test
+  before_script:
+    - npm i
   script:
     - echo "Start testing libraries"
     - npm run lint react-pdf-components
@@ -40,6 +44,8 @@ test-libs:
 build:
   stage: build
   needs: ['test-apps', 'test-libs']
+  before_script:
+    - npm i
   script:
     - echo "Start building apps"
     - npm run build app
@@ -52,6 +58,8 @@ build:
 build:dev:
   stage: build
   needs: ['test-apps', 'test-libs']
+  before_script:
+    - npm i
   script:
     - echo "Start building apps"
     - npm run build app
