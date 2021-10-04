@@ -6,7 +6,7 @@ cache:
     - node_modules/
 
 variables:
-  FIREBASE_TOKEN: ${FIREBASE_TOKEN}
+  FIREBASE_TOKEN: $FIREBASE_TOKEN
 
 stages:
   - test
