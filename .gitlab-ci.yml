@@ -5,8 +5,8 @@ cache:
   paths:
     - node_modules/
 
-variables:
-  FIREBASE_TOKEN: $FIREBASE_TOKEN
+# variables:
+#   FIREBASE_TOKEN: "$FIREBASE_TOKEN"
 
 stages:
   - test
@@ -81,7 +81,7 @@ deploy:dev:preview:
   script:
     - echo "Deploying applications for preview"
     - export
-    - npm run firebase:deploy:preview -- "rpc-${CI_MERGE_REQUEST_IID}" -P default --token "${FIREBASE_TOKEN}"
+    - npm run firebase:deploy:preview -- "rpc-${CI_MERGE_REQUEST_IID}" -P default --token $FIREBASE_TOKEN
   only:
     - merge_requests
   environment:
