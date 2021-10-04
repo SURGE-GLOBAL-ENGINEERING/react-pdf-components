@@ -72,7 +72,7 @@ deploy:dev:preview:
       artifacts: true
   script:
     - echo "Deploying applications for preview"
-    - npm run firebase:deploy:preview -- "rpc-${CI_MERGE_REQUEST_ID}" -P default --token $FIREBASE_TOKEN
+    - npm run firebase:deploy:preview -- "rpc-${CI_MERGE_REQUEST_IID}" -P default --token "${FIREBASE_TOKEN}"
   only:
     - merge_requests
   environment:
