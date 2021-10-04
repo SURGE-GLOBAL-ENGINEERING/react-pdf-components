@@ -15,38 +15,51 @@ stages:
 
 # Testing applications and libraries
 
-test_apps:
+test-apps:
   stage: test
   script:
     - echo "Start testing applications"
     - npm run lint app
+  only:
+    - pushes
+    - branches
+    - merge_requests
 
-test_libs:
+test-libs:
   stage: test
   script:
     - echo "Start testing libraries"
     - npm run lint react-pdf-components
+  only:
+    - pushes
+    - branches
+    - merge_requests
 
 # Building applications and libraries
 
 build:
   stage: build
-  needs: ['test_apps', 'test_libs']
+  needs: ['test-apps', 'test-libs']
   script:
     - echo "Start building apps"
     - npm run build app
+  only:
+    - pushes
+    - branches
   except:
     - merge_requests
 
 build:dev:
   stage: build
-  needs: ['test_apps', 'test_libs']
+  needs: ['test-apps', 'test-libs']
   script:
     - echo "Start building apps"
     - npm run build app
   artifacts:
     paths:
       - dist/
+  except:
+    - pushes
   only:
     - merge_requests
 
