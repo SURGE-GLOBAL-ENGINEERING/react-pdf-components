@@ -48,7 +48,6 @@ build:dev:
     paths:
       - dist/
   only:
-    - main
     - merge_requests
 
 # Deploying applications
@@ -62,7 +61,6 @@ deploy:dev:preview:
     - echo "Deploying applications for preview"
     - npm run firebase:deploy:preview -- "rpc-${$CI_MERGE_REQUEST_ID}" -P default --token $FIREBASE_TOKEN
   only:
-    - main
     - merge_requests
   environment:
     name: development
