@@ -22,6 +22,7 @@ import { FunctionComponent } from 'react';
 interface ImageCoreProps extends ReactPDF.ImageWithSrcProp {
   caption?: string;
   captionAlignment?: alignmentType;
+  captionTextStyles?: ReactPDF.Styles;
   size?: number; //Percentage of parent element
   link?: string;
 }
@@ -31,6 +32,7 @@ function ImageCore({
   captionAlignment = 'left',
   size,
   link,
+  captionTextStyles,
   ...rPDFImageProps
 }: ImageCoreProps) {
   const styles = StyleSheet.create({
@@ -62,7 +64,10 @@ function ImageCore({
           {...rPDFImageProps}
         />
         {caption && (
-          <RPDFText debug={IS_DEBUG} style={[styles.caption]}>
+          <RPDFText
+            debug={IS_DEBUG}
+            style={[styles.caption, captionTextStyles ?? {}]}
+          >
             {caption}
           </RPDFText>
         )}
