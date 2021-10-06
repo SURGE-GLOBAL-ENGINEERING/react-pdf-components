@@ -159,6 +159,6 @@ export const editorFonts: BulkLoad[] = [
         ],
     }
 
-]
+];
 
 
