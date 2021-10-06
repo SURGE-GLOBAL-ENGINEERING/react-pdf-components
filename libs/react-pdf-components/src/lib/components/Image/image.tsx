@@ -18,6 +18,7 @@ import { FunctionComponent } from 'react';
     study the page break behavior of react-pdf
  */
 
+type alignmentType = 'left' | 'center' | 'right';
 /* eslint-disable-next-line */
 interface ImageCoreProps extends ReactPDF.ImageWithSrcProp {
   caption?: string;
@@ -76,7 +77,6 @@ function ImageCore({
   );
 }
 
-type alignmentType = 'left' | 'center' | 'right';
 interface ImageProps extends ImageCoreProps {
   alignment?: alignmentType;
   wrap?: boolean;

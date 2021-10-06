@@ -1,5 +1,5 @@
-import { TextNode, Image } from '@atticus/react-pdf-components';
-import { Page, Image as RPDFImage } from '@react-pdf/renderer';
+import { Image } from '@atticus/react-pdf-components';
+import { Page } from '@react-pdf/renderer';
 import { FC } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

@@ -3,4 +3,4 @@ import * as ImagePreview from "./image-preview";
 export default {
   TextPreview,
   ImagePreview
-}
+};
