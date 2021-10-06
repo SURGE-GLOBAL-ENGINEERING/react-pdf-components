@@ -1,3 +1,4 @@
+import { ThemeProvider } from '@atticus/react-pdf-components';
 import ReactPDF, { Document, Font, PDFViewer } from '@react-pdf/renderer';
 import { useMemo } from 'react';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
@@ -38,34 +39,34 @@ export function App() {
     return r;
   }, []);
 
-  console.log({ routes });
-
   return (
-    <Router>
-      <div className={styles.app}>
-        <nav>
-          <ul>
-            {routes.map((r) => (
-              <li key={r.label}>
-                <Link to={`${r.label}-prev`}>{r.label}</Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+    <ThemeProvider themeConfig={{ fontFamily: 'fdfdff' }}>
+      <Router>
+        <div className={styles.app}>
+          <nav>
+            <ul>
+              {routes.map((r) => (
+                <li key={r.label}>
+                  <Link to={`${r.label}-demo`}>{r.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-        <Switch>
-          {routes.map((r) => (
-            <Route key={r.label} path={`/${r.label}-prev`}>
-              <WithPDFViewer>
-                {/* casting to any type as child can have different prop-types */}
-                {r.component.default({ children: undefined }) as any}
-              </WithPDFViewer>
-            </Route>
-          ))}
-          <Route path="/"></Route>
-        </Switch>
-      </div>
-    </Router>
+          <Switch>
+            {routes.map((r) => (
+              <Route key={r.label} path={`/${r.label}-demo`}>
+                <WithPDFViewer>
+                  {/* casting to any type as child can have different prop-types */}
+                  {r.component.default({ children: undefined }) as any}
+                </WithPDFViewer>
+              </Route>
+            ))}
+            <Route path="/"></Route>
+          </Switch>
+        </div>
+      </Router>
+    </ThemeProvider>
   );
 }
 

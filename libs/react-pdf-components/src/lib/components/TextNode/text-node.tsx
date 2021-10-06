@@ -3,7 +3,8 @@ import ReactPDF, {
   Text as RPDFText,
   View as RPDFView,
 } from '@react-pdf/renderer';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useEffect } from 'react';
+import useTheme from './../ThemeProvider/useTheme';
 import './text-node.module.scss';
 /*
   Atticus :: TextNode features
@@ -48,9 +49,7 @@ const styles = StyleSheet.create({
   strikeThrough: {
     textDecoration: 'line-through',
   },
-  baseStyles: {
-    fontFamily: 'Open Sans',
-  },
+  baseStyles: {},
 });
 const featureToStyleMap: Record<keyof Features, keyof typeof styles> = {
   superscript: 'superscript',
@@ -69,15 +68,24 @@ export interface TextNodeProps extends ReactPDF.TextProps, Features {
   fontSize?: number;
 }
 export const TextNode: FunctionComponent<TextNodeProps> = (props) => {
+  const { fontFamily } = useTheme();
+  useEffect(() => {
+    console.log('THEME PROVIDER', { fontFamily });
+  }, [fontFamily]);
+
   const composedStyles = [];
-  composedStyles.push({ ...styles.baseStyles, fontSize: props.fontSize });
+  composedStyles.push({
+    ...styles.baseStyles,
+    fontSize: props.fontSize,
+    fontFamily,
+  });
+
   for (const [propsName, styleName] of Object.entries<keyof typeof styles>(
     featureToStyleMap
   )) {
     if (props[propsName as keyof Features])
       composedStyles.push(styles[styleName]);
   }
-  console.log({ composedStyles });
 
   return (
     <RPDFView>
