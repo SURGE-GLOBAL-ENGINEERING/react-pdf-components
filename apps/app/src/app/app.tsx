@@ -10,6 +10,29 @@ editorFonts.forEach((el) => {
   Font.register(el);
 });
 
+interface WithPDFViewerProps extends ReactPDF.PDFViewerProps {
+  documentProps?: ReactPDF.DocumentProps;
+  themeConfig: Theme;
+}
+export const WithPDFViewer: React.FC<WithPDFViewerProps> = ({
+  children,
+  documentProps,
+  themeConfig,
+  ...pdfViewerProps
+}) => {
+  const { fontFamily } = useTheme();
+  useEffect(() => {
+    console.log('WITH PDFVIEWER', { fontFamily, themeConfig });
+  }, [fontFamily, themeConfig]);
+  return (
+    <PDFViewer width={'100%'} height={'100%'} {...pdfViewerProps}>
+      <Document title={fontFamily} {...documentProps}>
+        <ThemeProvider themeConfig={themeConfig}>{children}</ThemeProvider>
+      </Document>
+    </PDFViewer>
+  );
+};
+
 export function App() {
   const [fontState, setFontState] = useState('Courier');
   const [input, setinput] = useState('Courier');
@@ -58,6 +81,7 @@ export function App() {
                 {/* <ThemeProvider themeConfig={{ fontFamily: fontState }}> */}
                 <WithPDFViewer themeConfig={{ fontFamily: fontState }}>
                   {/* casting to any type as child can have different prop-types */}
+                  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                   {r.component.default({ children: undefined }) as any}
                 </WithPDFViewer>
                 {/* </ThemeProvider> */}
@@ -71,26 +95,4 @@ export function App() {
   );
 }
 
-interface WithPDFViewerProps extends ReactPDF.PDFViewerProps {
-  documentProps?: ReactPDF.DocumentProps;
-  themeConfig: Theme;
-}
-export const WithPDFViewer: React.FC<WithPDFViewerProps> = ({
-  children,
-  documentProps,
-  themeConfig,
-  ...pdfViewerProps
-}) => {
-  const { fontFamily } = useTheme();
-  useEffect(() => {
-    console.log('WITH PDFVIEWER', { fontFamily, themeConfig });
-  }, [fontFamily, themeConfig]);
-  return (
-    <PDFViewer width={'100%'} height={'100%'} {...pdfViewerProps}>
-      <Document title={fontFamily} {...documentProps}>
-        <ThemeProvider themeConfig={themeConfig}>{children}</ThemeProvider>
-      </Document>
-    </PDFViewer>
-  );
-};
 export default App;
