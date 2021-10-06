@@ -26,6 +26,21 @@ Font.register({
   ],
 });
 
+interface WithPDFViewerProps extends ReactPDF.PDFViewerProps {
+  documentProps?: ReactPDF.DocumentProps;
+}
+export const WithPDFViewer: React.FC<WithPDFViewerProps> = ({
+  children,
+  documentProps,
+  ...pdfViewerProps
+}) => {
+  return (
+    <PDFViewer width={'100%'} height={'100%'} {...pdfViewerProps}>
+      <Document {...documentProps}>{children}</Document>
+    </PDFViewer>
+  );
+};
+
 export function App() {
   const routes = useMemo(() => {
     const r = [];
@@ -58,6 +73,7 @@ export function App() {
             <Route key={r.label} path={`/${r.label}-prev`}>
               <WithPDFViewer>
                 {/* casting to any type as child can have different prop-types */}
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                 {r.component.default({ children: undefined }) as any}
               </WithPDFViewer>
             </Route>
@@ -69,18 +85,4 @@ export function App() {
   );
 }
 
-interface WithPDFViewerProps extends ReactPDF.PDFViewerProps {
-  documentProps?: ReactPDF.DocumentProps;
-}
-export const WithPDFViewer: React.FC<WithPDFViewerProps> = ({
-  children,
-  documentProps,
-  ...pdfViewerProps
-}) => {
-  return (
-    <PDFViewer width={'100%'} height={'100%'} {...pdfViewerProps}>
-      <Document {...documentProps}>{children}</Document>
-    </PDFViewer>
-  );
-};
 export default App;

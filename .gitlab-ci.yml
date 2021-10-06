@@ -1,0 +1,84 @@
+image: node:12
+
+cache:
+  key: shared-cache
+  paths:
+    - node_modules/
+
+stages:
+  - test
+  - build
+  - deploy
+
+# Testing applications and libraries
+
+test-apps:
+  stage: test
+  before_script:
+    - npm i
+  script:
+    - echo "Start testing applications"
+    - npm run lint app
+  only:
+    - pushes
+    - branches
+    - merge_requests
+
+test-libs:
+  stage: test
+  before_script:
+    - npm i
+  script:
+    - echo "Start testing libraries"
+    - npm run lint react-pdf-components
+  only:
+    - pushes
+    - branches
+    - merge_requests
+
+# Building applications and libraries
+
+build:
+  stage: build
+  needs: ['test-apps', 'test-libs']
+  before_script:
+    - npm i
+  script:
+    - echo "Start building apps"
+    - npm run build app
+  only:
+    - pushes
+    - branches
+  except:
+    - merge_requests
+
+build:dev:
+  stage: build
+  needs: ['test-apps', 'test-libs']
+  before_script:
+    - npm i
+  script:
+    - echo "Start building apps"
+    - npm run build app
+  artifacts:
+    paths:
+      - dist/
+  except:
+    - pushes
+  only:
+    - merge_requests
+
+# Deploying applications
+
+deploy:dev:preview:
+  stage: deploy
+  needs:
+    - job: build:dev
+      artifacts: true
+  script:
+    - echo "Deploying applications for preview"
+    - npm run firebase:deploy:preview -- "rpc-${CI_MERGE_REQUEST_IID}" -P default --token $FIREBASE_TOKEN
+  only:
+    - merge_requests
+  environment:
+    name: development
