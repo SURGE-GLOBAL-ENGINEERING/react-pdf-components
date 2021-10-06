@@ -12,7 +12,7 @@ const ThemeProvider: FunctionComponent<ThemeProviderProps> = ({
   console.log('PROVIDER I', { themeConfig });
 
   return (
-    <ThemeContext.Provider value={{ ...themeConfig }}>
+    <ThemeContext.Provider value={themeConfig}>
       {children}
     </ThemeContext.Provider>
   );

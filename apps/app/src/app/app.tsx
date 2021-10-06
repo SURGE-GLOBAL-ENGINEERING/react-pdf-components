@@ -1,33 +1,19 @@
-import { ThemeProvider } from '@atticus/react-pdf-components';
+import { Theme, ThemeProvider, useTheme } from '@atticus/react-pdf-components';
 import ReactPDF, { Document, Font, PDFViewer } from '@react-pdf/renderer';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import styles from './app.module.scss';
 import ComponentPreviews from './components';
+import { editorFonts } from './fonts';
 
-Font.register({
-  family: 'Open Sans',
-  fonts: [
-    {
-      src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-regular.ttf',
-    },
-    {
-      src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-italic.ttf',
-      fontStyle: 'italic',
-    },
-    {
-      src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-600.ttf',
-      fontWeight: 600,
-    },
-    {
-      src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-600italic.ttf',
-      fontWeight: 600,
-      fontStyle: 'italic',
-    },
-  ],
+editorFonts.forEach((el) => {
+  Font.register(el);
 });
 
 export function App() {
+  const [fontState, setFontState] = useState('Courier');
+  const [input, setinput] = useState('Courier');
+
   const routes = useMemo(() => {
     const r = [];
     for (const [key, value] of Object.entries(ComponentPreviews)) {
@@ -40,7 +26,7 @@ export function App() {
   }, []);
 
   return (
-    <ThemeProvider themeConfig={{ fontFamily: 'fdfdff' }}>
+    <ThemeProvider themeConfig={{ fontFamily: fontState }}>
       <Router>
         <div className={styles.app}>
           <nav>
@@ -52,14 +38,29 @@ export function App() {
               ))}
             </ul>
           </nav>
-
+          <input
+            onChange={(e) => setinput(e.target.value)}
+            value={input}
+            type="text"
+            name="text"
+            id=""
+          />
+          <button
+            onClick={() => {
+              setFontState(input);
+            }}
+          >
+            Set
+          </button>
           <Switch>
             {routes.map((r) => (
               <Route key={r.label} path={`/${r.label}-demo`}>
-                <WithPDFViewer>
+                {/* <ThemeProvider themeConfig={{ fontFamily: fontState }}> */}
+                <WithPDFViewer themeConfig={{ fontFamily: fontState }}>
                   {/* casting to any type as child can have different prop-types */}
                   {r.component.default({ children: undefined }) as any}
                 </WithPDFViewer>
+                {/* </ThemeProvider> */}
               </Route>
             ))}
             <Route path="/"></Route>
@@ -72,15 +73,23 @@ export function App() {
 
 interface WithPDFViewerProps extends ReactPDF.PDFViewerProps {
   documentProps?: ReactPDF.DocumentProps;
+  themeConfig: Theme;
 }
 export const WithPDFViewer: React.FC<WithPDFViewerProps> = ({
   children,
   documentProps,
+  themeConfig,
   ...pdfViewerProps
 }) => {
+  const { fontFamily } = useTheme();
+  useEffect(() => {
+    console.log('WITH PDFVIEWER', { fontFamily, themeConfig });
+  }, [fontFamily, themeConfig]);
   return (
     <PDFViewer width={'100%'} height={'100%'} {...pdfViewerProps}>
-      <Document {...documentProps}>{children}</Document>
+      <Document title={fontFamily} {...documentProps}>
+        <ThemeProvider themeConfig={themeConfig}>{children}</ThemeProvider>
+      </Document>
     </PDFViewer>
   );
 };

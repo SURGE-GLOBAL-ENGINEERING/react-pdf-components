@@ -3,23 +3,27 @@ import ReactPDF, {
   Text as RPDFText,
   View as RPDFView,
 } from '@react-pdf/renderer';
-import { FunctionComponent, useEffect } from 'react';
-import useTheme from './../ThemeProvider/useTheme';
+import React, { FunctionComponent } from 'react';
 import './text-node.module.scss';
 /*
   Atticus :: TextNode features
-    superscript -->
-    subscript -->
-    bold
-    italic
-    underline
-    strikethrough
-    code
-    smallcaps
-    monospace
-    sansserif
+    !superscript [no native feat]  https://github.com/diegomura/react-pdf/issues/754
+    !subscript   [no native feat]
+    *bold
+    *italic
+    *underline
+    *strikethrough
+    *code       [Courier]--> add other font types 
+    *monospace  [Courier]--> add other font types
+    *sansserif  [PT Sans]--> add other font types
+    !smallcaps  [no native feat]--> https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-caps
 
-    dropcap
+    ?dropcap 
+
+    TDOD
+      - check the fonts
+      - study the react pdf renderer (update issue)
+      - wrapping
 
 */
 type Features = {
@@ -36,7 +40,11 @@ type Features = {
 };
 const styles = StyleSheet.create({
   superscript: {},
-  subscript: {},
+  subscript: {
+    position: 'relative',
+    top: '0.5em',
+    fontSize: 15,
+  },
   bold: {
     fontWeight: 900,
   },
@@ -46,8 +54,25 @@ const styles = StyleSheet.create({
   underline: {
     textDecoration: 'underline',
   },
+  underlineStrikeThrough: {
+    textDecoration: 'underline line-through',
+  },
   strikeThrough: {
     textDecoration: 'line-through',
+  },
+  code: {
+    fontFamily: 'Courier',
+  },
+  sansSerif: {
+    fontFamily: 'PT Sans',
+  },
+  monospace: {
+    fontFamily: 'Courier',
+  },
+  smallCaps: {
+    textTransform: 'uppercase',
+    // fontSize: '30%',
+    transform: 'scale(0.5)',
   },
   baseStyles: {},
 });
@@ -58,40 +83,64 @@ const featureToStyleMap: Record<keyof Features, keyof typeof styles> = {
   italic: 'italic',
   underline: 'underline',
   strikeThrough: 'strikeThrough',
-  code: 'bold',
-  smallCaps: 'bold',
-  monospace: 'bold',
-  sansSerif: 'bold',
+  code: 'code',
+  monospace: 'monospace',
+  smallCaps: 'smallCaps',
+  sansSerif: 'sansSerif',
 };
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TextNodeProps extends ReactPDF.TextProps, Features {
   fontSize?: number;
+  dropCapped?: boolean;
 }
 export const TextNode: FunctionComponent<TextNodeProps> = (props) => {
-  const { fontFamily } = useTheme();
-  useEffect(() => {
-    console.log('THEME PROVIDER', { fontFamily });
-  }, [fontFamily]);
-
-  const composedStyles = [];
+  const composedStyles: { [key: string]: string | number | undefined }[] = [];
   composedStyles.push({
     ...styles.baseStyles,
     fontSize: props.fontSize,
-    fontFamily,
   });
 
+  if (props.style && Array.isArray(props.style)) {
+    composedStyles.push(...(props.style as []));
+  } else {
+    composedStyles.push({ ...props.style });
+  }
+  // to add the relevant styles for the passed props
   for (const [propsName, styleName] of Object.entries<keyof typeof styles>(
     featureToStyleMap
   )) {
     if (props[propsName as keyof Features])
       composedStyles.push(styles[styleName]);
   }
-
+  console.log('COMPOSED STYLES', { composedStyles });
   return (
     <RPDFView>
-      <RPDFText style={[...composedStyles]} {...props}>
-        {props.children}
+      <RPDFText style={[...composedStyles]}>
+        {props.dropCapped
+          ? (props.children as string).slice(1)
+          : props.children}
       </RPDFText>
     </RPDFView>
   );
+};
+
+const renderDropCap = (char: string) => {
+  console.log('RENDER DORP CAP', { char });
+
+  const styles = StyleSheet.create({
+    char: {
+      fontSize: 36,
+      // lineHeight: 2,
+      // marginRight: 1.5,
+      // transform: 'scale(1.1)',
+    },
+    // fontSize: "3rem",
+    // lineHe: "1em",
+    // padding: "0 0.25rem",
+    // margin-right: "0.125rem",
+    // webkit-initial-letter: "2",
+    // initial-letter: "2",
+    // transform: "scale(1.1)"
+  });
+  return <RPDFText style={styles.char}>{char.charAt(0)}</RPDFText>;
 };
