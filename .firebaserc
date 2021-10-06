@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "atticus-rpdf-components-dev"
+  },
+  "targets": {
+    "atticus-rpdf-components-dev": {
+      "hosting": {
+        "app": [
+          "atticus-rpdf-components-dev"
+        ]
+      }
+    }
+  }
+}
