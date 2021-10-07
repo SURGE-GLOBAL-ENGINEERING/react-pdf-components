@@ -46,3 +46,7 @@ Scope could be anything specifying place of the commit change. For example $loca
 #### `<footer>` text
 
 - mention the issue
+
+### Husky configuration for local environment
+
+- Run script `npm run prepare:husky` after installation of dependencies.
