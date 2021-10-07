@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import TextNode from './text-node';
+import { TextNode } from './text-node';
 
 describe('TextNode', () => {
   it('should render successfully', () => {

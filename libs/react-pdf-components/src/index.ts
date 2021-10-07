@@ -1,2 +1,1 @@
-export * from './lib/components/TextNode';
-export * from './lib/components/Image';
+export * from './lib/components';
