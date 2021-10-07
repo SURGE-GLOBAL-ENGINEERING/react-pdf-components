@@ -34,12 +34,12 @@ const TextPreview: FC<TextPreviewProps> = () => {
       ></Image>
 
       <Image
-        caption="image size: 30"
+        caption="image size:auto/full"
         src="https://images.pexels.com/photos/206359/pexels-photo-206359.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
       ></Image>
 
       <Image
-        caption="image size: 30"
+        caption="image size: 80"
         size={80}
         alignment="center"
         src="https://images.pexels.com/photos/206359/pexels-photo-206359.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"

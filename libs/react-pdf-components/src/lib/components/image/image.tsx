@@ -14,8 +14,6 @@ import { FunctionComponent } from 'react';
     - wrap
     - size -> percentage
     - link -> string
- * TODO
-    study the page break behavior of react-pdf
  */
 
 type alignmentType = 'left' | 'center' | 'right';
