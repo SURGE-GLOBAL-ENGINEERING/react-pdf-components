@@ -3,7 +3,8 @@ import ReactPDF, {
   Text as RPDFText,
   View as RPDFView,
 } from '@react-pdf/renderer';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useContext } from 'react';
+import { TypeContext } from '../list';
 import './text-node.module.scss';
 /*
   Atticus :: TextNode features
@@ -33,6 +34,7 @@ type Features = {
   monospace?: boolean;
   sansSerif?: boolean;
 };
+
 const styles = StyleSheet.create({
   superscript: {},
   subscript: {},
@@ -64,11 +66,16 @@ const featureToStyleMap: Record<keyof Features, keyof typeof styles> = {
   monospace: 'bold',
   sansSerif: 'bold',
 };
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+
 export interface TextNodeProps extends ReactPDF.TextProps, Features {
   fontSize?: number;
+  index?: number;
 }
+
 export const TextNode: FunctionComponent<TextNodeProps> = (props) => {
+  // used to get the list item type if the current is a list item
+  const type = useContext(TypeContext);
+
   const composedStyles = [];
   composedStyles.push({ ...styles.baseStyles, fontSize: props.fontSize });
   for (const [propsName, styleName] of Object.entries<keyof typeof styles>(
@@ -77,11 +84,25 @@ export const TextNode: FunctionComponent<TextNodeProps> = (props) => {
     if (props[propsName as keyof Features])
       composedStyles.push(styles[styleName]);
   }
-  console.log({ composedStyles });
+
+  const renderListItemPrefix = () => {
+    // TODO: fix bullet size to be clear and fix alignment
+    // TODO: check 2 number case - starting from 10
+    const bullets = ['•', '*', '@'];
+
+    if (type) {
+      if (type === 'ul') {
+        return <RPDFText style={{ fontSize: '16px' }}>• </RPDFText>;
+      }
+      return <RPDFText>{props.index}. </RPDFText>;
+    }
+    return null;
+  };
 
   return (
     <RPDFView>
       <RPDFText style={[...composedStyles]} {...props}>
+        {renderListItemPrefix()}
         {props.children}
       </RPDFText>
     </RPDFView>
