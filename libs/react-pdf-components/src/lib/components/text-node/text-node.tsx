@@ -88,8 +88,6 @@ export const TextNode: FunctionComponent<TextNodeProps> = (props) => {
   const renderListItemPrefix = () => {
     // TODO: fix bullet size to be clear and fix alignment
     // TODO: check 2 number case - starting from 10
-    const bullets = ['•', '*', '@'];
-
     if (type) {
       if (type === 'ul') {
         return <RPDFText style={{ fontSize: '16px' }}>• </RPDFText>;

@@ -4,6 +4,7 @@ import { TextNodeProps } from '../text-node';
 import { ListProps } from '../list';
 import { addPropsToReactElement } from '../../utils';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const addPropsToChildren = (children: any, index: any) => {
   if (!Array.isArray(children)) {
     return addPropsToReactElement(children, { index });
