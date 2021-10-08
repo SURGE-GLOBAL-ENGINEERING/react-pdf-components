@@ -29,7 +29,7 @@
         "no-unused-vars": "error",
         "no-duplicate-imports": "error",
         "no-empty-function": "error",
-        "no-use-before-define": "error",
+        "no-use-before-define": "off",
         "@typescript-eslint/no-use-before-define": ["error"],
         "no-shadow": "off",
         "@typescript-eslint/no-shadow": ["error"]

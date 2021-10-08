@@ -1,10 +1,5 @@
 import { Theme } from './theme-context';
-import ThemeProvider from "./theme-provider";
-import useTheme from "./useTheme";
+import ThemeProvider from './theme-provider';
+import useTheme from './useTheme';
 
-export {
-    ThemeProvider,
-    Theme,
-    useTheme,
-};
-
+export { ThemeProvider, Theme, useTheme };

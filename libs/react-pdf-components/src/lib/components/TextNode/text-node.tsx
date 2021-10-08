@@ -13,12 +13,12 @@ import './text-node.module.scss';
     *italic
     *underline
     *strikethrough
-    *code       [Courier]--> add other font types 
+    *code       [Courier]--> add other font types
     *monospace  [Courier]--> add other font types
     *sansserif  [PT Sans]--> add other font types
     !smallcaps  [no native feat]--> https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-caps
 
-    ?dropcap 
+    ?dropcap
 
     TDOD
       - check the fonts
@@ -124,9 +124,11 @@ export const TextNode: FunctionComponent<TextNodeProps> = (props) => {
   );
 };
 
+// eslint-disable-next-line no-unused-vars
 const renderDropCap = (char: string) => {
   console.log('RENDER DORP CAP', { char });
 
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   const styles = StyleSheet.create({
     char: {
       fontSize: 36,
