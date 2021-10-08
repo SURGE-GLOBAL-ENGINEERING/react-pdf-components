@@ -8,6 +8,7 @@ interface BulkLoad {
     [key: string]: any;
   }[];
 }
+
 export const editorFonts: BulkLoad[] = [
   {
     family: 'RockSalt',

@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
   },
   baseStyles: {},
 });
+
 const featureToStyleMap: Record<keyof Features, keyof typeof styles> = {
   superscript: 'superscript',
   subscript: 'subscript',
