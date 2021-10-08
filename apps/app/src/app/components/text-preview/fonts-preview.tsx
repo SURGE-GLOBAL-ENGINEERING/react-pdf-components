@@ -11,7 +11,7 @@ const FontPreview: FC<FontPreviewProps> = () => {
       <TextNode fontSize={50} bold>
         Sample Word
       </TextNode>
-      <Text style={[{ fontFamily: 'LifeSaversBold' }]}>somthign</Text>
+      <Text style={[{ fontFamily: 'LifeSaversBold' }]}>Sample Text</Text>
       <TextNode style={[{ fontFamily: 'LifeSaversBold' }]} fontSize={50} bold>
         Sample Word
       </TextNode>

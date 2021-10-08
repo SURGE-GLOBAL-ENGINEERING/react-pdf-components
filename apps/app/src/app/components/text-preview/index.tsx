@@ -11,27 +11,25 @@ const TextPreview: FC<TextPreviewProps> = () => {
   return (
     <Page style={[{ ...theme }]} wrap size="A4">
       <TextNode fontSize={50} bold>
-        Sample Word
+        Bold Word
       </TextNode>
       <TextNode fontSize={40} bold strikeThrough>
-        Sample
+        StrikeThrough with
         <TextNode fontSize={20} smallCaps>
-          Word
+          SmallCaps
         </TextNode>
       </TextNode>
-      <TextNode fontSize={40}>
-        Sample
-        <TextNode smallCaps> Word</TextNode>
-      </TextNode>
+      <TextNode fontSize={40}>font size : 40</TextNode>
       <TextNode fontSize={30} bold underline>
-        Sample Word
+        bold & underline
       </TextNode>
       <TextNode fontSize={20} bold italic>
-        Sample Word
+        bold & italic
       </TextNode>
       <TextNode fontSize={20} bold italic strikeThrough underline>
-        Sample Word
+        bold,italic,strikeThrough,underline
       </TextNode>
+
       <TextNode fontSize={16}>
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam fugiat
         qui eos

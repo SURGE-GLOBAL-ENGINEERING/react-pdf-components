@@ -5,5 +5,5 @@ export interface Theme {
 const initialValues: Theme = {
   fontFamily: 'Open Sans',
 };
-const ThemeContext = createContext<Theme>(initialValues);
-export default ThemeContext;
+export const ThemeContext = createContext<Theme>(initialValues);
+

@@ -8,18 +8,18 @@ import { TypeContext } from '../list';
 import './text-node.module.scss';
 /*
   Atticus :: TextNode features
-    superscript -->
-    subscript -->
-    bold
-    italic
-    underline
-    strikethrough
-    code
-    smallcaps
-    monospace
-    sansserif
+    !superscript [no native feat]  https://github.com/diegomura/react-pdf/issues/754
+    !subscript   [no native feat]
+    *bold
+    *italic
+    *underline
+    *strikethrough
+    *code       [Courier]--> add other font types
+    *monospace  [Courier]--> add other font types
+    *sansserif  [PT Sans]--> add other font types
+    !smallcaps  [no native feat]--> https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-caps
 
-    dropcap
+    ?dropcap
 
 */
 type Features = {
@@ -37,7 +37,11 @@ type Features = {
 
 const styles = StyleSheet.create({
   superscript: {},
-  subscript: {},
+  subscript: {
+    position: 'relative',
+    top: '0.5em',
+    fontSize: 15,
+  },
   bold: {
     fontWeight: 900,
   },
@@ -47,12 +51,27 @@ const styles = StyleSheet.create({
   underline: {
     textDecoration: 'underline',
   },
+  underlineStrikeThrough: {
+    textDecoration: 'underline line-through',
+  },
   strikeThrough: {
     textDecoration: 'line-through',
   },
-  baseStyles: {
-    fontFamily: 'Open Sans',
+  code: {
+    fontFamily: 'Courier',
   },
+  sansSerif: {
+    fontFamily: 'PT Sans',
+  },
+  monospace: {
+    fontFamily: 'Courier',
+  },
+  smallCaps: {
+    // TODO this is a temporary style for smallCaps, needs to find a better solution
+    textTransform: 'uppercase',
+    transform: 'scale(0.5)',
+  },
+  baseStyles: {},
 });
 const featureToStyleMap: Record<keyof Features, keyof typeof styles> = {
   superscript: 'superscript',
@@ -61,10 +80,10 @@ const featureToStyleMap: Record<keyof Features, keyof typeof styles> = {
   italic: 'italic',
   underline: 'underline',
   strikeThrough: 'strikeThrough',
-  code: 'bold',
-  smallCaps: 'bold',
-  monospace: 'bold',
-  sansSerif: 'bold',
+  code: 'code',
+  monospace: 'monospace',
+  smallCaps: 'smallCaps',
+  sansSerif: 'sansSerif',
 };
 
 export interface TextNodeProps extends ReactPDF.TextProps, Features {
@@ -75,15 +94,36 @@ export interface TextNodeProps extends ReactPDF.TextProps, Features {
 export const TextNode: FunctionComponent<TextNodeProps> = (props) => {
   // used to get the list item type if the current is a list item
   const type = useContext(TypeContext);
+  const composedStyles: { [key: string]: string | number | undefined }[] = [];
 
-  const composedStyles = [];
-  composedStyles.push({ ...styles.baseStyles, fontSize: props.fontSize });
-  for (const [propsName, styleName] of Object.entries<keyof typeof styles>(
-    featureToStyleMap
-  )) {
-    if (props[propsName as keyof Features])
-      composedStyles.push(styles[styleName]);
-  }
+  const composeStyles = () => {
+    composedStyles.push({
+      ...styles.baseStyles,
+      fontSize: props.fontSize,
+    });
+
+    if (props.style && Array.isArray(props.style)) {
+      composedStyles.push(...(props.style as []));
+    } else {
+      composedStyles.push({ ...props.style });
+    }
+    // to add the relevant styles for the passed props
+    for (const [propName, styleName] of Object.entries<keyof typeof styles>(
+      featureToStyleMap
+    )) {
+      if (props[propName as keyof Features]) {
+        composedStyles.push(styles[styleName]);
+      }
+    }
+  };
+  const handleSpecialStyles = () => {
+    if (props.underline && props.strikeThrough)
+      //handle spacial style cases --->
+      composedStyles.push(styles.underlineStrikeThrough);
+  };
+
+  composeStyles();
+  handleSpecialStyles();
 
   const renderListItemPrefix = () => {
     // TODO: fix bullet size to be clear and fix alignment
