@@ -1,5 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npm run lint
+npm run lint react-pdf-components
+npm run lint app
 npm run affected:build
