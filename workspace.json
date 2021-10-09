@@ -115,7 +115,6 @@
             "tsConfig": "libs/react-pdf-components/tsconfig.lib.json",
             "project": "libs/react-pdf-components/package.json",
             "entryFile": "libs/react-pdf-components/src/index.ts",
-            "external": ["react/jsx-runtime"],
             "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
             "assets": [
               {

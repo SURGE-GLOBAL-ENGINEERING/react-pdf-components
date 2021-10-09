@@ -1,35 +1,21 @@
+import { Theme } from '@atticus/react-pdf-components';
 import ReactPDF, { Document, Font, PDFViewer } from '@react-pdf/renderer';
 import { useMemo } from 'react';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import styles from './app.module.scss';
 import ComponentPreviews from './components';
+import { editorFonts } from './fonts';
 
-Font.register({
-  family: 'Open Sans',
-  fonts: [
-    {
-      src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-regular.ttf',
-    },
-    {
-      src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-italic.ttf',
-      fontStyle: 'italic',
-    },
-    {
-      src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-600.ttf',
-      fontWeight: 600,
-    },
-    {
-      src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-600italic.ttf',
-      fontWeight: 600,
-      fontStyle: 'italic',
-    },
-  ],
+editorFonts.forEach((el) => {
+  Font.register(el);
 });
 
 interface WithPDFViewerProps extends ReactPDF.PDFViewerProps {
   documentProps?: ReactPDF.DocumentProps;
+  themeConfig?: Theme;
 }
-export const WithPDFViewer: React.FC<WithPDFViewerProps> = ({
+
+const WithPDFViewer: React.FC<WithPDFViewerProps> = ({
   children,
   documentProps,
   ...pdfViewerProps
@@ -53,24 +39,23 @@ export function App() {
     return r;
   }, []);
 
-  console.log({ routes });
-
   return (
+    // TODO react-pdf have a issue with context-providers https://github.com/diegomura/react-pdf/issues/522
+    // <ThemeProvider themeConfig={{ fontFamily: fontState }}>
     <Router>
       <div className={styles.app}>
         <nav>
           <ul>
             {routes.map((r) => (
               <li key={r.label}>
-                <Link to={`${r.label}-prev`}>{r.label}</Link>
+                <Link to={`${r.label}-demo`}>{r.label}</Link>
               </li>
             ))}
           </ul>
         </nav>
-
         <Switch>
           {routes.map((r) => (
-            <Route key={r.label} path={`/${r.label}-prev`}>
+            <Route key={r.label} path={`/${r.label}-demo`}>
               <WithPDFViewer>
                 {/* casting to any type as child can have different prop-types */}
                 {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
@@ -82,6 +67,7 @@ export function App() {
         </Switch>
       </div>
     </Router>
+    // </ThemeProvider>
   );
 }
 
