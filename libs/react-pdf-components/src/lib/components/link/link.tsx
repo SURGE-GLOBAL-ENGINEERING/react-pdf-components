@@ -1,5 +1,5 @@
+import { Link as RPDFLink } from '@paladin-analytics/rpdf-renderer';
 import { FC } from 'react';
-import { Link as RPDFLink } from '@paladin-analytics/renderer';
 
 interface LinkProps {
   // external source url

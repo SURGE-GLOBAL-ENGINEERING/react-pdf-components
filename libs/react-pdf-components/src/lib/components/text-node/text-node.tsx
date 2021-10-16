@@ -2,7 +2,7 @@ import ReactPDF, {
   StyleSheet,
   Text as RPDFText,
   View as RPDFView,
-} from '@paladin-analytics/renderer';
+} from '@paladin-analytics/rpdf-renderer';
 import { FunctionComponent, useContext } from 'react';
 import { TypeContext } from '../list';
 import './text-node.module.scss';

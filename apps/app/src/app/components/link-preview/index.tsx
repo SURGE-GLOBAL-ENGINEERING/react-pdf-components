@@ -1,6 +1,6 @@
-import { FC } from 'react';
-import { Page } from '@paladin-analytics/renderer';
 import { Link, TextNode } from '@atticus/react-pdf-components';
+import { Page } from '@paladin-analytics/rpdf-renderer';
+import { FC } from 'react';
 
 const LinkPreview: FC = () => {
   return (
