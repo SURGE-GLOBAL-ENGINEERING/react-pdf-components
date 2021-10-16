@@ -5,7 +5,7 @@ import ReactPDF, {
   View as RPDFView,
   Image as RPDFImage,
   Link as RPDFLink,
-} from '@react-pdf/renderer';
+} from '@paladin-analytics/renderer';
 import { FunctionComponent } from 'react';
 /**
  * Atticus Image Features

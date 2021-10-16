@@ -1,5 +1,5 @@
 import { FC, ReactElement } from 'react';
-import { View as RPDFView } from '@react-pdf/renderer';
+import { View as RPDFView } from '@paladin-analytics/renderer';
 import { TextNodeProps } from '../text-node';
 import { ListProps } from '../list';
 import { addPropsToReactElement } from '../../utils';

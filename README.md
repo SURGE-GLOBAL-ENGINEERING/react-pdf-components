@@ -50,3 +50,14 @@ Scope could be anything specifying place of the commit change. For example $loca
 ### Husky configuration for local environment
 
 - Run script `npm run prepare:husky` after installation of dependencies.
+
+# How to install packages from GitHub NPM registry ?
+
+## 1.Add `.npmrc` file to the project
+
+- Add following config to it.
+
+      @paladin-analytics:registry=https://npm.pkg.github.com
+      //npm.pkg.github.com/:\_authToken=<TOKEN>
+
+- Then install packages : `yarn add @paladin-analytics/renderer`
