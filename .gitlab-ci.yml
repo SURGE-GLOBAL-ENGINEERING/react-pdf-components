@@ -42,6 +42,8 @@ build:
   stage: build
   needs: ['test-apps', 'test-libs']
   before_script:
+    - npm config set @paladin-analytics:registry=https://npm.pkg.github.com
+    - npm config set "//npm.pkg.github.com/:_authToken=${GITHUB_NPM_TOKEN}"
     - npm i
   script:
     - echo "Start building apps"
@@ -56,6 +58,8 @@ build:dev:
   stage: build
   needs: ['test-apps', 'test-libs']
   before_script:
+    - npm config set @paladin-analytics:registry=https://npm.pkg.github.com
+    - npm config set "//npm.pkg.github.com/:_authToken=${GITHUB_NPM_TOKEN}"
     - npm i
   script:
     - echo "Start building apps"
