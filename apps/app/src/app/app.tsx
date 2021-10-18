@@ -1,5 +1,9 @@
 import { Theme } from '@atticus/react-pdf-components';
-import ReactPDF, { Document, Font, PDFViewer } from '@react-pdf/renderer';
+import ReactPDF, {
+  Document,
+  Font,
+  PDFViewer,
+} from '@paladin-analytics/rpdf-renderer';
 import { useMemo } from 'react';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import styles from './app.module.scss';

@@ -1,8 +1,8 @@
+import { View as RPDFView } from '@paladin-analytics/rpdf-renderer';
 import { FC, ReactElement } from 'react';
-import { View as RPDFView } from '@react-pdf/renderer';
-import { TextNodeProps } from '../text-node';
-import { ListProps } from '../list';
 import { addPropsToReactElement } from '../../utils';
+import { ListProps } from '../list';
+import { TextNodeProps } from '../text-node';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const addPropsToChildren = (children: any, index: any) => {

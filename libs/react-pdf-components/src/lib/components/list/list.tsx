@@ -1,5 +1,5 @@
+import { StyleSheet, View as RPDFView } from '@paladin-analytics/rpdf-renderer';
 import { createContext, FC, ReactElement, useContext } from 'react';
-import { StyleSheet, View as RPDFView } from '@react-pdf/renderer';
 import { addPropsToReactElement, LIST_ITEM_INDENT_WIDTH } from '../../utils';
 import { ListItemProps } from '../list-item';
 
