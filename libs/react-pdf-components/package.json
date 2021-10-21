@@ -1,8 +1,0 @@
-{
-  "name": "@atticus/react-pdf-components",
-  "version": "0.0.1",
-  "peerDependencies": {
-    "@paladin-analytics/rpdf-renderer": "^2.0.19",
-    "react": "17.0.2"
-  }
-}

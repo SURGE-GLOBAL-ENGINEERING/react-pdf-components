@@ -102,44 +102,35 @@
         }
       }
     },
-    "react-pdf-components": {
-      "root": "libs/react-pdf-components",
-      "sourceRoot": "libs/react-pdf-components/src",
+    "react-pdf-components-pub": {
+      "root": "libs/react-pdf-components-pub",
+      "sourceRoot": "libs/react-pdf-components-pub/src",
       "projectType": "library",
       "targets": {
-        "build": {
-          "executor": "@nrwl/web:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/libs/react-pdf-components",
-            "tsConfig": "libs/react-pdf-components/tsconfig.lib.json",
-            "project": "libs/react-pdf-components/package.json",
-            "entryFile": "libs/react-pdf-components/src/index.ts",
-            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
-            "assets": [
-              {
-                "glob": "libs/react-pdf-components/README.md",
-                "input": ".",
-                "output": "."
-              }
-            ]
-          }
-        },
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "libs/react-pdf-components/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["libs/react-pdf-components-pub/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/react-pdf-components"],
+          "outputs": ["coverage/libs/react-pdf-components-pub"],
           "options": {
-            "jestConfig": "libs/react-pdf-components/jest.config.js",
+            "jestConfig": "libs/react-pdf-components-pub/jest.config.js",
             "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/react-pdf-components-pub",
+            "tsConfig": "libs/react-pdf-components-pub/tsconfig.lib.json",
+            "packageJson": "libs/react-pdf-components-pub/package.json",
+            "main": "libs/react-pdf-components-pub/src/index.ts",
+            "assets": ["libs/react-pdf-components-pub/*.md"]
           }
         }
       }

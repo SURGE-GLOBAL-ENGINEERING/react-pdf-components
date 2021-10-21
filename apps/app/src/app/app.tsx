@@ -1,9 +1,5 @@
-import { Theme } from '@atticus/react-pdf-components';
-import ReactPDF, {
-  Document,
-  Font,
-  PDFViewer,
-} from '@paladin-analytics/rpdf-renderer';
+import { Viewer } from '@atticus/react-pdf-components-pub';
+import ReactPDF, { Document, PDFViewer } from '@react-pdf/renderer';
 import { useMemo } from 'react';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import styles from './app.module.scss';
@@ -59,12 +55,26 @@ export function App() {
         </nav>
         <Switch>
           {routes.map((r) => (
-            <Route key={r.label} path={`/${r.label}-demo`}>
-              <WithPDFViewer>
-                {/* casting to any type as child can have different prop-types */}
+            <Route key={r.label} path={`/${r.label}-prev`}>
+              <Viewer
+                height="100%"
+                width="100%"
+                pageSize="A4"
+                transform="scale(0.7) translate(0, 20%)"
+                currentPage={1}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                onDocumentLoad={(d: any) => {
+                  console.log('total pages', d.numPages);
+                }}
+              >
                 {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                <div>{r.component.default({ children: undefined }) as any}</div>
+              </Viewer>
+              {/* <WithPDFViewer>
+                casting to any type as child can have different prop-types
+                eslint-disable-next-line @typescript-eslint/no-explicit-any
                 {r.component.default({ children: undefined }) as any}
-              </WithPDFViewer>
+              </WithPDFViewer> */}
             </Route>
           ))}
           <Route path="/"></Route>

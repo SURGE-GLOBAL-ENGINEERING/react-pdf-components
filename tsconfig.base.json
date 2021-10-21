@@ -15,8 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@atticus/react-pdf-components": [
-        "libs/react-pdf-components/src/index.ts"
+      "@atticus/react-pdf-components-pub": [
+        "libs/react-pdf-components-pub/src/index.ts"
       ]
     }
   },
