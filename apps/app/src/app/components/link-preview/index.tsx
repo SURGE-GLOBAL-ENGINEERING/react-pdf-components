@@ -1,8 +1,13 @@
-import { FC } from 'react';
 import { Link } from '@atticus/react-pdf-components-pub';
+import { Page } from '@paladin-analytics/rpdf-renderer';
+import { FC } from 'react';
 
 const LinkPreview: FC = () => {
-  return <Link src="https://google.com">Link to google here</Link>;
+  return (
+    <Page size="A4">
+      <Link src="https://google.com">Link to google here</Link>
+    </Page>
+  );
 };
 
 export default LinkPreview;

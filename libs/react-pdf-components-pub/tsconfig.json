@@ -3,7 +3,8 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "allowJs": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "strict": true
   },
   "files": [],
   "include": [],
@@ -12,7 +13,7 @@
       "path": "./tsconfig.lib.json"
     },
     {
-      "path": "./tsconfig.spec.json" 
+      "path": "./tsconfig.spec.json"
     }
   ]
 }

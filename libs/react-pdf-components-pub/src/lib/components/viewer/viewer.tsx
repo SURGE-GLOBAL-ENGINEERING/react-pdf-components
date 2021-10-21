@@ -1,12 +1,12 @@
+import {
+  Document as RPDFDocument,
+  Font,
+  pdf,
+} from '@paladin-analytics/rpdf-renderer';
 import { FC } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
-import {
-  pdf,
-  Document as RPDFDocument,
-  Page as RPDFPage,
-  Font,
-} from '@react-pdf/renderer';
 import { useAsync } from 'react-use';
+import { editorFonts } from './fonts';
 
 pdfjs.GlobalWorkerOptions.workerSrc =
   '//cdn.jsdelivr.net/npm/pdfjs-dist@2.9.359/build/pdf.worker.js';
@@ -16,34 +16,38 @@ interface ViewerProps {
   width?: string;
   transform?: string;
   // TODO: Add other sizes
-  pageSize: 'A4';
+  // pageSize: 'A4';
   currentPage: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onDocumentLoad: any;
 }
 
 const registerFonts = () => {
-  Font.register({
-    family: 'Open Sans',
-    fonts: [
-      {
-        src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-regular.ttf',
-      },
-      {
-        src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-italic.ttf',
-        fontStyle: 'italic',
-      },
-      {
-        src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-600.ttf',
-        fontWeight: 600,
-      },
-      {
-        src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-600italic.ttf',
-        fontWeight: 600,
-        fontStyle: 'italic',
-      },
-    ],
+  editorFonts.forEach((el) => {
+    Font.register(el);
   });
+
+  // Font.register({
+  //   family: 'Open Sans',
+  //   fonts: [
+  //     {
+  //       src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-regular.ttf',
+  //     },
+  //     {
+  //       src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-italic.ttf',
+  //       fontStyle: 'italic',
+  //     },
+  //     {
+  //       src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-600.ttf',
+  //       fontWeight: 600,
+  //     },
+  //     {
+  //       src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-600italic.ttf',
+  //       fontWeight: 600,
+  //       fontStyle: 'italic',
+  //     },
+  //   ],
+  // });
 };
 
 export const Viewer: FC<ViewerProps> = ({
@@ -51,7 +55,8 @@ export const Viewer: FC<ViewerProps> = ({
   height,
   width,
   transform,
-  pageSize,
+  // TODO: remove page size from here
+  // pageSize,
   currentPage,
   onDocumentLoad,
 }) => {
@@ -60,11 +65,7 @@ export const Viewer: FC<ViewerProps> = ({
 
     registerFonts();
 
-    const withDocumentWrapper = (
-      <RPDFDocument>
-        <RPDFPage size={pageSize}>{children}</RPDFPage>
-      </RPDFDocument>
-    );
+    const withDocumentWrapper = <RPDFDocument>{children}</RPDFDocument>;
     const blob = await pdf(withDocumentWrapper).toBlob();
     const url = URL.createObjectURL(blob);
 
