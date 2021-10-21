@@ -3,6 +3,7 @@ export * from './image';
 export * from './link';
 export * from './list';
 export * from './list-item';
+export * from './page';
 export * from './text-node';
 export * from './theme-provider';
 export * from './viewer';

@@ -1,10 +1,10 @@
-import { Theme } from '@atticus/react-pdf-components-pub';
+import { Theme, Viewer } from '@atticus/react-pdf-components-pub';
 import ReactPDF, {
   Document,
   Font,
   PDFViewer,
 } from '@paladin-analytics/rpdf-renderer';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import styles from './app.module.scss';
 import ComponentPreviews from './components';
@@ -31,6 +31,8 @@ const WithPDFViewer: React.FC<WithPDFViewerProps> = ({
 };
 
 export function App() {
+  const [isNew, setIsNew] = useState(false);
+
   const routes = useMemo(() => {
     const r = [];
     for (const [key, value] of Object.entries(ComponentPreviews)) {
@@ -41,6 +43,11 @@ export function App() {
     }
     return r;
   }, []);
+
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+  const handleChange = (e: any) => {
+    setIsNew(e.target.value === 'new');
+  };
 
   return (
     // TODO react-pdf have a issue with context-providers https://github.com/diegomura/react-pdf/issues/522
@@ -56,28 +63,49 @@ export function App() {
             ))}
           </ul>
         </nav>
+        <form>
+          <input
+            type="radio"
+            name="previewer"
+            value="old"
+            onChange={handleChange}
+          />
+          Old
+          <input
+            type="radio"
+            name="previewer"
+            value="new"
+            onChange={handleChange}
+          />
+          New
+        </form>
         <Switch>
           {routes.map((r) => (
             <Route key={r.label} path={`/${r.label}-prev`}>
-              {/* <Viewer
-                height="100%"
-                width="100%"
-                // pageSize="A4"
-                transform="scale(0.7) translate(0, 20%)"
-                currentPage={1}
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                onDocumentLoad={(d: any) => {
-                  console.log('total pages', d.numPages);
-                }}
-              >
-                eslint-disable-next-line @typescript-eslint/no-explicit-any
-                <div>{r.component.default({ children: undefined }) as any}</div>
-              </Viewer> */}
-              <WithPDFViewer>
-                {/* casting to any type as child can have different prop-types */}
-                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                {r.component.default({ children: undefined }) as any}
-              </WithPDFViewer>
+              {isNew ? (
+                <Viewer
+                  height="100%"
+                  width="100%"
+                  // pageSize="A4"
+                  transform="scale(0.7) translate(0, 20%)"
+                  currentPage={1}
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  onDocumentLoad={(d: any) => {
+                    console.log('total pages', d.numPages);
+                  }}
+                >
+                  <div>
+                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                    {r.component.default({ children: undefined }) as any}
+                  </div>
+                </Viewer>
+              ) : (
+                <WithPDFViewer>
+                  {/* casting to any type as child can have different prop-types */}
+                  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                  {r.component.default({ children: undefined }) as any}
+                </WithPDFViewer>
+              )}
             </Route>
           ))}
           <Route path="/"></Route>
