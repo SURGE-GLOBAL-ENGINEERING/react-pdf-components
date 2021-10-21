@@ -6,22 +6,24 @@ import ReactPDF, {
 import { FunctionComponent, useContext } from 'react';
 import { TypeContext } from '../list';
 import './text-node.module.scss';
-/*
-  Atticus :: TextNode features
-    !superscript [no native feat]  https://github.com/diegomura/react-pdf/issues/754
-    !subscript   [no native feat]
-    *bold
-    *italic
-    *underline
-    *strikethrough
-    *code       [Courier]--> add other font types
-    *monospace  [Courier]--> add other font types
-    *sansserif  [PT Sans]--> add other font types
-    !smallcaps  [no native feat]--> https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-caps
 
-    ?dropcap
+/**
+ * Atticus :: TextNode features
+ *
+ * *bold
+ * *italic
+ * *underline
+ * *strikethrough
+ * *superscript
+ * *subscript
+ * *smallcaps
+ * *code       [Courier]--> add other font types
+ * *monospace  [Courier]--> add other font types
+ * *sansserif  [PT Sans]--> add other font types
+ * ?dropcap
+ *
+ */
 
-*/
 type Features = {
   superscript?: boolean;
   subscript?: boolean;
@@ -36,11 +38,11 @@ type Features = {
 };
 
 const styles = StyleSheet.create({
-  superscript: {},
+  superscript: {
+    fontVariant: 'superscript',
+  },
   subscript: {
-    position: 'relative',
-    top: '0.5em',
-    fontSize: 15,
+    fontVariant: 'subscript',
   },
   bold: {
     fontWeight: 900,
@@ -67,9 +69,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Courier',
   },
   smallCaps: {
-    // TODO this is a temporary style for smallCaps, needs to find a better solution
-    textTransform: 'uppercase',
-    transform: 'scale(0.5)',
+    fontVariant: 'small-caps',
   },
   baseStyles: {},
 });
@@ -133,7 +133,9 @@ export const TextNode: FunctionComponent<TextNodeProps> = (props) => {
       if (type === 'ul') {
         return <RPDFText style={{ fontSize: '16px' }}>• </RPDFText>;
       }
-      return <RPDFText>{props.index}. </RPDFText>;
+      if (props.index) {
+        return <RPDFText>{props.index}. </RPDFText>;
+      }
     }
     return null;
   };
