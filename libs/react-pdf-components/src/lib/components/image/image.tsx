@@ -22,14 +22,17 @@ interface ImageCoreProps extends ReactPDF.ImageWithSrcProp {
   caption?: string;
   captionAlignment?: alignmentType;
   captionTextStyles?: ReactPDF.Styles;
-  size?: number; //Percentage of parent element
+  /**
+   * As a percentage of the width of the parent element
+   */
+  width?: number; //Percentage of parent element
   link?: string;
 }
 const IS_DEBUG = false;
 function ImageCore({
   caption,
   captionAlignment = 'left',
-  size,
+  width,
   link,
   captionTextStyles,
   ...rPDFImageProps
@@ -39,7 +42,7 @@ function ImageCore({
       width: '100%',
     },
     container: {
-      width: `${size || 100}%`,
+      width: `${width || 100}%`,
       display: 'flex',
       justifyContent: 'center',
       flexDirection: 'column',
