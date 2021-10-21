@@ -8,4 +8,3 @@ const initialValues: Theme = {
 };
 
 export const ThemeContext = createContext<Theme>(initialValues);
-

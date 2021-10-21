@@ -4,32 +4,91 @@ import { FC } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface TextPreviewProps {}
-
+/*
+ * *bold
+ * *italic
+ * *underline
+ * *strikethrough
+ * *superscript
+ * *subscript
+ * *smallcaps
+ */
 const TextPreview: FC<TextPreviewProps> = () => {
   const theme = useTheme();
 
   return (
     <Page style={[{ ...theme }]} wrap size="A4">
-      <TextNode fontSize={50} bold>
-        Bold Word
+      <TextNode fontSize={40}>font size : 40</TextNode>
+      <TextNode bold>Bold</TextNode>
+      <TextNode italic>italic</TextNode>
+      <TextNode underline>Underline</TextNode>
+      <TextNode strikeThrough>StrikeThrough</TextNode>
+      <TextNode smallCaps>Small-Caps</TextNode>
+      <TextNode>
+        2<TextNode superscript>3</TextNode>
       </TextNode>
-      <TextNode fontSize={40} bold strikeThrough>
-        StrikeThrough with
-        <TextNode fontSize={20} smallCaps>
-          SmallCaps
+      <TextNode>
+        H<TextNode subscript>2</TextNode>O
+      </TextNode>
+      <TextNode>
+        -------------------------------------------------------------------------
+      </TextNode>
+      <TextNode fontSize={20}>
+        <TextNode bold>Bold With Font Size</TextNode>
+      </TextNode>
+      <TextNode fontSize={20}>
+        <TextNode italic>Italic With Font Size</TextNode>
+      </TextNode>
+      <TextNode fontSize={20}>
+        <TextNode underline>Underline With Font Size</TextNode>
+      </TextNode>
+      <TextNode fontSize={20}>
+        <TextNode strikeThrough>StrikeThrough With Font Size</TextNode>
+      </TextNode>
+      <TextNode fontSize={20}>
+        <TextNode smallCaps>Small-Caps With Parent Font Size</TextNode>
+      </TextNode>
+      <TextNode fontSize={20}>
+        1000<TextNode superscript>2</TextNode>
+      </TextNode>
+      <TextNode fontSize={20}>
+        H<TextNode subscript>2</TextNode>O
+      </TextNode>
+      <TextNode>
+        -------------------------------------------------------------------------
+      </TextNode>
+      <TextNode fontSize={20}>
+        <TextNode bold italic underline strikeThrough>
+          bold italic underline strike-through With Font Size
         </TextNode>
       </TextNode>
-      <TextNode fontSize={40}>font size : 40</TextNode>
-      <TextNode fontSize={30} bold underline>
-        bold & underline
+      <TextNode>
+        -------------------------------------------------------------------------
       </TextNode>
-      <TextNode fontSize={20} bold italic>
-        bold & italic
+      <TextNode smallCaps bold italic underline>
+        Small-Caps Bold Italic Underline
       </TextNode>
-      <TextNode fontSize={20} bold italic strikeThrough underline>
-        bold,italic,strikeThrough,underline
+      <TextNode smallCaps strikeThrough>
+        Small-Caps Strike-Through
       </TextNode>
-
+      <TextNode>
+        -------------------------------------------------------------------------
+      </TextNode>
+      <TextNode fontSize={20} bold italic underline>
+        1000<TextNode superscript>2</TextNode> : bold italic underline
+      </TextNode>
+      <TextNode fontSize={20} strikeThrough>
+        1000<TextNode superscript>2</TextNode> : strikeThrough
+      </TextNode>
+      <TextNode fontSize={20} bold italic underline>
+        H<TextNode subscript>2</TextNode>O : bold italic underline
+      </TextNode>
+      <TextNode fontSize={20} strikeThrough>
+        H<TextNode subscript>2</TextNode>O : strikeThrough
+      </TextNode>
+      <TextNode>
+        -------------------------------------------------------------------------
+      </TextNode>
       <TextNode fontSize={16}>
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam fugiat
         qui eos
@@ -52,10 +111,8 @@ const TextPreview: FC<TextPreviewProps> = () => {
         </TextNode>
         <TextNode italic>adipisicing elit.</TextNode> Numquam fugiat qui eosquod
         asperiores provident, quo deleniti vel velit ducimus
-        <TextNode fontSize={20} subscript>
-          Sample Word
-        </TextNode>
-        suscipit vitae error ipsam debitis.
+        <TextNode subscript>Sample</TextNode> suscipit vitae error ipsam
+        debitis.
       </TextNode>
     </Page>
   );
