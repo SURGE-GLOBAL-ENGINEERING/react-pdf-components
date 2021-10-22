@@ -34,7 +34,7 @@
       "tags": [],
       "implicitDependencies": ["app"]
     },
-    "react-pdf-components-pub": {
+    "react-pdf-components": {
       "tags": ["scope:public", "type:util", "target:all"]
     }
   }

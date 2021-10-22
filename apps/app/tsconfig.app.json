@@ -14,6 +14,6 @@
     "**/*.jsx",
     "**/*.ts",
     "**/*.tsx",
-    "../../libs/react-pdf-components-pub/src/lib/components/viewer/fonts.ts"
+    "../../libs/react-pdf-components/src/lib/components/viewer/fonts.ts"
   ]
 }

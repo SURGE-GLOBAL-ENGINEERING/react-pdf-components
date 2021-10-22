@@ -3,7 +3,7 @@ import {
   Float,
   Image,
   TextNode,
-} from '@atticus/react-pdf-components-pub';
+} from '@atticus/react-pdf-components';
 import { Page } from '@paladin-analytics/rpdf-renderer';
 import { FC } from 'react';
 

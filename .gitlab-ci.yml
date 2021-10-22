@@ -34,7 +34,7 @@ test-libs:
     - npm i
   script:
     - echo "Start testing libraries"
-    - npm run lint react-pdf-components-pub
+    - npm run lint react-pdf-components
   only:
     - pushes
     - branches

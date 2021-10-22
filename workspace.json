@@ -102,23 +102,23 @@
         }
       }
     },
-    "react-pdf-components-pub": {
-      "root": "libs/react-pdf-components-pub",
-      "sourceRoot": "libs/react-pdf-components-pub/src",
+    "react-pdf-components": {
+      "root": "libs/react-pdf-components",
+      "sourceRoot": "libs/react-pdf-components/src",
       "projectType": "library",
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": ["libs/react-pdf-components-pub/**/*.ts"]
+            "lintFilePatterns": ["libs/react-pdf-components/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/react-pdf-components-pub"],
+          "outputs": ["coverage/libs/react-pdf-components"],
           "options": {
-            "jestConfig": "libs/react-pdf-components-pub/jest.config.js",
+            "jestConfig": "libs/react-pdf-components/jest.config.js",
             "passWithNoTests": true
           }
         },
@@ -126,11 +126,11 @@
           "executor": "@nrwl/node:package",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/libs/react-pdf-components-pub",
-            "tsConfig": "libs/react-pdf-components-pub/tsconfig.lib.json",
-            "packageJson": "libs/react-pdf-components-pub/package.json",
-            "main": "libs/react-pdf-components-pub/src/index.ts",
-            "assets": ["libs/react-pdf-components-pub/*.md"]
+            "outputPath": "dist/libs/react-pdf-components",
+            "tsConfig": "libs/react-pdf-components/tsconfig.lib.json",
+            "packageJson": "libs/react-pdf-components/package.json",
+            "main": "libs/react-pdf-components/src/index.ts",
+            "assets": ["libs/react-pdf-components/*.md"]
           }
         }
       }

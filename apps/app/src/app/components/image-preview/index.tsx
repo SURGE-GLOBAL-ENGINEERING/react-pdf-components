@@ -1,4 +1,4 @@
-import { Image } from '@atticus/react-pdf-components-pub';
+import { Image } from '@atticus/react-pdf-components';
 import { Page } from '@paladin-analytics/rpdf-renderer';
 import { FC } from 'react';
 

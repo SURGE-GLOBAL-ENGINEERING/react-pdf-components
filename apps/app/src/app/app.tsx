@@ -1,4 +1,4 @@
-import { Theme, Viewer } from '@atticus/react-pdf-components-pub';
+import { Theme, Viewer } from '@atticus/react-pdf-components';
 import ReactPDF, {
   Document,
   Font,

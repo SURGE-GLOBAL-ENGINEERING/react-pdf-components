@@ -1,4 +1,4 @@
-import { TextNode } from '@atticus/react-pdf-components-pub';
+import { TextNode } from '@atticus/react-pdf-components';
 import { Page, Text } from '@paladin-analytics/rpdf-renderer';
 import { FC } from 'react';
 
