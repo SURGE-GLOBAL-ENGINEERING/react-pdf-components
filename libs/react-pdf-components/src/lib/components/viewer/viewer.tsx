@@ -31,6 +31,7 @@ interface ViewerProps {
   transform?: string;
   currentPage: number;
   fonts: BulkLoad[];
+  trimHeight: number;
   // eslint-disable-next-line no-unused-vars
   onLoadSuccess?: (doc: Doc) => void;
 }
@@ -48,6 +49,7 @@ export const Viewer: FC<ViewerProps> = ({
   transform,
   currentPage,
   fonts,
+  trimHeight,
   onLoadSuccess,
 }) => {
   const render = useAsync(async () => {
@@ -60,7 +62,7 @@ export const Viewer: FC<ViewerProps> = ({
     const url = URL.createObjectURL(blob);
 
     return url;
-  }, []);
+  }, [children]);
 
   return (
     <div
@@ -74,8 +76,8 @@ export const Viewer: FC<ViewerProps> = ({
         justifyContent: 'center',
         // TODO: remove the unwanted
         zIndex: 1000,
-        marginTop: '-10rem',
-        marginBottom: '-10rem',
+        marginTop: trimHeight > 20 ? '-14rem' : '-12rem',
+        marginBottom: trimHeight > 20 ? '-14rem' : '-12rem',
         backgroundColor: '#fff',
         padding: '2rem',
         boxShadow: '0 0 20px #969696',
