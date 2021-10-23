@@ -4,7 +4,7 @@ import { FC } from 'react';
 
 const ListPreview: FC = () => {
   return (
-    <Page size="A4">
+    <Page wrap size="A4">
       <List type="ol">
         <ListItem>
           <TextNode>chapter 1</TextNode>
