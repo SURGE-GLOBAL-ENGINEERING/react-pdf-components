@@ -7,4 +7,5 @@ export * from './list-item';
 export * from './page';
 export * from './text-node';
 export * from './theme-provider';
+export * from './view';
 export * from './viewer';
