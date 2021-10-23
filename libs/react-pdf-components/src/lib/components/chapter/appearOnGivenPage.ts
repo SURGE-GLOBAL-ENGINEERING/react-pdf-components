@@ -1,4 +1,4 @@
-// to keep the odd/even page logic in one place
+/*to keep the odd/even page logic in one place */
 export const appearOnGivenPage = (
   printSide: 'odd' | 'even' | 'all',
   value: string,
