@@ -7,7 +7,7 @@ interface FooterProps {
   isPageNumberHidden?: boolean;
   pageNumberAlignment: 'outside' | 'center';
   // eslint-disable-next-line no-unused-vars
-  transformValue: (pageMo: number) => string;
+  transformValue: (pageNumber: number) => string;
 }
 
 const Footer: FC<FooterProps> = ({

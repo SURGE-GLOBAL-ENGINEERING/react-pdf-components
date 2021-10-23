@@ -20,8 +20,12 @@ interface ChapterProps {
   paddingBottom?: string | number;
 
   //Header - Footer config
-  pageNumberPosition?: 'top' | 'bottom'; // if undefined page number will not render
-  pageNumberAlignment?: 'outside' | 'center'; // if undefined page number will not render
+  pageNumberPosition: 'top' | 'bottom';
+  pageNumberAlignment: 'outside' | 'center';
+
+  /**
+   * default pageHeaderAlignment = 'center'
+   */
   evenPageHeaderText?: string;
   oddPageHeaderText?: string;
   pageHeaderAlignment?: 'outside' | 'center';
