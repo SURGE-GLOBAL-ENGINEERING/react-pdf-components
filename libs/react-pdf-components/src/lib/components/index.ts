@@ -1,3 +1,4 @@
+export * from './chapter';
 export * from './float';
 export * from './image';
 export * from './link';

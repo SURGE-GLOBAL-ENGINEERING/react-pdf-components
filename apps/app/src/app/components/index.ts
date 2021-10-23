@@ -1,3 +1,4 @@
+import * as ChapterPreview from './chapter-preview';
 import * as FloatPreview from './float-preview';
 import * as ImagePreview from './image-preview';
 import * as LinkPreview from './link-preview';
@@ -12,4 +13,5 @@ export default {
   LinkPreview,
   ImagePreview,
   FloatPreview,
+  ChapterPreview,
 };
