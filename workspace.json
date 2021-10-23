@@ -111,7 +111,7 @@
           "executor": "@nrwl/linter:eslint",
           "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": ["libs/react-pdf-components/**/*.ts"]
+            "lintFilePatterns": ["libs/react-pdf-components/**/*.{ts,tsx}"]
           }
         },
         "test": {

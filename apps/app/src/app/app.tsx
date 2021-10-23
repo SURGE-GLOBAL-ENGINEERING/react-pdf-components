@@ -89,8 +89,7 @@ export function App() {
                   // pageSize="A4"
                   transform="scale(0.7) translate(0, 20%)"
                   currentPage={1}
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  onDocumentLoad={(d: any) => {
+                  onLoadSuccess={(d) => {
                     console.log('total pages', d.numPages);
                   }}
                 >

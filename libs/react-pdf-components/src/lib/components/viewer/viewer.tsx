@@ -11,6 +11,10 @@ import { editorFonts } from './fonts';
 pdfjs.GlobalWorkerOptions.workerSrc =
   '//cdn.jsdelivr.net/npm/pdfjs-dist@2.9.359/build/pdf.worker.js';
 
+type Doc = {
+  numPages: number;
+};
+
 interface ViewerProps {
   height?: string;
   width?: string;
@@ -18,8 +22,8 @@ interface ViewerProps {
   // TODO: Add other sizes
   // pageSize: 'A4';
   currentPage: number;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onDocumentLoad: any;
+  // eslint-disable-next-line no-unused-vars
+  onLoadSuccess: (param: Doc) => void;
 }
 
 const registerFonts = () => {
@@ -58,7 +62,7 @@ export const Viewer: FC<ViewerProps> = ({
   // TODO: remove page size from here
   // pageSize,
   currentPage,
-  onDocumentLoad,
+  onLoadSuccess,
 }) => {
   const render = useAsync(async () => {
     if (!children) return null;
@@ -93,7 +97,11 @@ export const Viewer: FC<ViewerProps> = ({
     >
       {render.loading && <div>Rendering PDF...</div>}
 
-      <Document file={render.value} onLoadSuccess={onDocumentLoad}>
+      {render.error && (
+        <div style={{ color: 'red' }}>{render.error.message}</div>
+      )}
+
+      <Document file={render.value} onLoadSuccess={onLoadSuccess}>
         <Page pageNumber={currentPage} />
       </Document>
     </div>
