@@ -87,6 +87,7 @@ const featureToStyleMap: Record<keyof Features, keyof typeof styles> = {
 
 export interface TextNodeProps extends ReactPDF.TextProps, Features {
   fontSize?: number;
+  lineHeight?: number;
   index?: number;
 }
 
@@ -98,6 +99,7 @@ export const TextNode: FunctionComponent<TextNodeProps> = (props) => {
     composedStyles.push({
       ...styles.baseStyles,
       fontSize: props.fontSize,
+      lineHeight: props.lineHeight,
     });
 
     if (props.style && Array.isArray(props.style)) {
