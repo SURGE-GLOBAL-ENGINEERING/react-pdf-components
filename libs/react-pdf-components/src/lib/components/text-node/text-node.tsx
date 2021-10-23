@@ -103,8 +103,7 @@ export const TextNode: FunctionComponent<TextNodeProps> = (props) => {
     if (props.style && Array.isArray(props.style)) {
       composedStyles.push(...(props.style as []));
     } else {
-      // TODO: Uncomment and fix the following
-      // composedStyles.push({ ...props.style });
+      composedStyles.push({ ...props.style });
     }
     // to add the relevant styles for the passed props
     for (const [propName, styleName] of Object.entries<keyof typeof styles>(

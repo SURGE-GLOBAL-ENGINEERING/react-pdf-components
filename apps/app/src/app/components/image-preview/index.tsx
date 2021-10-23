@@ -1,5 +1,4 @@
-import { Image } from '@atticus/react-pdf-components';
-import { Page } from '@paladin-analytics/rpdf-renderer';
+import { Image, Page } from '@atticus/react-pdf-components';
 import { FC } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

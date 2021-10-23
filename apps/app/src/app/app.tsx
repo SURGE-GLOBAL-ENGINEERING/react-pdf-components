@@ -93,10 +93,8 @@ export function App() {
                     console.log('total pages', d.numPages);
                   }}
                 >
-                  <div>
-                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                    {r.component.default({ children: undefined }) as any}
-                  </div>
+                  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                  {r.component.default({ children: undefined }) as any}
                 </Viewer>
               ) : (
                 <WithPDFViewer>
