@@ -6,7 +6,6 @@ import {
 import { FC } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { useAsync } from 'react-use';
-import { editorFonts } from './fonts';
 
 pdfjs.GlobalWorkerOptions.workerSrc =
   '//cdn.jsdelivr.net/npm/pdfjs-dist@2.9.359/build/pdf.worker.js';
@@ -15,43 +14,31 @@ type Doc = {
   numPages: number;
 };
 
+interface BulkLoad {
+  family: string;
+  fonts: {
+    src: string;
+    fontStyle?: string;
+    fontWeight?: string | number;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [key: string]: any;
+  }[];
+}
+
 interface ViewerProps {
   height?: string;
   width?: string;
   transform?: string;
-  // TODO: Add other sizes
-  // pageSize: 'A4';
   currentPage: number;
+  fonts: BulkLoad[];
   // eslint-disable-next-line no-unused-vars
-  onLoadSuccess: (param: Doc) => void;
+  onLoadSuccess?: (doc: Doc) => void;
 }
 
-const registerFonts = () => {
-  editorFonts.forEach((el) => {
-    Font.register(el);
+const registerFonts = (fonts: BulkLoad[]) => {
+  fonts.forEach((font) => {
+    Font.register(font);
   });
-
-  // Font.register({
-  //   family: 'Open Sans',
-  //   fonts: [
-  //     {
-  //       src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-regular.ttf',
-  //     },
-  //     {
-  //       src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-italic.ttf',
-  //       fontStyle: 'italic',
-  //     },
-  //     {
-  //       src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-600.ttf',
-  //       fontWeight: 600,
-  //     },
-  //     {
-  //       src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-600italic.ttf',
-  //       fontWeight: 600,
-  //       fontStyle: 'italic',
-  //     },
-  //   ],
-  // });
 };
 
 export const Viewer: FC<ViewerProps> = ({
@@ -59,22 +46,21 @@ export const Viewer: FC<ViewerProps> = ({
   height,
   width,
   transform,
-  // TODO: remove page size from here
-  // pageSize,
   currentPage,
+  fonts,
   onLoadSuccess,
 }) => {
   const render = useAsync(async () => {
     if (!children) return null;
 
-    registerFonts();
+    registerFonts(fonts);
 
     const withDocumentWrapper = <RPDFDocument>{children}</RPDFDocument>;
     const blob = await pdf(withDocumentWrapper).toBlob();
     const url = URL.createObjectURL(blob);
 
     return url;
-  }, [children]);
+  }, []);
 
   return (
     <div

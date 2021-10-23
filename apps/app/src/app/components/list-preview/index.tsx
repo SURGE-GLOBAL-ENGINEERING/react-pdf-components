@@ -1,5 +1,4 @@
-import { List, ListItem, TextNode } from '@atticus/react-pdf-components';
-import { Page } from '@paladin-analytics/rpdf-renderer';
+import { List, ListItem, Page, TextNode } from '@atticus/react-pdf-components';
 import { FC } from 'react';
 
 const ListPreview: FC = () => {

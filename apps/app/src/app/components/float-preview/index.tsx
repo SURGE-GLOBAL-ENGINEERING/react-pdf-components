@@ -2,9 +2,9 @@ import {
   ClearFloat,
   Float,
   Image,
+  Page,
   TextNode,
 } from '@atticus/react-pdf-components';
-import { Page } from '@paladin-analytics/rpdf-renderer';
 import { FC } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

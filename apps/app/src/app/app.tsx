@@ -32,6 +32,8 @@ const WithPDFViewer: React.FC<WithPDFViewerProps> = ({
 
 export function App() {
   const [isNew, setIsNew] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const routes = useMemo(() => {
     const r = [];
@@ -83,21 +85,34 @@ export function App() {
           {routes.map((r) => (
             <Route key={r.label} path={`/${r.label}-prev`}>
               {isNew ? (
-                <Viewer
-                  height="100%"
-                  width="100%"
-                  // pageSize="A4"
-                  transform="scale(0.7) translate(0, 20%)"
-                  currentPage={1}
-                  onLoadSuccess={(d) => {
-                    console.log('total pages', d.numPages);
-                  }}
-                >
-                  <div>
+                <>
+                  <button
+                    onClick={() => {
+                      if (currentPage > 1) setCurrentPage((prev) => prev - 1);
+                    }}
+                  >
+                    Prev page
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (currentPage < totalPages)
+                        setCurrentPage((prev) => prev + 1);
+                    }}
+                  >
+                    Next page
+                  </button>
+                  <Viewer
+                    height="100%"
+                    width="100%"
+                    transform="scale(0.7)"
+                    currentPage={currentPage}
+                    fonts={editorFonts}
+                    onLoadSuccess={(doc) => setTotalPages(doc.numPages)}
+                  >
                     {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                     {r.component.default({ children: undefined }) as any}
-                  </div>
-                </Viewer>
+                  </Viewer>
+                </>
               ) : (
                 <WithPDFViewer>
                   {/* casting to any type as child can have different prop-types */}
