@@ -8,8 +8,8 @@ import { appearOnGivenPage } from './appearOnGivenPage';
 interface HeaderProps {
   isAbsolutePositioned?: boolean;
   isPageNumberHidden?: boolean;
-  transformedPageNumber: (pageMo: number) => string;
-
+  // eslint-disable-next-line no-unused-vars
+  transformedPageNumber: (pageNo: number) => string;
   evenPageHeaderText?: string;
   oddPageHeaderText?: string;
   pageHeaderAlignment?: 'center' | 'outside';
@@ -41,7 +41,7 @@ const Header: FC<HeaderProps> = ({
               alignSelf: 'flex-start',
             }}
             fixed
-            render={({ pageNumber, subPageTotalPages, subPageNumber }) => {
+            render={({ pageNumber, subPageNumber }) => {
               return appearOnGivenPage(
                 'even',
                 transformedPageNumber(pageNumber),
@@ -60,7 +60,7 @@ const Header: FC<HeaderProps> = ({
               marginLeft: 8,
             }}
             fixed
-            render={({ pageNumber, subPageTotalPages, subPageNumber }) => {
+            render={({ pageNumber, subPageNumber }) => {
               return appearOnGivenPage(
                 'even',
                 evenPageHeaderText,
@@ -86,7 +86,7 @@ const Header: FC<HeaderProps> = ({
               textAlign: 'center',
             }}
             fixed
-            render={({ pageNumber, subPageTotalPages, subPageNumber }) => {
+            render={({ pageNumber, subPageNumber }) => {
               if (pageNumber % 2 === 0)
                 return appearOnGivenPage(
                   'all',
@@ -127,7 +127,7 @@ const Header: FC<HeaderProps> = ({
               marginRight: 8,
             }}
             fixed
-            render={({ pageNumber, subPageTotalPages, subPageNumber }) => {
+            render={({ pageNumber, subPageNumber }) => {
               return appearOnGivenPage(
                 'odd',
                 oddPageHeaderText,
@@ -146,7 +146,7 @@ const Header: FC<HeaderProps> = ({
               alignSelf: 'flex-end',
             }}
             fixed
-            render={({ pageNumber, subPageTotalPages, subPageNumber }) => {
+            render={({ pageNumber, subPageNumber }) => {
               return appearOnGivenPage(
                 'odd',
                 transformedPageNumber(pageNumber),

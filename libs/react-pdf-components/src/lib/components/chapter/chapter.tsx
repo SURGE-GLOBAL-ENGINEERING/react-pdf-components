@@ -1,4 +1,4 @@
-import ReactPDF, {
+import {
   Image as RPDFImage,
   Page as RPDFPage,
   StyleSheet,
@@ -7,55 +7,71 @@ import ReactPDF, {
 import { FC } from 'react';
 import Footer from './footer';
 import Header from './header';
-
-interface ChapterProps extends ReactPDF.PageProps {
+interface ChapterProps {
   backgroundImageSrc?: string;
-  styles?: ReactPDF.Styles;
 
-  // pageWidth: string | number;
-  // pageHeight: string | number;
+  // default page size will be A4
+  pageWidth?: string | number;
+  pageHeight?: string | number;
 
-  marginOutSide?: string | number;
+  marginOutside?: string | number;
   marginInside?: string | number;
+  paddingTop?: string | number;
+  paddingBottom?: string | number;
 
   //Header - Footer config
   pageNumberPosition?: 'top' | 'bottom'; // if undefined page number will not render
   pageNumberAlignment?: 'outside' | 'center'; // if undefined page number will not render
-
   evenPageHeaderText?: string;
   oddPageHeaderText?: string;
   pageHeaderAlignment?: 'outside' | 'center';
+
+  // eslint-disable-next-line no-unused-vars
   getTransformedPageNumber: (pageNumber: number) => string;
 }
 
 export const Chapter: FC<ChapterProps> = ({
   backgroundImageSrc,
   marginInside,
-  marginOutSide,
+  marginOutside,
   pageNumberPosition,
   pageNumberAlignment,
   evenPageHeaderText,
   oddPageHeaderText,
   pageHeaderAlignment,
   getTransformedPageNumber,
-  // chapterCardProps,
+
+  pageHeight,
+  pageWidth,
+  paddingBottom,
+  paddingTop,
   children,
-  ...pageProps
 }) => {
   const styleSheet = StyleSheet.create({
     common: {
-      marginOutside: marginOutSide,
-      marginInside: marginInside,
+      marginOutside,
+      marginInside,
     },
     imageFullBleed: {
       position: 'absolute',
       zIndex: -1,
       width: '100%',
     },
+    page: {
+      paddingBottom,
+      paddingTop,
+    },
   });
 
   return (
-    <RPDFPage {...pageProps}>
+    <RPDFPage
+      size={
+        pageHeight && pageWidth
+          ? { width: pageWidth, height: pageHeight }
+          : 'A4'
+      }
+      style={[styleSheet.page]}
+    >
       {/* bg-image */}
 
       {backgroundImageSrc && (

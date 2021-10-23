@@ -6,6 +6,7 @@ interface FooterProps {
   isAbsolutePositioned?: boolean;
   isPageNumberHidden?: boolean;
   pageNumberAlignment: 'outside' | 'center';
+  // eslint-disable-next-line no-unused-vars
   transformValue: (pageMo: number) => string;
 }
 
@@ -24,13 +25,13 @@ const Footer: FC<FooterProps> = ({
           alignSelf: 'center',
         }}
         fixed
-        render={({ pageNumber, subPageTotalPages, subPageNumber }) => {
+        render={({ pageNumber, subPageNumber }) => {
           return appearOnGivenPage(
             'all',
             transformValue(pageNumber),
             pageNumber,
             subPageNumber,
-            [1]
+            []
           );
         }}
       />
@@ -45,13 +46,13 @@ const Footer: FC<FooterProps> = ({
           alignSelf: 'flex-end',
         }}
         fixed
-        render={({ pageNumber, subPageTotalPages, subPageNumber }) => {
+        render={({ pageNumber, subPageNumber }) => {
           return appearOnGivenPage(
             'odd',
             transformValue(pageNumber),
             pageNumber,
             subPageNumber,
-            [1]
+            []
           );
         }}
       />
@@ -62,13 +63,13 @@ const Footer: FC<FooterProps> = ({
           alignSelf: 'flex-start',
         }}
         fixed
-        render={({ pageNumber, subPageTotalPages, subPageNumber }) => {
+        render={({ pageNumber, subPageNumber }) => {
           return appearOnGivenPage(
             'even',
             transformValue(pageNumber),
             pageNumber,
             subPageNumber,
-            [1]
+            []
           );
         }}
       />

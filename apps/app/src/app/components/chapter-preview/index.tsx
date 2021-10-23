@@ -1,15 +1,9 @@
 import { Chapter, TextNode } from '@atticus/react-pdf-components';
-import { StyleSheet, Text, View } from '@paladin-analytics/rpdf-renderer';
+import { Text, View } from '@paladin-analytics/rpdf-renderer';
 import { FC } from 'react';
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface ChapterPreview {}
-const styles = StyleSheet.create({
-  commonPage: {
-    paddingBottom: 65,
-    paddingTop: 65,
-    textAlign: 'justify',
-  },
-});
+
 const ChapterPreview: FC<ChapterPreview> = () => {
   return (
     <>
@@ -17,14 +11,16 @@ const ChapterPreview: FC<ChapterPreview> = () => {
         evenPageHeaderText="SOME COOL GUY"
         oddPageHeaderText="Cool Chapter"
         getTransformedPageNumber={(no) => {
+          // page number conversions goes here (eg : to roman number)
           return String(no);
         }}
         pageHeaderAlignment="outside"
-        pageNumberAlignment="outside"
+        pageNumberAlignment="center"
         pageNumberPosition="top"
-        style={styles.commonPage}
+        paddingBottom={65}
+        paddingTop={65}
         marginInside={80}
-        marginOutSide={20}
+        marginOutside={20}
       >
         <View style={{ minHeight: '20vh', justifyContent: 'center' }}>
           <TextNode fontSize={20}>Chapter 1</TextNode>
@@ -141,7 +137,8 @@ const ChapterPreview: FC<ChapterPreview> = () => {
       </Chapter>
 
       <Chapter
-        style={styles.commonPage}
+        paddingBottom={65}
+        paddingTop={65}
         evenPageHeaderText="Author"
         oddPageHeaderText="Chapter"
         getTransformedPageNumber={(no) => String(no)}
@@ -149,7 +146,7 @@ const ChapterPreview: FC<ChapterPreview> = () => {
         pageNumberAlignment="center"
         pageNumberPosition="top"
         marginInside={40}
-        marginOutSide={20}
+        marginOutside={20}
         backgroundImageSrc="https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/gray-background-7131-96d780fd18d4eaf58a7331d45573204e@1x.jpg"
       >
         <View style={{ minHeight: '20vh', justifyContent: 'center' }}>
@@ -267,7 +264,8 @@ const ChapterPreview: FC<ChapterPreview> = () => {
       </Chapter>
 
       <Chapter
-        style={styles.commonPage}
+        paddingBottom={65}
+        paddingTop={65}
         evenPageHeaderText="Author"
         oddPageHeaderText="Chapter"
         getTransformedPageNumber={(no) => String(no)}
@@ -275,7 +273,7 @@ const ChapterPreview: FC<ChapterPreview> = () => {
         pageNumberAlignment="center"
         pageNumberPosition="bottom"
         marginInside={40}
-        marginOutSide={20}
+        marginOutside={20}
         backgroundImageSrc="https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/gray-background-7131-96d780fd18d4eaf58a7331d45573204e@1x.jpg"
       >
         <View style={{ minHeight: '20vh', justifyContent: 'center' }}>
@@ -341,7 +339,8 @@ const ChapterPreview: FC<ChapterPreview> = () => {
       </Chapter>
 
       <Chapter
-        style={styles.commonPage}
+        paddingBottom={65}
+        paddingTop={65}
         evenPageHeaderText="Author"
         oddPageHeaderText="Chapter"
         getTransformedPageNumber={(no) => String(no)}
@@ -349,7 +348,7 @@ const ChapterPreview: FC<ChapterPreview> = () => {
         pageNumberAlignment="center"
         pageNumberPosition="bottom"
         marginInside={40}
-        marginOutSide={20}
+        marginOutside={20}
       >
         <View style={{ minHeight: '20vh', justifyContent: 'center' }}>
           <TextNode fontSize={20}>Chapter 4</TextNode>
@@ -414,14 +413,15 @@ const ChapterPreview: FC<ChapterPreview> = () => {
       </Chapter>
       {/* no header text */}
       <Chapter
-        style={styles.commonPage}
+        paddingBottom={65}
+        paddingTop={65}
         getTransformedPageNumber={(no) => {
           return String(no);
         }}
         pageNumberAlignment="outside"
         pageNumberPosition="bottom"
         marginInside={80}
-        marginOutSide={20}
+        marginOutside={20}
       >
         <View style={{ minHeight: '20vh', justifyContent: 'center' }}>
           <TextNode fontSize={20}>Chapter 1</TextNode>
