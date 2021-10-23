@@ -6,7 +6,7 @@ import ReactPDF, {
   View as RPDFView,
 } from '@paladin-analytics/rpdf-renderer';
 import { FunctionComponent } from 'react';
-import './image.module.scss';
+
 /**
  * Atticus Image Features
  *  - caption -> string
