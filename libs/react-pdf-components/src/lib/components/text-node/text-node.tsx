@@ -3,9 +3,7 @@ import ReactPDF, {
   Text as RPDFText,
   View as RPDFView,
 } from '@paladin-analytics/rpdf-renderer';
-import { FunctionComponent, useContext } from 'react';
-import { TypeContext } from '../list';
-import './text-node.module.scss';
+import { FunctionComponent } from 'react';
 
 /**
  * Atticus :: TextNode features
@@ -94,7 +92,6 @@ export interface TextNodeProps extends ReactPDF.TextProps, Features {
 
 export const TextNode: FunctionComponent<TextNodeProps> = (props) => {
   // used to get the list item type if the current is a list item
-  const type = useContext(TypeContext);
   const composedStyles: { [key: string]: string | number | undefined }[] = [];
 
   const composeStyles = () => {
@@ -126,24 +123,9 @@ export const TextNode: FunctionComponent<TextNodeProps> = (props) => {
   composeStyles();
   handleSpecialStyles();
 
-  const renderListItemPrefix = () => {
-    // TODO: fix bullet size to be clear and fix alignment
-    // TODO: check 2 number case - starting from 10
-    if (type) {
-      if (type === 'ul') {
-        return <RPDFText style={{ fontSize: '16px' }}>• </RPDFText>;
-      }
-      if (props.index) {
-        return <RPDFText>{props.index}. </RPDFText>;
-      }
-    }
-    return null;
-  };
-
   return (
     <RPDFView>
       <RPDFText style={[...composedStyles]} {...props}>
-        {renderListItemPrefix()}
         {props.children}
       </RPDFText>
     </RPDFView>

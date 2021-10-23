@@ -107,31 +107,11 @@
       "sourceRoot": "libs/react-pdf-components/src",
       "projectType": "library",
       "targets": {
-        "build": {
-          "executor": "@nrwl/web:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/libs/react-pdf-components",
-            "tsConfig": "libs/react-pdf-components/tsconfig.lib.json",
-            "project": "libs/react-pdf-components/package.json",
-            "entryFile": "libs/react-pdf-components/src/index.ts",
-            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
-            "assets": [
-              {
-                "glob": "libs/react-pdf-components/README.md",
-                "input": ".",
-                "output": "."
-              }
-            ]
-          }
-        },
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "libs/react-pdf-components/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["libs/react-pdf-components/**/*.{ts,tsx}"]
           }
         },
         "test": {
@@ -140,6 +120,17 @@
           "options": {
             "jestConfig": "libs/react-pdf-components/jest.config.js",
             "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/react-pdf-components",
+            "tsConfig": "libs/react-pdf-components/tsconfig.lib.json",
+            "packageJson": "libs/react-pdf-components/package.json",
+            "main": "libs/react-pdf-components/src/index.ts",
+            "assets": ["libs/react-pdf-components/*.md"]
           }
         }
       }

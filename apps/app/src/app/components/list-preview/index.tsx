@@ -1,10 +1,9 @@
-import { List, ListItem, TextNode } from '@atticus/react-pdf-components';
-import { Page } from '@paladin-analytics/rpdf-renderer';
+import { List, ListItem, Page, TextNode } from '@atticus/react-pdf-components';
 import { FC } from 'react';
 
 const ListPreview: FC = () => {
   return (
-    <Page size="A4">
+    <Page wrap size="A4">
       <List type="ol">
         <ListItem>
           <TextNode>chapter 1</TextNode>
