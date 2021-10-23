@@ -25,7 +25,7 @@ const Header: FC<HeaderProps> = ({
   pageHeaderAlignment = 'center',
   isPageNumberHidden,
 }) => {
-  const positionValue = isAbsolutePositioned ? 'absolute' : undefined;
+  const positionValue = isAbsolutePositioned ? 'absolute' : 'relative';
 
   return (
     <>

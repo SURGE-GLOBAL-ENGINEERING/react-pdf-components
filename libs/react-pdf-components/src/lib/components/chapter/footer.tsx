@@ -15,7 +15,7 @@ const Footer: FC<FooterProps> = ({
   pageNumberAlignment,
   transformValue,
 }) => {
-  const positionValue = isAbsolutePositioned ? 'absolute' : undefined;
+  const positionValue = isAbsolutePositioned ? 'absolute' : 'relative';
 
   if (pageNumberAlignment === 'center') {
     return (
