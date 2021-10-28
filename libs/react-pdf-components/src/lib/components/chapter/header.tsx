@@ -2,45 +2,50 @@ import {
   Text as RPDFText,
   View as RPDFView,
 } from '@paladin-analytics/rpdf-renderer';
+import { Style as RPDFStyle } from '@paladin-analytics/rpdf-types';
 import React, { FC } from 'react';
 import { appearOnGivenPage } from './appearOnGivenPage';
 
 const BLACKLIST_PAGE_NUMBERS = [1];
 const IS_DEBUG = false;
+
+export type HeaderStyle = Pick<
+  RPDFStyle,
+  'position' | 'fontFamily' | 'fontSize'
+>;
+
 interface HeaderProps {
-  isAbsolutePositioned?: boolean;
-  isPageNumberHidden?: boolean;
   // eslint-disable-next-line no-unused-vars
   transformedPageNumber: (pageNumber: number) => string;
+  isPageNumberHidden?: boolean;
   evenPageHeaderText?: string;
   oddPageHeaderText?: string;
   pageHeaderAlignment?: 'center' | 'outside';
+  styles?: HeaderStyle;
 }
 
 const Header: FC<HeaderProps> = ({
-  isAbsolutePositioned,
   transformedPageNumber,
   evenPageHeaderText = '',
   oddPageHeaderText = '',
   pageHeaderAlignment = 'center',
   isPageNumberHidden,
+  styles,
 }) => {
-  const positionValue = isAbsolutePositioned ? 'absolute' : 'relative';
-
   return (
     <>
       {/* even-outside */}
 
       <RPDFView
         debug={IS_DEBUG}
-        style={{ display: 'flex', flexDirection: 'row' }}
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+        }}
       >
         {!isPageNumberHidden && (
           <RPDFText
-            style={{
-              position: positionValue,
-              alignSelf: 'flex-start',
-            }}
+            style={{ ...styles }}
             fixed
             render={({ pageNumber, subPageNumber }) => {
               return appearOnGivenPage(
@@ -56,10 +61,7 @@ const Header: FC<HeaderProps> = ({
 
         {pageHeaderAlignment === 'outside' && (
           <RPDFText
-            style={{
-              position: positionValue,
-              marginLeft: 8,
-            }}
+            style={{ ...styles, marginLeft: 8 }}
             fixed
             render={({ pageNumber, subPageNumber }) => {
               return appearOnGivenPage(
@@ -78,12 +80,15 @@ const Header: FC<HeaderProps> = ({
 
       {pageHeaderAlignment === 'center' && (
         <RPDFView
-          style={{ position: 'absolute', width: '100%', top: 0, bottom: 0 }}
+          style={{
+            width: '100%',
+            display: 'flex',
+          }}
         >
           <RPDFText
             debug={IS_DEBUG}
             style={{
-              position: positionValue,
+              ...styles,
               textAlign: 'center',
             }}
             fixed
@@ -118,15 +123,12 @@ const Header: FC<HeaderProps> = ({
           // flex: 1,
           display: 'flex',
           flexDirection: 'row',
-          justifyContent: 'flex-end',
+          // justifyContent: 'flex-end',
         }}
       >
         {pageHeaderAlignment === 'outside' && (
           <RPDFText
-            style={{
-              position: positionValue,
-              marginRight: 8,
-            }}
+            style={{ ...styles, marginRight: 8 }}
             fixed
             render={({ pageNumber, subPageNumber }) => {
               return appearOnGivenPage(
@@ -142,10 +144,7 @@ const Header: FC<HeaderProps> = ({
 
         {!isPageNumberHidden && (
           <RPDFText
-            style={{
-              position: positionValue,
-              alignSelf: 'flex-end',
-            }}
+            style={{ ...styles }}
             fixed
             render={({ pageNumber, subPageNumber }) => {
               return appearOnGivenPage(

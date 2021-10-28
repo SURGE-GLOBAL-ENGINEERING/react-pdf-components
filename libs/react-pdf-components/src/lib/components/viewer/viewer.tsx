@@ -79,7 +79,6 @@ export const Viewer: FC<ViewerProps> = ({
         marginTop: trimHeight > 20 ? '-14rem' : '-12rem',
         marginBottom: trimHeight > 20 ? '-14rem' : '-12rem',
         backgroundColor: '#fff',
-        padding: '2rem',
         boxShadow: '0 0 20px #969696',
       }}
     >
