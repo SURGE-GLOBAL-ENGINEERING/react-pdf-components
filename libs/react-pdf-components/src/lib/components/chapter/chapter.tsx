@@ -5,9 +5,10 @@ import {
   View as RPDFView,
 } from '@paladin-analytics/rpdf-renderer';
 import { FC } from 'react';
-import Footer from './footer';
-import Header from './header';
-interface ChapterProps {
+import Footer, { FooterStyle } from './footer';
+import Header, { HeaderStyle } from './header';
+
+export interface ChapterProps {
   backgroundImageSrc?: string;
 
   // default page size will be A4
@@ -32,6 +33,12 @@ interface ChapterProps {
 
   // eslint-disable-next-line no-unused-vars
   getTransformedPageNumber: (pageNumber: number) => string;
+
+  /**
+   * Header nad Footer styles for `fontFamily` and `fontSize`
+   */
+  footerStyles?: Pick<FooterStyle, 'fontFamily' | 'fontSize'>;
+  headerStyles?: Pick<HeaderStyle, 'fontFamily' | 'fontSize'>;
 }
 
 export const Chapter: FC<ChapterProps> = ({
@@ -49,6 +56,8 @@ export const Chapter: FC<ChapterProps> = ({
   pageWidth,
   paddingBottom,
   paddingTop,
+  footerStyles,
+  headerStyles,
   children,
 }) => {
   const styleSheet = StyleSheet.create({
@@ -91,11 +100,7 @@ export const Chapter: FC<ChapterProps> = ({
         fixed
         style={[
           {
-            minHeight: 20,
-            position: 'absolute',
-            top: 20,
-            left: 0,
-            right: 0,
+            minHeight: paddingTop,
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -109,6 +114,7 @@ export const Chapter: FC<ChapterProps> = ({
           oddPageHeaderText={oddPageHeaderText}
           isPageNumberHidden={pageNumberPosition === 'bottom'}
           transformedPageNumber={getTransformedPageNumber}
+          styles={headerStyles}
         />
       </RPDFView>
 
@@ -118,15 +124,19 @@ export const Chapter: FC<ChapterProps> = ({
 
       {/* footer */}
 
+      {pageNumberAlignment && pageNumberPosition === 'bottom' && (
+        <RPDFView fixed style={{ height: paddingBottom }}></RPDFView>
+      )}
       <RPDFView
         style={[
           {
             position: 'absolute',
-            bottom: 30,
+            bottom: paddingBottom,
             left: 0,
             right: 0,
-            minHeight: 20,
+            minHeight: paddingBottom,
           },
+          { display: 'flex', alignSelf: 'flex-end' },
           styleSheet.common,
         ]}
         fixed
@@ -135,6 +145,7 @@ export const Chapter: FC<ChapterProps> = ({
           <Footer
             transformValue={getTransformedPageNumber}
             pageNumberAlignment={pageNumberAlignment}
+            styles={footerStyles}
           />
         )}
       </RPDFView>
