@@ -15,10 +15,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
+
       - name: config private registry
         run: npm config set '@paladin-analytics:registry' "https://npm.pkg.github.com"
       - run: npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_TOKEN}"
       # caching deps
+
       - uses: actions/cache@v2
         with:
           path: ~/.npm
@@ -26,49 +28,50 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: npm install
+      - name: install firebase
+        run: npm i firebase-tools -g
+
+      - name: install dependencies
         if: steps.cache-primes.outputs.cache-hit != 'true'
         run: npm install
+
       - name: building app and lib
         run: npm run build
-      - name: upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: dist
-          path: dist
-
-  deploy-app:
-    # DEPLOY THE APP TO FIREBASE
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-      - name: Download a single artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: dist
-      - name: Echo the artifacts
-        run: ls
-      - name: install firebase
-        run: npm i -g firebase
       - name: deploy for preview
         run: npm run firebase:deploy:preview -- "rpc-${PR_NUMBER}" -P default --token $FIREBASE_TOKEN
-  publish-pkg:
-    # deploy package to github packages
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Use Node.js 12.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
-      - name: Download a single artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: dist
-      - name: add publish config to npm
-        working-directory: ./libs/react-pdf-components
-        run: |
-          npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_TOKEN}"
-          npm publish --no-git-tag-version --no-push --yes --dry-run
+
+  # deploy-app:
+  #   # DEPLOY THE APP TO FIREBASE
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   steps:
+  #     - name: Checkout Code
+  #       uses: actions/checkout@v2
+  #     - name: building app
+  #       run: npm run build app
+  #     - name: Echo the dir
+  #       run: ls
+  #     - name: install firebase
+  #       run: npm i firebase-tools -g
+
+  # publish-pkg:
+  #   # deploy package to github packages
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   steps:
+  #     - name: Use Node.js 12.x
+  #       uses: actions/setup-node@v1
+  #       with:
+  #         node-version: 12.x
+  #     - name: npm install
+  #       run: npm install
+
+  #     - name: Download a single artifact
+  #       uses: actions/download-artifact@v2
+  #       with:
+  #         name: dist
+  #     - name: add publish config to npm
+  #       working-directory: ./libs/react-pdf-components
+  #       run: |
+  #         npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_TOKEN}"
+  #         npm publish --no-git-tag-version --no-push --yes --dry-run
