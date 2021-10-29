@@ -1,4 +1,4 @@
-import { ReactElement, isValidElement, cloneElement } from 'react';
+import { cloneElement, isValidElement, ReactElement } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const addPropsToReactElement = (element: ReactElement, props: any) => {

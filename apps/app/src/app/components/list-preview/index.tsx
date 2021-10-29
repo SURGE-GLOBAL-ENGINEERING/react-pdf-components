@@ -5,7 +5,7 @@ const ListPreview: FC = () => {
   return (
     <Page wrap size="A4">
       <List type="ol">
-        <ListItem>
+        <ListItem fontSize={10}>
           <TextNode>chapter 1</TextNode>
         </ListItem>
         <ListItem>
@@ -29,10 +29,10 @@ const ListPreview: FC = () => {
               <TextNode>section 2</TextNode>
               <List type="ol">
                 <ListItem>
-                  <TextNode>sub section 1</TextNode>
+                  <TextNode>sub section x</TextNode>
                 </ListItem>
                 <ListItem>
-                  <TextNode>sub section 2</TextNode>
+                  <TextNode>sub section x</TextNode>
                   <List type="ol">
                     <ListItem>
                       <TextNode>section 1</TextNode>
@@ -52,6 +52,45 @@ const ListPreview: FC = () => {
                       <TextNode>section 3</TextNode>
                     </ListItem>
                   </List>
+                </ListItem>
+                <ListItem>
+                  <TextNode>sub section x</TextNode>
+                </ListItem>
+                <ListItem>
+                  <TextNode>sub section x</TextNode>
+                </ListItem>
+                <ListItem>
+                  <TextNode>sub section x</TextNode>
+                </ListItem>
+                <ListItem>
+                  <TextNode>sub section x</TextNode>
+                </ListItem>
+                <ListItem>
+                  <TextNode>sub section x</TextNode>
+                </ListItem>
+                <ListItem>
+                  <TextNode>sub section x</TextNode>
+                </ListItem>
+                <ListItem>
+                  <TextNode>sub section x</TextNode>
+                </ListItem>
+                <ListItem>
+                  <TextNode>sub section x</TextNode>
+                </ListItem>
+                <ListItem>
+                  <TextNode>sub section x</TextNode>
+                </ListItem>
+                <ListItem>
+                  <TextNode>sub section x</TextNode>
+                </ListItem>
+                <ListItem>
+                  <TextNode>sub section x</TextNode>
+                </ListItem>
+                <ListItem>
+                  <TextNode>sub section x</TextNode>
+                </ListItem>
+                <ListItem>
+                  <TextNode>sub section x</TextNode>
                 </ListItem>
               </List>
             </ListItem>

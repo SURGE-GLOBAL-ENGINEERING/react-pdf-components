@@ -95,14 +95,15 @@ const TextPreview: FC<TextPreviewProps> = () => {
         quod asperiores provident, quo deleniti vel velit ducimus suscipit vitae
         error ipsam debitis.
       </TextNode>
-      <TextNode> </TextNode>
+      <TextNode>
+        1. <TextNode>Listed item</TextNode>
+      </TextNode>
       <TextNode fontSize={16} code>
         Code, ipsum dolor sit amet consectetur adipisicing elit. Numquam fugiat
         qui eosquod asperiores provident, quo deleniti vel velit ducimus
         suscipit vitae error ipsam debitis.
       </TextNode>
       <TextNode> </TextNode>
-
       <TextNode fontSize={16}>
         Monospace,
         <TextNode fontSize={20} underline>

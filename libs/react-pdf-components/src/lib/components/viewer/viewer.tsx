@@ -3,9 +3,8 @@ import {
   Font,
   pdf,
 } from '@paladin-analytics/rpdf-renderer';
-import { FC } from 'react';
+import { FC, ReactElement, useEffect, useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
-import { useAsync } from 'react-use';
 
 pdfjs.GlobalWorkerOptions.workerSrc =
   '//cdn.jsdelivr.net/npm/pdfjs-dist@2.9.359/build/pdf.worker.js';
@@ -52,17 +51,41 @@ export const Viewer: FC<ViewerProps> = ({
   trimHeight,
   onLoadSuccess,
 }) => {
-  const render = useAsync(async () => {
-    if (!children) return null;
+  const [docUrl, setDocUrl] = useState('');
 
+  // TODO: fix re-render on next page click
+  const generatePdfBlob = async (tree: ReactElement) => {
+    try {
+      const blob = await pdf(tree).toBlob();
+      const url = URL.createObjectURL(blob);
+      setDocUrl(url);
+    } catch (e) {
+      console.log(e);
+      // TODO: show banner with error
+    }
+  };
+
+  useEffect(() => {
     registerFonts(fonts);
+  }, []);
 
+  useEffect(() => {
+    if (!children) return;
     const withDocumentWrapper = <RPDFDocument>{children}</RPDFDocument>;
-    const blob = await pdf(withDocumentWrapper).toBlob();
-    const url = URL.createObjectURL(blob);
-
-    return url;
+    generatePdfBlob(withDocumentWrapper);
   }, [children]);
+
+  // const render = useAsync(async () => {
+  //   if (!children) return null;
+
+  //   registerFonts(fonts);
+
+  //   const withDocumentWrapper = <RPDFDocument>{children}</RPDFDocument>;
+  //   const blob = await pdf(withDocumentWrapper).toBlob();
+  //   const url = URL.createObjectURL(blob);
+
+  //   return url;
+  // }, [children]);
 
   return (
     <div
@@ -82,13 +105,13 @@ export const Viewer: FC<ViewerProps> = ({
         boxShadow: '0 0 20px #969696',
       }}
     >
-      {render.loading && <div>Rendering PDF...</div>}
+      {/* {render.loading && <div>Rendering PDF...</div>} */}
 
-      {render.error && (
+      {/* {render.error && (
         <div style={{ color: 'red' }}>{render.error.message}</div>
-      )}
+      )} */}
 
-      <Document file={render.value} onLoadSuccess={onLoadSuccess}>
+      <Document file={docUrl} onLoadSuccess={onLoadSuccess}>
         <Page pageNumber={currentPage} />
       </Document>
     </div>
