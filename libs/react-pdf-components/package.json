@@ -1,4 +1,14 @@
 {
-  "name": "@atticus/react-pdf-components",
-  "version": "0.0.1"
+  "name": "@paladin-analytics/react-pdf-components",
+  "version": "1.0.0",
+  "contributors": [
+    "AIT Engineering"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Paladin-Analytics/react-pdf-components.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/paladin-analytics"
+  }
 }
