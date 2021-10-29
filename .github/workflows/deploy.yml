@@ -6,7 +6,7 @@ env:
   FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
   PR_NUMBER: ${{ github.event.number }}
 jobs:
-  build:
+  deploy-app:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -40,38 +40,40 @@ jobs:
       - name: deploy for preview
         run: npm run firebase:deploy:preview -- "rpc-${PR_NUMBER}" -P default --token $FIREBASE_TOKEN
 
-  # deploy-app:
-  #   # DEPLOY THE APP TO FIREBASE
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   steps:
-  #     - name: Checkout Code
-  #       uses: actions/checkout@v2
-  #     - name: building app
-  #       run: npm run build app
-  #     - name: Echo the dir
-  #       run: ls
-  #     - name: install firebase
-  #       run: npm i firebase-tools -g
+  publish-pkg:
+    # deploy package to github packages
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: npm install
+        run: npm install
 
-  # publish-pkg:
-  #   # deploy package to github packages
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   steps:
-  #     - name: Use Node.js 12.x
-  #       uses: actions/setup-node@v1
-  #       with:
-  #         node-version: 12.x
-  #     - name: npm install
-  #       run: npm install
-
-  #     - name: Download a single artifact
-  #       uses: actions/download-artifact@v2
-  #       with:
-  #         name: dist
-  #     - name: add publish config to npm
-  #       working-directory: ./libs/react-pdf-components
-  #       run: |
-  #         npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_TOKEN}"
-  #         npm publish --no-git-tag-version --no-push --yes --dry-run
+      # - name: Download a single artifact
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #     name: dist
+      - name: bump version
+        run: ./.github/scripts/bump-version.sh
+      - name: add publish config to npm
+        working-directory: ./libs/react-pdf-components
+        run: |
+          npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_TOKEN}"
+          npm publish --no-git-tag-version --no-push --yes --dry-run
+      - name: Commit files
+        # if: github.event.pull_request.merged == true && contains(github.event.commits[0].message, '[skip-ci]') == false
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git commit -m "Release [skip-ci]"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.ACTION_AUTH_TOKEN }}
+          branch: ${{ github.ref }}
+          tags: true
+          force: true
