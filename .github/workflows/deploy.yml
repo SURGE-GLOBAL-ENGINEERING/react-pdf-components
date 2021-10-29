@@ -45,6 +45,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: config private registry
+        run: npm config set '@paladin-analytics:registry' "https://npm.pkg.github.com"
+      - run: npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_TOKEN}"
+      # caching deps
+
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
