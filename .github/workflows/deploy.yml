@@ -3,6 +3,8 @@ on: [push, pull_request]
 env:
   BEFORE_SHA: ${{ github.event.before }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
+  PR_NUMBER: ${{ github.event.number }}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -44,8 +46,13 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: dist
-      - name: ls
+      - name: Echo the artifacts
         run: ls
+      - name: install firebase
+        run: npm i -g firebase
+      - name: deploy for preview
+        working-directory: ./apps/app
+        run: npm run firebase:deploy:preview -- "rpc-${PR_NUMBER}" -P default --token $FIREBASE_TOKEN
   publish-pkg:
     # deploy package to github packages
     runs-on: ubuntu-latest
