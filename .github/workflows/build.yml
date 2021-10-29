@@ -15,7 +15,7 @@ jobs:
       - name: config private registry
         run: npm config set '@paladin-analytics:registry' "https://npm.pkg.github.com"
       - run: npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_TOKEN}"
-      # caching
+      # caching deps
       - uses: actions/cache@v2
         with:
           path: ~/.npm
@@ -42,6 +42,7 @@ jobs:
       - name: config private registry
         run: npm config set '@paladin-analytics:registry' "https://npm.pkg.github.com"
       - run: npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_TOKEN}"
+      # caching deps
       - uses: actions/cache@v2
         with:
           path: ~/.npm
