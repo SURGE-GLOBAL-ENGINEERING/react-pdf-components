@@ -31,28 +31,28 @@ jobs:
       - name: running lint on react-pdf-components
         run: npm run lint react-pdf-components
 
-build:
-  needs: lint
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 12.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12.x
-    - name: config private registry
-      run: npm config set '@paladin-analytics:registry' "https://npm.pkg.github.com"
-    - run: npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_TOKEN}"
-    # caching deps
-    - uses: actions/cache@v2
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
+  build:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: config private registry
+        run: npm config set '@paladin-analytics:registry' "https://npm.pkg.github.com"
+      - run: npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_TOKEN}"
+      # caching deps
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
-    - name: npm install
-      if: steps.cache-primes.outputs.cache-hit != 'true'
-      run: npm install
-    - name: building app and lib
-      run: npm run build
+      - name: npm install
+        if: steps.cache-primes.outputs.cache-hit != 'true'
+        run: npm install
+      - name: building app and lib
+        run: npm run build
