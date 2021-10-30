@@ -1,9 +1,10 @@
 name: Nx Deploy
 on:
-  pull_request:
-    branches:
-      - main
-    types: [closed]
+  [push]
+  # pull_request:
+  #   branches:
+  #     - main
+  #   types: [closed]
 env:
   BEFORE_SHA: ${{ github.event.before }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -73,7 +74,7 @@ jobs:
         working-directory: ./libs/react-pdf-components
         run: |
           npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_TOKEN}"
-          npm publish --no-git-tag-version --no-push --yes
+          npm publish --no-push --yes --dry-run
       - name: Commit files
         # if: github.event.pull_request.merged == true && contains(github.event.commits[0].message, '[skip-ci]') == false
         run: |
