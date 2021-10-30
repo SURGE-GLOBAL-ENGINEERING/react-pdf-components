@@ -24,7 +24,7 @@ const Footer: FC<FooterProps> = ({
   if (pageNumberAlignment === 'center') {
     return (
       <RPDFText
-        style={{ ...styles, alignSelf: 'center' }}
+        style={[styles || {}, { alignSelf: 'center' }]}
         fixed
         render={({ pageNumber, subPageNumber }) => {
           return appearOnGivenPage(
@@ -42,7 +42,7 @@ const Footer: FC<FooterProps> = ({
   return (
     <>
       <RPDFText
-        style={{ ...styles, alignSelf: 'flex-end' }}
+        style={[styles || {}, { alignSelf: 'flex-end' }]}
         fixed
         render={({ pageNumber, subPageNumber }) => {
           return appearOnGivenPage(
@@ -56,7 +56,7 @@ const Footer: FC<FooterProps> = ({
       />
 
       <RPDFText
-        style={{ ...styles, alignSelf: 'flex-start' }}
+        style={[styles || {}, { alignSelf: 'flex-start' }]}
         fixed
         render={({ pageNumber, subPageNumber }) => {
           return appearOnGivenPage(

@@ -45,7 +45,7 @@ const Header: FC<HeaderProps> = ({
       >
         {!isPageNumberHidden && (
           <RPDFText
-            style={{ ...styles }}
+            style={styles}
             fixed
             render={({ pageNumber, subPageNumber }) => {
               return appearOnGivenPage(
@@ -61,7 +61,7 @@ const Header: FC<HeaderProps> = ({
 
         {pageHeaderAlignment === 'outside' && (
           <RPDFText
-            style={{ ...styles, marginLeft: 8 }}
+            style={[styles || {}, { marginLeft: 8 }]}
             fixed
             render={({ pageNumber, subPageNumber }) => {
               return appearOnGivenPage(
@@ -87,10 +87,7 @@ const Header: FC<HeaderProps> = ({
         >
           <RPDFText
             debug={IS_DEBUG}
-            style={{
-              ...styles,
-              textAlign: 'center',
-            }}
+            style={[styles || {}, { textAlign: 'center' }]}
             fixed
             render={({ pageNumber, subPageNumber }) => {
               if (pageNumber % 2 === 0)
@@ -128,7 +125,7 @@ const Header: FC<HeaderProps> = ({
       >
         {pageHeaderAlignment === 'outside' && (
           <RPDFText
-            style={{ ...styles, marginRight: 8 }}
+            style={[styles || {}, { marginRight: 8 }]}
             fixed
             render={({ pageNumber, subPageNumber }) => {
               return appearOnGivenPage(
@@ -144,7 +141,7 @@ const Header: FC<HeaderProps> = ({
 
         {!isPageNumberHidden && (
           <RPDFText
-            style={{ ...styles }}
+            style={styles}
             fixed
             render={({ pageNumber, subPageNumber }) => {
               return appearOnGivenPage(

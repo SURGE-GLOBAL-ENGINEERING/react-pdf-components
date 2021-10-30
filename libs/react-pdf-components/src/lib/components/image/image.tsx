@@ -5,6 +5,7 @@ import ReactPDF, {
   Text as RPDFText,
   View as RPDFView,
 } from '@paladin-analytics/rpdf-renderer';
+import { Style } from '@paladin-analytics/rpdf-types';
 import { FunctionComponent } from 'react';
 
 /**
@@ -21,7 +22,7 @@ type alignmentType = 'left' | 'center' | 'right';
 interface ImageCoreProps extends ReactPDF.ImageWithSrcProp {
   caption?: string;
   captionAlignment?: alignmentType;
-  captionTextStyles?: ReactPDF.Styles;
+  captionTextStyles?: Style;
   /**
    * As a percentage of the width of the parent element
    */
@@ -68,7 +69,7 @@ function ImageCore({
         {caption && (
           <RPDFText
             debug={IS_DEBUG}
-            style={[styles.caption, captionTextStyles ?? {}]}
+            style={[styles.caption, captionTextStyles || {}]}
           >
             {caption}
           </RPDFText>
