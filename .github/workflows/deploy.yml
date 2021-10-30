@@ -74,7 +74,7 @@ jobs:
           path: libs/react-pdf-components
 
       - name: build
-        run: npm build react-pdf-components
+        run: npm run build react-pdf-components
 
       - name: publish to github packages
         working-directory: ./libs/react-pdf-components
