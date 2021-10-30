@@ -1,4 +1,4 @@
-name: Nx build
+name: build and test
 on: [push, pull_request]
 env:
   BEFORE_SHA: ${{ github.event.before }}
@@ -15,7 +15,6 @@ jobs:
       - name: config private registry
         run: npm config set '@paladin-analytics:registry' "https://npm.pkg.github.com"
       - run: npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_TOKEN}"
-      # caching deps
       - uses: actions/cache@v2
         with:
           path: ~/.npm
