@@ -70,9 +70,9 @@ jobs:
       - name: get-npm-version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@master
-         with:
+        with:
             path: libs/react-pdf-components
-          
+
       - name : git tag 
         run : git tag -a ${{ steps.package-version.outputs.current-version}}
         working-directory: ./libs/react-pdf-components
