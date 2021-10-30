@@ -64,13 +64,17 @@ jobs:
       - name: npm install
         run: npm install
 
-      # - name: Download a single artifact
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: dist
       - name: bump version
         run: ./.github/scripts/bump-version.sh
       - name: add publish config to npm
+      - name: get-npm-version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@master
+         with:
+          path: libs/react-pdf-components
+          
+      - name : git tag 
+        run : git tag -a ${{ steps.package-version.outputs.current-version}}
         working-directory: ./libs/react-pdf-components
         run: |
           npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_TOKEN}"
