@@ -49,7 +49,7 @@ jobs:
     # deploy package to github packages
     runs-on: ubuntu-latest
     steps:
-    # Setup
+      # Setup
       - name: Checkout Code
         uses: actions/checkout@v2
       - name: Use Node.js 12.x
@@ -58,9 +58,9 @@ jobs:
           node-version: 12.x
 
       - name: config private registry
-        run: | 
-        npm config set '@paladin-analytics:registry' "https://npm.pkg.github.com"
-        npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_TOKEN}"
+        run: |
+          npm config set '@paladin-analytics:registry' "https://npm.pkg.github.com"
+          npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_TOKEN}"
 
       - name: npm install
         run: npm install
@@ -89,7 +89,6 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add .
           git commit -m "Release Commit"
-          
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
