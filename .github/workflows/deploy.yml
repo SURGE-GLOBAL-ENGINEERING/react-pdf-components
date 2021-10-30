@@ -42,7 +42,7 @@ jobs:
       - name: building app and lib
         run: npm run build app
       - name: deploy for preview
-        run: npm run firebase:deploy:preview -- "rpc-${PR_NUMBER}" -P default --token $FIREBASE_TOKEN
+        run: firebase deploy --only hosting --token $FIREBASE_TOKEN
 
   publish-pkg:
     # deploy package to github packages

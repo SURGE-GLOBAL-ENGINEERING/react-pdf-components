@@ -1,24 +1,29 @@
-name: build and test
+name: deploy app for preview
 on:
-  push:
-    branches-ignore:
+  pull_request:
+    branches:
       - main
 env:
   BEFORE_SHA: ${{ github.event.before }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
+  PR_NUMBER: ${{ github.event.number }}
 jobs:
-  test:
-    name: lint and build
+  deploy-app-preview:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Code
+        uses: actions/checkout@v2
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
+
       - name: config private registry
         run: npm config set '@paladin-analytics:registry' "https://npm.pkg.github.com"
       - run: npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_TOKEN}"
+      # caching deps
+
       - uses: actions/cache@v2
         with:
           path: ~/.npm
@@ -26,15 +31,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: npm install
+      - name: install firebase
+        run: npm i firebase-tools -g
+
+      - name: install dependencies
         if: steps.cache-primes.outputs.cache-hit != 'true'
         run: npm install
 
-      - name: running lint on test-app
-        run: npm run lint app
-
-      - name: running lint on react-pdf-components
-        run: npm run lint react-pdf-components
-
       - name: building app and lib
-        run: npm run build
+        run: npm run build app
+      - name: deploy for preview
+        run: npm run firebase:deploy:preview -- "rpc-${PR_NUMBER}" -P default --token $FIREBASE_TOKEN

@@ -19,3 +19,4 @@ COMMIT_MESSAGE="$(git log -1 --pretty=format:"%s")"
 RELEASE_TYPE=${1:-$(getBuildType "$COMMIT_MESSAGE")}
 cd ./libs/react-pdf-components
 npm version "$RELEASE_TYPE"  -m "react-pdf-components $RELEASE_TYPE %s release"
+cd ../../
