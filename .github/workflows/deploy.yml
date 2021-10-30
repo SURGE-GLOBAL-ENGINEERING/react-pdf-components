@@ -68,15 +68,11 @@ jobs:
       - name: bump version
         run: ./.github/scripts/bump-version.sh
 
-      # get n=current package version to add a git tag
       - name: get-npm-version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@master
         with:
           path: libs/react-pdf-components
-
-      - name: git tag
-        run: git tag -a ${{ steps.package-version.outputs.current-version}}
 
       - name: publish to github packages
         working-directory: ./libs/react-pdf-components
@@ -89,6 +85,10 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add .
           git commit -m "Release Commit"
+
+      - name: git tag
+        run: git tag -a ${{ steps.package-version.outputs.current-version}}
+
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
