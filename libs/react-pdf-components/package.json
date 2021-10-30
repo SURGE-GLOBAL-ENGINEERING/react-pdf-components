@@ -1,4 +1,8 @@
 {
-  "name": "@atticus/react-pdf-components",
-  "version": "0.0.1"
+  "name": "@paladin-analytics/react-pdf-components",
+  "version": "0.0.2",
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "https://npm.pkg.github.com"
+  }
 }
