@@ -23,19 +23,23 @@ interface ImageCoreProps extends ReactPDF.ImageWithSrcProp {
   caption?: string;
   captionAlignment?: alignmentType;
   captionTextStyles?: Style;
+  imageContainerStyle?: Style;
   /**
    * As a percentage of the width of the parent element
    */
   width?: number; //Percentage of parent element
   link?: string;
 }
+
 const IS_DEBUG = false;
+
 function ImageCore({
   caption,
   captionAlignment = 'left',
   width,
   link,
   captionTextStyles,
+  imageContainerStyle,
   ...rPDFImageProps
 }: ImageCoreProps) {
   const styles = StyleSheet.create({
@@ -47,20 +51,25 @@ function ImageCore({
       display: 'flex',
       justifyContent: 'center',
       flexDirection: 'column',
-      marginBottom: '10px',
       textAlign: captionAlignment,
     },
     caption: {
-      width: '96%',
+      width: '100%',
       fontStyle: 'italic',
-      color: '#3568ba',
+      textDecoration: 'none',
+      color: '#000000',
+    },
+    linkStyle: {
       textDecoration: 'none',
     },
   });
 
   return (
-    <RPDFView style={[styles.container]} debug={IS_DEBUG}>
-      <RPDFLink src={link || ''}>
+    <RPDFView
+      style={[styles.container, imageContainerStyle || {}]}
+      debug={IS_DEBUG}
+    >
+      <RPDFLink src={link || ''} style={styles.linkStyle}>
         <RPDFImage
           debug={IS_DEBUG}
           style={[styles.image]}

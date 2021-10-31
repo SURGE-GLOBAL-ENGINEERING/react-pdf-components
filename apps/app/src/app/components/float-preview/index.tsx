@@ -19,11 +19,15 @@ const FloatPreview: FC<FloatPreviewProps> = () => {
       <Float direction="left">
         <Image
           width={25}
-          style={{ marginRight: 5 }}
           caption="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-          link="https://staging-app.atticus.io/"
+          // link="https://staging-app.atticus.io/"
           src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg"
-          alignment="center"
+          alignment="left"
+          imageContainerStyle={{
+            paddingRight: 7,
+            paddingBottom: 7,
+            paddingTop: 4,
+          }}
         ></Image>
       </Float>
       <TextNode fontSize={16}>
