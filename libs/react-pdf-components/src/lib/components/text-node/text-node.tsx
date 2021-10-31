@@ -90,33 +90,36 @@ export interface TextNodeProps extends ReactPDF.TextProps, Features {
   lineHeight?: number;
 }
 
-export const TextNode: FunctionComponent<TextNodeProps> = (props) => {
+export const TextNode: FunctionComponent<TextNodeProps> = ({
+  style,
+  ...otherProps
+}) => {
   // used to get the list item type if the current is a list item
   const composedStyles: { [key: string]: string | number | undefined }[] = [];
 
   const composeStyles = () => {
     composedStyles.push({
       ...styles.baseStyles,
-      fontSize: props.fontSize,
-      lineHeight: props.lineHeight,
+      fontSize: otherProps.fontSize,
+      lineHeight: otherProps.lineHeight,
     });
 
-    if (props.style && Array.isArray(props.style)) {
-      composedStyles.push(...(props.style as []));
+    if (style && Array.isArray(style)) {
+      composedStyles.push(...(style as []));
     } else {
-      composedStyles.push({ ...props.style });
+      composedStyles.push({ ...style });
     }
     // to add the relevant styles for the passed props
     for (const [propName, styleName] of Object.entries<keyof typeof styles>(
       featureToStyleMap
     )) {
-      if (props[propName as keyof Features]) {
+      if (otherProps[propName as keyof Features]) {
         composedStyles.push(styles[styleName]);
       }
     }
   };
   const handleSpecialStyles = () => {
-    if (props.underline && props.strikeThrough)
+    if (otherProps.underline && otherProps.strikeThrough)
       //handle spacial style cases --->
       composedStyles.push(styles.underlineStrikeThrough);
   };
@@ -126,8 +129,8 @@ export const TextNode: FunctionComponent<TextNodeProps> = (props) => {
 
   return (
     <RPDFView>
-      <RPDFText style={[...composedStyles]} {...props}>
-        {props.children}
+      <RPDFText style={[...composedStyles]} {...otherProps}>
+        {otherProps.children}
       </RPDFText>
     </RPDFView>
   );
