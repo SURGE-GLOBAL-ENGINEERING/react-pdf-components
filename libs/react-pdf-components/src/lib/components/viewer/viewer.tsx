@@ -33,6 +33,7 @@ interface ViewerProps {
   trimHeight: number;
   // eslint-disable-next-line no-unused-vars
   onLoadSuccess?: (doc: Doc) => void;
+  hyphens?: boolean;
 }
 
 const registerFonts = (fonts: BulkLoad[]) => {
@@ -50,6 +51,7 @@ export const Viewer: FC<ViewerProps> = ({
   fonts,
   trimHeight,
   onLoadSuccess,
+  hyphens = true,
 }) => {
   const [docUrl, setDocUrl] = useState('');
 
@@ -68,6 +70,15 @@ export const Viewer: FC<ViewerProps> = ({
   useEffect(() => {
     registerFonts(fonts);
   }, []);
+
+  useEffect(() => {
+    if (hyphens) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      Font.registerHyphenationCallback(null as any);
+    } else {
+      Font.registerHyphenationCallback((word) => [word]);
+    }
+  }, [hyphens]);
 
   useEffect(() => {
     if (!children) return;
