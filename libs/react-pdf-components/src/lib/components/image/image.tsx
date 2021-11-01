@@ -3,7 +3,7 @@ import ReactPDF, {
   Link as RPDFLink,
   StyleSheet,
   Text as RPDFText,
-  View as RPDFView,
+  View as RPDFView
 } from '@paladin-analytics/rpdf-renderer';
 import { Style } from '@paladin-analytics/rpdf-types';
 import { FunctionComponent } from 'react';
@@ -15,6 +15,7 @@ import { FunctionComponent } from 'react';
     - wrap
     - size -> percentage
     - link -> string
+    
  */
 
 type alignmentType = 'left' | 'center' | 'right';
