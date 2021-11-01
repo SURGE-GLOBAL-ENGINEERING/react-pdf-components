@@ -112,7 +112,7 @@ export const Viewer: FC<ViewerProps> = ({
       )} */}
 
       <Document file={docUrl} onLoadSuccess={onLoadSuccess}>
-        <Page pageNumber={currentPage} />
+        <Page pageNumber={currentPage} renderAnnotationLayer={false} />
       </Document>
     </div>
   );
