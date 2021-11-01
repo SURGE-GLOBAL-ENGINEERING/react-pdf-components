@@ -1,4 +1,4 @@
-import { Chapter, TextNode } from '@atticus/react-pdf-components';
+import { Chapter, TextNode } from '@paladin-analytics/react-pdf-components';
 import { Text, View } from '@paladin-analytics/rpdf-renderer';
 import { FC } from 'react';
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

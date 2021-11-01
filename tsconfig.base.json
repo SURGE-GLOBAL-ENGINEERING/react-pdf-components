@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@atticus/react-pdf-components": [
+      "@paladin-analytics/react-pdf-components": [
         "libs/react-pdf-components/src/index.ts"
       ]
     }

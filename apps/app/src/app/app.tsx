@@ -1,4 +1,4 @@
-import { Theme, Viewer } from '@atticus/react-pdf-components';
+import { Theme, Viewer } from '@paladin-analytics/react-pdf-components';
 import ReactPDF, {
   Document,
   Font,

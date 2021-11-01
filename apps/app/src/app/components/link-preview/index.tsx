@@ -1,4 +1,4 @@
-import { Link, Page } from '@atticus/react-pdf-components';
+import { Link, Page } from '@paladin-analytics/react-pdf-components';
 import { FC } from 'react';
 
 const LinkPreview: FC = () => {

@@ -9,6 +9,7 @@
     "url": "git+https://github.com/Paladin-Analytics/react-pdf-components.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/paladin-analytics"
+    "access": "restricted",
+    "registry": "https://npm.pkg.github.com"
   }
 }
