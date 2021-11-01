@@ -124,19 +124,18 @@ export const Chapter: FC<ChapterProps> = ({
 
       {/* footer */}
 
-      {pageNumberAlignment && pageNumberPosition === 'bottom' && (
-        <RPDFView fixed style={{ height: paddingBottom }}></RPDFView>
-      )}
       <RPDFView
         style={[
           {
             position: 'absolute',
-            bottom: paddingBottom,
+            bottom: 0,
             left: 0,
             right: 0,
             minHeight: paddingBottom,
+            display: 'flex',
+            alignSelf: 'flex-end',
+            paddingTop: 2,
           },
-          { display: 'flex', alignSelf: 'flex-end' },
           styleSheet.common,
         ]}
         fixed
