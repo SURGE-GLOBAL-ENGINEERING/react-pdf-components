@@ -77,7 +77,7 @@ jobs:
         run: npm run build react-pdf-components
 
       - name: publish to github packages
-        working-directory: ./libs/react-pdf-components
+        working-directory: ./dist/libs/react-pdf-components
         run: npm publish --no-push --yes
 
       - name: Commit changes
