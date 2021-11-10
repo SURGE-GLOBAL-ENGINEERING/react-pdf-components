@@ -110,8 +110,8 @@ export const Viewer: FC<ViewerProps> = ({
         justifyContent: 'center',
         // TODO: remove the unwanted
         zIndex: 1000,
-        marginTop: trimHeight > 20 ? '-14rem' : '-12rem',
-        marginBottom: trimHeight > 20 ? '-14rem' : '-12rem',
+        marginTop: trimHeight > 20 ? '-6rem' : '-4rem',
+        marginBottom: trimHeight > 20 ? '-6rem' : '-4rem',
         backgroundColor: '#fff',
         boxShadow: '0 0 20px #969696',
       }}
