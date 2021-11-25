@@ -102,12 +102,12 @@ export function App() {
                     Next page
                   </button>
                   <Viewer
+                    url=""
                     height="100%"
                     width="100%"
                     trimHeight={18}
                     transform="scale(0.7)"
                     currentPage={currentPage}
-                    fonts={editorFonts}
                     onLoadSuccess={(doc) => setTotalPages(doc.numPages)}
                   >
                     {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}

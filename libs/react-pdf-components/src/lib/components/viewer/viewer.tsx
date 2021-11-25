@@ -1,10 +1,5 @@
-import {
-  Document as RPDFDocument,
-  Font,
-  pdf,
-} from '@paladin-analytics/rpdf-renderer';
-import { FC, ReactElement, useEffect, useState } from 'react';
-import { Document, Page, pdfjs } from 'react-pdf';
+import { FC } from 'react';
+import { Document, LoadingProcessData, Page, pdfjs } from 'react-pdf';
 
 pdfjs.GlobalWorkerOptions.workerSrc =
   '//cdn.jsdelivr.net/npm/pdfjs-dist@2.9.359/build/pdf.worker.js';
@@ -13,91 +8,32 @@ type Doc = {
   numPages: number;
 };
 
-interface BulkLoad {
-  family: string;
-  fonts: {
-    src: string;
-    fontStyle?: string;
-    fontWeight?: string | number;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    [key: string]: any;
-  }[];
-}
-
 interface ViewerProps {
+  url: string;
   height?: string;
   width?: string;
   transform?: string;
   currentPage: number;
-  fonts: BulkLoad[];
   trimHeight: number;
   // eslint-disable-next-line no-unused-vars
+  onLoadProgress?: (data: LoadingProcessData) => void;
+  // eslint-disable-next-line no-unused-vars
   onLoadSuccess?: (doc: Doc) => void;
-  hyphens?: boolean;
+  onClick?: () => void;
 }
 
-const registerFonts = (fonts: BulkLoad[]) => {
-  fonts.forEach((font) => {
-    Font.register(font);
-  });
-};
-
 export const Viewer: FC<ViewerProps> = ({
-  children,
+  url,
   height,
   width,
   transform,
   currentPage,
-  fonts,
   trimHeight,
+  // TODO: look here
+  onLoadProgress,
   onLoadSuccess,
-  hyphens = true,
+  onClick,
 }) => {
-  const [docUrl, setDocUrl] = useState('');
-
-  // TODO: fix re-render on next page click
-  const generatePdfBlob = async (tree: ReactElement) => {
-    try {
-      const blob = await pdf(tree).toBlob();
-      const url = URL.createObjectURL(blob);
-      setDocUrl(url);
-    } catch (e) {
-      console.log(e);
-      // TODO: show banner with error
-    }
-  };
-
-  useEffect(() => {
-    registerFonts(fonts);
-  }, []);
-
-  useEffect(() => {
-    if (hyphens) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      Font.registerHyphenationCallback(null as any);
-    } else {
-      Font.registerHyphenationCallback((word) => [word]);
-    }
-  }, [hyphens]);
-
-  useEffect(() => {
-    if (!children) return;
-    const withDocumentWrapper = <RPDFDocument>{children}</RPDFDocument>;
-    generatePdfBlob(withDocumentWrapper);
-  }, [children]);
-
-  // const render = useAsync(async () => {
-  //   if (!children) return null;
-
-  //   registerFonts(fonts);
-
-  //   const withDocumentWrapper = <RPDFDocument>{children}</RPDFDocument>;
-  //   const blob = await pdf(withDocumentWrapper).toBlob();
-  //   const url = URL.createObjectURL(blob);
-
-  //   return url;
-  // }, [children]);
-
   return (
     <div
       style={{
@@ -108,6 +44,13 @@ export const Viewer: FC<ViewerProps> = ({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+        // make unselectable
+        WebkitTouchCallout: 'none',
+        WebkitUserSelect: 'none',
+        MozUserSelect: 'none',
+        msUserSelect: 'none',
+        userSelect: 'none',
+        cursor: onClick ? 'pointer' : 'auto',
         // TODO: remove the unwanted
         zIndex: 1000,
         marginTop: trimHeight > 20 ? '-14rem' : '-12rem',
@@ -115,14 +58,13 @@ export const Viewer: FC<ViewerProps> = ({
         backgroundColor: '#fff',
         boxShadow: '0 0 20px #969696',
       }}
+      onClick={onClick}
     >
-      {/* {render.loading && <div>Rendering PDF...</div>} */}
-
-      {/* {render.error && (
-        <div style={{ color: 'red' }}>{render.error.message}</div>
-      )} */}
-
-      <Document file={docUrl} onLoadSuccess={onLoadSuccess}>
+      <Document
+        file={url}
+        onLoadSuccess={onLoadSuccess}
+        onLoadProgress={onLoadProgress}
+      >
         <Page pageNumber={currentPage} renderAnnotationLayer={false} />
       </Document>
     </div>
