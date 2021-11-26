@@ -10,11 +10,10 @@ type Doc = {
 
 interface ViewerProps {
   url: string;
-  height?: string;
-  width?: string;
-  transform?: string;
   currentPage: number;
-  trimHeight: number;
+  transform?: string;
+  marginTop?: string;
+  marginBottom?: string;
   // eslint-disable-next-line no-unused-vars
   onLoadProgress?: (data: LoadingProcessData) => void;
   // eslint-disable-next-line no-unused-vars
@@ -24,12 +23,10 @@ interface ViewerProps {
 
 export const Viewer: FC<ViewerProps> = ({
   url,
-  height,
-  width,
   transform,
   currentPage,
-  trimHeight,
-  // TODO: look here
+  marginTop,
+  marginBottom,
   onLoadProgress,
   onLoadSuccess,
   onClick,
@@ -37,8 +34,6 @@ export const Viewer: FC<ViewerProps> = ({
   return (
     <div
       style={{
-        height,
-        width,
         transform,
         display: 'flex',
         flexDirection: 'column',
@@ -51,10 +46,9 @@ export const Viewer: FC<ViewerProps> = ({
         msUserSelect: 'none',
         userSelect: 'none',
         cursor: onClick ? 'pointer' : 'auto',
-        // TODO: remove the unwanted
         zIndex: 1000,
-        marginTop: trimHeight > 20 ? '-6rem' : '-4rem',
-        marginBottom: trimHeight > 20 ? '-6rem' : '-4rem',
+        marginTop,
+        marginBottom,
         backgroundColor: '#fff',
         boxShadow: '0 0 20px #969696',
       }}
