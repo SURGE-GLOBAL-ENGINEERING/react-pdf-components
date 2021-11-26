@@ -103,9 +103,6 @@ export function App() {
                   </button>
                   <Viewer
                     url=""
-                    height="100%"
-                    width="100%"
-                    trimHeight={18}
                     transform="scale(0.7)"
                     currentPage={currentPage}
                     onLoadSuccess={(doc) => setTotalPages(doc.numPages)}
