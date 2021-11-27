@@ -1,4 +1,5 @@
 export * from './chapter';
+export * from './chapter-title';
 export * from './document';
 export * from './float';
 export * from './image';

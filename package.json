@@ -21,6 +21,7 @@
   "dependencies": {
     "@paladin-analytics/rpdf-renderer": "^2.0.30",
     "core-js": "^3.6.5",
+    "number-to-words": "^1.2.4",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-pdf": "^5.4.0",
@@ -44,6 +45,7 @@
     "@testing-library/react-hooks": "7.0.1",
     "@types/jest": "26.0.24",
     "@types/node": "14.14.33",
+    "@types/number-to-words": "^1.2.1",
     "@types/react": "17.0.3",
     "@types/react-dom": "17.0.3",
     "@types/react-pdf": "^5.0.7",
