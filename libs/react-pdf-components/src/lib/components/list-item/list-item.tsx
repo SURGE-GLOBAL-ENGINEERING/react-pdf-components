@@ -2,6 +2,7 @@ import {
   Text as RPDFText,
   View as RPDFView,
 } from '@paladin-analytics/rpdf-renderer';
+import { Style as RPDFStyles } from '@paladin-analytics/rpdf-types';
 import {
   createElement,
   FC,
@@ -19,18 +20,20 @@ export const addListItemPrefix = (
   level: number,
   type: 'ol' | 'ul',
   index?: number,
-  fontSize?: number
+  style?: RPDFStyles
 ) => {
   if (!isValidElement(element)) {
     throw new Error('Invalid react element found in the tree');
   }
 
   if (type === 'ol' && index) {
-    console.log('siez', fontSize);
     return createElement(
       RPDFText,
       {
-        style: { marginLeft: index < 10 ? '10px' : '', fontSize: fontSize },
+        style: {
+          marginLeft: index < 10 ? '6px' : '',
+          ...style,
+        },
       },
       `${index}. `,
       element
@@ -40,7 +43,7 @@ export const addListItemPrefix = (
   const candidateIndex = level % bulletCandidates.length;
   return createElement(
     RPDFText,
-    { style: { fontSize: fontSize } },
+    { style },
     `${bulletCandidates[candidateIndex]} `,
     element
   );
@@ -52,14 +55,14 @@ const withListItemPrefix = (
   level: number,
   type: 'ol' | 'ul',
   index?: number,
-  fontSize?: number
+  style?: RPDFStyles
 ) => {
   if (!Array.isArray(children)) {
-    return addListItemPrefix(children, level, type, index, fontSize);
+    return [addListItemPrefix(children, level, type, index, style)];
   }
 
   return [
-    addListItemPrefix(children[0], level, type, index, fontSize),
+    addListItemPrefix(children[0], level, type, index, style),
     ...children.slice(1),
   ];
 };
@@ -71,16 +74,16 @@ export interface ListItemProps {
 
   // index should be available if the list is ordered
   index?: number;
-  fontSize?: number;
+  style?: RPDFStyles;
 }
 
-export const ListItem: FC<ListItemProps> = ({ children, index, fontSize }) => {
+export const ListItem: FC<ListItemProps> = ({ children, index, style }) => {
   const level = useContext(LevelContext);
   const type = useContext(TypeContext);
 
-  return (
-    <RPDFView>
-      {withListItemPrefix(children, level, type, index, fontSize)}
-    </RPDFView>
+  return createElement(
+    RPDFView,
+    {},
+    ...withListItemPrefix(children, level, type, index, style)
   );
 };

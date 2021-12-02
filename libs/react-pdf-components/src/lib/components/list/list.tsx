@@ -1,4 +1,5 @@
 import { StyleSheet, View as RPDFView } from '@paladin-analytics/rpdf-renderer';
+import { Style as RPDFStyles } from '@paladin-analytics/rpdf-types';
 import { createContext, FC, ReactElement, useContext } from 'react';
 import { addPropsToReactElement, LIST_ITEM_INDENT_WIDTH } from '../../utils';
 import { ListItemProps } from '../list-item';
@@ -21,14 +22,16 @@ const addPropsToChildren = (children: any) => {
 export interface ListProps {
   type: 'ul' | 'ol';
   children?: ReactElement<ListItemProps> | ReactElement<ListItemProps>[];
+  style?: RPDFStyles;
 }
 
-export const List: FC<ListProps> = ({ children, type }) => {
+export const List: FC<ListProps> = ({ children, type, style }) => {
   const level = useContext(LevelContext);
 
   const styles = StyleSheet.create({
     list: {
-      marginLeft: `${level * LIST_ITEM_INDENT_WIDTH}px`,
+      marginLeft: `${level * LIST_ITEM_INDENT_WIDTH}pt`,
+      ...style,
     },
   });
 
