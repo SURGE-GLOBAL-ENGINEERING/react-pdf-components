@@ -61,7 +61,7 @@ const Header: FC<HeaderProps> = ({
 
         {pageHeaderAlignment === 'outside' && (
           <RPDFText
-            style={[styles || {}, { marginLeft: 8 }]}
+            style={[styles || {}]}
             fixed
             render={({ pageNumber, subPageNumber }) => {
               return appearOnGivenPage(
@@ -125,7 +125,7 @@ const Header: FC<HeaderProps> = ({
       >
         {pageHeaderAlignment === 'outside' && (
           <RPDFText
-            style={[styles || {}, { marginRight: 8 }]}
+            style={[styles || {}]}
             fixed
             render={({ pageNumber, subPageNumber }) => {
               return appearOnGivenPage(
