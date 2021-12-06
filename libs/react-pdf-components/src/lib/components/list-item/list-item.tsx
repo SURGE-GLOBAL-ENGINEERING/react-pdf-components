@@ -35,7 +35,6 @@ export const addListItemPrefix = (
             fontSize: style?.fontSize,
           }}
         >
-          {index < 10 ? '\t' : ''}
           {index}.{' '}
         </RPDFText>
         {element}
