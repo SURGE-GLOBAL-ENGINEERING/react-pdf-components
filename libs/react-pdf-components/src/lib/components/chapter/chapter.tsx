@@ -87,7 +87,7 @@ export const Chapter: FC<ChapterProps> = ({
       width: '100%',
     },
     page: {
-      paddingBottom: transformChapterLayoutValues(paddingBottom, 2),
+      paddingBottom: transformChapterLayoutValues(paddingBottom, 1.5),
       paddingTop,
     },
   });
@@ -147,7 +147,7 @@ export const Chapter: FC<ChapterProps> = ({
             bottom: 0,
             left: 0,
             right: 0,
-            minHeight: transformChapterLayoutValues(paddingBottom, 2),
+            minHeight: transformChapterLayoutValues(paddingBottom, 1.5),
             display: 'flex',
             alignSelf: 'flex-end',
             paddingTop: 2,
