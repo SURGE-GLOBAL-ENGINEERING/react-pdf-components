@@ -30,7 +30,7 @@ export const List: FC<ListProps> = ({ children, type, style }) => {
 
   const styles = StyleSheet.create({
     list: {
-      marginLeft: `${level * LIST_ITEM_INDENT_WIDTH}pt`,
+      marginLeft: `${LIST_ITEM_INDENT_WIDTH}pt`,
       ...style,
     },
   });
