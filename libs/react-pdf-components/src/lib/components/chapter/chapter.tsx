@@ -41,6 +41,22 @@ export interface ChapterProps {
   headerStyles?: Pick<HeaderStyle, 'fontFamily' | 'fontSize'>;
 }
 
+const transformChapterLayoutValues = (
+  value?: string | number,
+  multiplier = 1
+) => {
+  if (typeof value === 'string') {
+    const strArr = value.split(/(\d+)/).filter(Boolean);
+    if (!+strArr[0]) return value;
+    const _value = +strArr[0] * multiplier;
+    return `${_value}${strArr[1]}`;
+  }
+  if (typeof value === 'number') {
+    return value * multiplier;
+  }
+  return value;
+};
+
 export const Chapter: FC<ChapterProps> = ({
   backgroundImageSrc,
   marginInside,
@@ -71,7 +87,7 @@ export const Chapter: FC<ChapterProps> = ({
       width: '100%',
     },
     page: {
-      paddingBottom,
+      paddingBottom: transformChapterLayoutValues(paddingBottom, 2),
       paddingTop,
     },
   });
@@ -131,10 +147,12 @@ export const Chapter: FC<ChapterProps> = ({
             bottom: 0,
             left: 0,
             right: 0,
-            minHeight: paddingBottom,
+            minHeight: transformChapterLayoutValues(paddingBottom, 2),
             display: 'flex',
             alignSelf: 'flex-end',
             paddingTop: 2,
+            justifyContent: 'flex-end',
+            paddingBottom,
           },
           styleSheet.common,
         ]}
