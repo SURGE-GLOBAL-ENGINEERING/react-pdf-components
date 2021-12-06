@@ -1,30 +1,40 @@
-import { Chapter, TextNode } from '@paladin-analytics/react-pdf-components';
+import {
+  Chapter,
+  ChapterProps,
+  TextNode,
+} from '@paladin-analytics/react-pdf-components';
 import { Text, View } from '@paladin-analytics/rpdf-renderer';
 import { FC } from 'react';
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface ChapterPreview {}
 
 const ChapterPreview: FC<ChapterPreview> = () => {
-  const props = {
-    pageNumberAlignment: 'outside',
-    pageNumberPosition: 'bottom',
+  const props: ChapterProps = {
+    pageNumberAlignment: 'center',
+    pageNumberPosition: 'top',
     evenPageHeaderText: 'Hyphens Test',
     oddPageHeaderText: 'Down the Rabbit-Hole',
-    pageHeaderAlignment: 'center',
-  } as any;
+    pageHeaderAlignment: 'outside',
+    getTransformedPageNumber: (no) => {
+      // page number conversions goes here (eg : to roman number)
+      return String(no);
+    },
+    headerStyles: {
+      fontFamily: 'Cardo',
+      fontSize: '12pt',
+    },
+    footerStyles: {
+      fontFamily: 'Cardo',
+      fontSize: '12pt',
+    },
+  };
   return (
     <>
       <Chapter
-        getTransformedPageNumber={(no) => {
-          // page number conversions goes here (eg : to roman number)
-          return String(no);
-        }}
-        paddingBottom={30}
+        paddingBottom={'30px'}
         paddingTop={30}
         marginInside={80}
         marginOutside={30}
-        footerStyles={{ fontSize: '14pt' }}
-        headerStyles={{ fontSize: '12pt' }}
         {...props}
       >
         <View style={{ minHeight: '20vh', justifyContent: 'center' }}>
