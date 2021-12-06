@@ -21,6 +21,7 @@ interface HeaderProps {
   evenPageHeaderText?: string;
   oddPageHeaderText?: string;
   pageHeaderAlignment?: 'center' | 'outside';
+  pageNumberMargin?: number | string;
   styles?: HeaderStyle;
 }
 
@@ -30,6 +31,7 @@ const Header: FC<HeaderProps> = ({
   oddPageHeaderText = '',
   pageHeaderAlignment = 'center',
   isPageNumberHidden,
+  pageNumberMargin = 30,
   styles,
 }) => {
   return (
@@ -45,7 +47,7 @@ const Header: FC<HeaderProps> = ({
       >
         {!isPageNumberHidden && (
           <RPDFText
-            style={[styles || {}, { marginRight: 30 }]}
+            style={[styles || {}, { marginRight: pageNumberMargin }]}
             fixed
             render={({ pageNumber, subPageNumber }) => {
               return appearOnGivenPage(
@@ -141,7 +143,7 @@ const Header: FC<HeaderProps> = ({
 
         {!isPageNumberHidden && (
           <RPDFText
-            style={[styles || {}, { marginLeft: 30 }]}
+            style={[styles || {}, { marginLeft: pageNumberMargin }]}
             fixed
             render={({ pageNumber, subPageNumber }) => {
               return appearOnGivenPage(

@@ -19,7 +19,10 @@ export interface ChapterProps {
   marginInside?: string | number;
   paddingTop?: string | number;
   paddingBottom?: string | number;
-
+  /**
+   * This used to set space between the page content and page number in the footer
+   */
+  paddingBottomMultiplier?: number;
   //Header - Footer config
   pageNumberPosition: 'top' | 'bottom';
   pageNumberAlignment: 'outside' | 'center';
@@ -37,6 +40,7 @@ export interface ChapterProps {
   /**
    * Header nad Footer styles for `fontFamily` and `fontSize`
    */
+  pageNumberMargin?: number | string;
   footerStyles?: Pick<FooterStyle, 'fontFamily' | 'fontSize'>;
   headerStyles?: Pick<HeaderStyle, 'fontFamily' | 'fontSize'>;
 }
@@ -71,7 +75,9 @@ export const Chapter: FC<ChapterProps> = ({
   pageHeight,
   pageWidth,
   paddingBottom,
+  paddingBottomMultiplier = 1.5,
   paddingTop,
+  pageNumberMargin,
   footerStyles,
   headerStyles,
   children,
@@ -87,7 +93,10 @@ export const Chapter: FC<ChapterProps> = ({
       width: '100%',
     },
     page: {
-      paddingBottom: transformChapterLayoutValues(paddingBottom, 1.5),
+      paddingBottom: transformChapterLayoutValues(
+        paddingBottom,
+        paddingBottomMultiplier
+      ),
       paddingTop,
     },
   });
@@ -130,6 +139,7 @@ export const Chapter: FC<ChapterProps> = ({
           oddPageHeaderText={oddPageHeaderText}
           isPageNumberHidden={pageNumberPosition === 'bottom'}
           transformedPageNumber={getTransformedPageNumber}
+          pageNumberMargin={pageNumberMargin}
           styles={headerStyles}
         />
       </RPDFView>
@@ -147,7 +157,10 @@ export const Chapter: FC<ChapterProps> = ({
             bottom: 0,
             left: 0,
             right: 0,
-            minHeight: transformChapterLayoutValues(paddingBottom, 1.5),
+            minHeight: transformChapterLayoutValues(
+              paddingBottom,
+              paddingBottomMultiplier
+            ),
             display: 'flex',
             alignSelf: 'flex-end',
             paddingTop: 2,
