@@ -13,7 +13,7 @@ import {
 import { LevelContext, ListProps, TypeContext } from '../list';
 import { TextNodeProps } from '../text-node';
 
-const bulletCandidates = ['•', '‣', '⦾', '⦿'];
+const bulletCandidates = ['•'];
 
 export const addListItemPrefix = (
   element: ReactElement,
@@ -27,25 +27,36 @@ export const addListItemPrefix = (
   }
 
   if (type === 'ol' && index) {
-    return createElement(
-      RPDFText,
-      {
-        style: {
-          marginLeft: index < 10 ? '6px' : '',
-          ...style,
-        },
-      },
-      `${index}. `,
-      element
+    return (
+      <RPDFText>
+        <RPDFText
+          style={{
+            fontFamily: style?.fontFamily,
+            fontSize: style?.fontSize,
+          }}
+        >
+          {index < 10 ? '\t' : ''}
+          {index}.{' '}
+        </RPDFText>
+        {element}
+      </RPDFText>
     );
   }
 
   const candidateIndex = level % bulletCandidates.length;
-  return createElement(
-    RPDFText,
-    { style },
-    `${bulletCandidates[candidateIndex]} `,
-    element
+
+  return (
+    <RPDFText>
+      <RPDFText
+        style={{
+          ...{ fontSize: style?.fontSize },
+          ...{ fontFamily: 'Courier' },
+        }}
+      >
+        {bulletCandidates[candidateIndex]}
+      </RPDFText>
+      {element}
+    </RPDFText>
   );
 };
 
