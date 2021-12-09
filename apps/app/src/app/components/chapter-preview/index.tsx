@@ -5,16 +5,23 @@ import {
 } from '@paladin-analytics/react-pdf-components';
 import { Text, View } from '@paladin-analytics/rpdf-renderer';
 import { FC } from 'react';
+import { getLayoutChapterProperties } from './layout-chapter-properties';
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface ChapterPreview {}
 
 const ChapterPreview: FC<ChapterPreview> = () => {
   const props: ChapterProps = {
-    pageNumberAlignment: 'center',
-    pageNumberPosition: 'top',
-    evenPageHeaderText: 'Hyphens Test',
-    oddPageHeaderText: 'Down the Rabbit-Hole',
-    pageHeaderAlignment: 'outside',
+    // pageNumberAlignment: 'outside',
+    // pageNumberPosition: 'top',
+    // evenPageHeaderText: 'Hyphens Test',
+    // oddPageHeaderText: 'Down the Rabbit-Hole',
+    // pageHeaderAlignment: 'center',
+    ...getLayoutChapterProperties(
+      'layout1',
+      'Author',
+      'Hyphens Test',
+      'Down the Rabbit-Hole'
+    ),
     getTransformedPageNumber: (no) => {
       // page number conversions goes here (eg : to roman number)
       return String(no);
@@ -44,7 +51,7 @@ const ChapterPreview: FC<ChapterPreview> = () => {
             Page Number:outside | Header Text:outside
           </TextNode>
         </View>
-        <Text>
+        <Text style={{ textAlign: 'justify' }}>
           Alicewasbeginningtogetverytiredfsitting by her sist and conversations
           of having nothing to do: once or twice she had peeped into the book
           her sister was reading, but it had no pictures or conversations in it,
@@ -56,7 +63,7 @@ const ChapterPreview: FC<ChapterPreview> = () => {
           pink eyes ran close by her.
         </Text>
 
-        <Text>
+        <Text style={{ textAlign: 'justify' }}>
           There was nothing so very remarkable in that; nor did Alice think it
           so very much out of the way to hear the Rabbit say to itself, “Oh
           dear! Oh dear! I shall be late!” (when she thought it over afterwards,
@@ -71,7 +78,7 @@ const ChapterPreview: FC<ChapterPreview> = () => {
           Alice after it, never once considering how in the world she was to get
           out again.
         </Text>
-        <Text>
+        <Text style={{ textAlign: 'justify' }}>
           The rabbit-hole went straight on like a tunnel for some way, and then
           dipped suddenly down, so suddenly that Alice had not a moment to think
           about stopping herself before she found herself falling down a very
@@ -87,13 +94,13 @@ const ChapterPreview: FC<ChapterPreview> = () => {
           jar for fear of killing somebody underneath, so managed to put it into
           one of the cupboards as she fell past it.
         </Text>
-        <Text>
+        <Text style={{ textAlign: 'justify' }}>
           “Well!” thought Alice to herself, “after such a fall as this, I shall
           think nothing of tumbling down stairs! How brave they’ll all think me
           at home! Why, I wouldn’t say anything about it, even if I fell off the
           top of the house!” (Which was very likely true.)
         </Text>
-        <Text>
+        <Text style={{ textAlign: 'justify' }}>
           Down, down, down. Would the fall never come to an end? “I wonder how
           many miles I’ve fallen by this time?” she said aloud. “I must be
           getting somewhere near the centre of the earth. Let me see: that would
@@ -106,7 +113,7 @@ const ChapterPreview: FC<ChapterPreview> = () => {
           idea what Latitude was, or Longitude either, but thought they were
           nice grand words to say.)
         </Text>
-        <Text>
+        <Text style={{ textAlign: 'justify' }}>
           Alicewasbeginningtogetverytiredfsitting by her sist and conversations
           of having nothing to do: once or twice she had peeped into the book
           her sister was reading, but it had no pictures or conversations in it,
@@ -118,7 +125,7 @@ const ChapterPreview: FC<ChapterPreview> = () => {
           pink eyes ran close by her.
         </Text>
 
-        <Text>
+        <Text style={{ textAlign: 'justify' }}>
           There was nothing so very remarkable in that; nor did Alice think it
           so very much out of the way to hear the Rabbit say to itself, “Oh
           dear! Oh dear! I shall be late!” (when she thought it over afterwards,
