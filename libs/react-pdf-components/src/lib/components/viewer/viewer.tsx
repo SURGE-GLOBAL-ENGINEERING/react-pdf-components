@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Document, LoadingProcessData, Page, pdfjs } from 'react-pdf';
+import { Document, Page, pdfjs } from 'react-pdf';
 
 pdfjs.GlobalWorkerOptions.workerSrc =
   '//cdn.jsdelivr.net/npm/pdfjs-dist@2.9.359/build/pdf.worker.js';
@@ -7,6 +7,11 @@ pdfjs.GlobalWorkerOptions.workerSrc =
 type Doc = {
   numPages: number;
 };
+
+interface LoadingProcessData {
+  loaded: number;
+  total: number;
+}
 
 interface ViewerProps {
   url: string;
