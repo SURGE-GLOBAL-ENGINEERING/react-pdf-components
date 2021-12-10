@@ -67,7 +67,7 @@ export function App() {
     if (!isNew) return;
     const route = routes.find((r) => r.label === viewLabel);
     if (!route) return;
-    setPDFBlobUrl(route.component.default({}) as any);
+    setPDFBlobUrl(route.component.default({}) as ReactElement);
   }, [isNew, routes, viewLabel]);
 
   useEffect(() => {
@@ -160,9 +160,7 @@ export function App() {
                 }
                 return (
                   <WithPDFViewer>
-                    {/* casting to any type as child can have different prop-types */}
-                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                    {r.component.default({ children: undefined }) as any}
+                    {r.component.default({}) as ReactElement}
                   </WithPDFViewer>
                 );
               }}
