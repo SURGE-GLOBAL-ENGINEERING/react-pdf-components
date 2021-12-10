@@ -1,725 +1,522 @@
-interface BulkLoad {
-  family: string;
-  fonts: {
-    src: string;
-    fontStyle?: string;
-    fontWeight?: string | number;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    [key: string]: any;
-  }[];
+/**
+ * Register all the fonts used for themes
+ *
+ * Ex :-
+ * {
+ *  family: string
+ *  fonts: [
+ *     { src: "https://atticus-content.s3.amazonaws.com/fonts/PTSans-Regular.ttf" },
+ *     { src: "https://atticus-content.s3.amazonaws.com/fonts/PTSans-Bold.ttf", fontWeight: 900 }, required for bold fonts
+ *     { src: "https://atticus-content.s3.amazonaws.com/fonts/PTSans-Italic.ttf", fontStyle: "italic" }, required for italic fonts
+ *     { src: "https://atticus-content.s3.amazonaws.com/fonts/PTSans-BoldItalic.ttf", fontWeight: 900, fontStyle: "italic" } required for bold and italic fonts
+ *  ]
+ * }
+ *
+ */
+
+interface FontSource {
+  src: string;
+  fontStyle?: string;
+  fontWeight?: string | number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
 }
 
-export const editorFonts: BulkLoad[] = [
+export interface BulkLoad {
+  family: string;
+  fonts: FontSource[];
+}
+
+type FontDataFont = Pick<FontSource, 'fontStyle' | 'fontWeight'> & {
+  fileName: string;
+  [key: string]: any;
+};
+
+export interface FontsData {
+  family: string;
+  fonts: FontDataFont[];
+}
+
+const fontsData: FontsData[] = [
   {
     family: 'RockSalt',
-    fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/RockSalt-Regular.ttf',
-      },
-    ],
+    fonts: [{ fileName: 'RockSalt-Regular.ttf', fontWeight: 400 }],
   },
   {
     family: 'Benne',
-    fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Benne-Regular.ttf',
-      },
-    ],
+    fonts: [{ fileName: 'Benne-Regular.ttf', fontWeight: 400 }],
   },
   {
     family: 'Delius',
-    fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Delius-Regular.ttf',
-      },
-    ],
+    fonts: [{ fileName: 'Delius-Regular.ttf', fontWeight: 400 }],
   },
   {
     family: 'Crushed',
-    fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Crushed-Regular.ttf',
-      },
-    ],
+    fonts: [{ fileName: 'Crushed-Regular.ttf', fontWeight: 400 }],
   },
   {
     family: 'HelveticaNeue',
-    fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/HelveticaNeue-Regular.ttf',
-      },
-    ],
+    fonts: [{ fileName: 'HelveticaNeue-Regular.ttf', fontWeight: 400 }],
   },
   {
     family: 'Selima',
-    fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Selima-Regular.ttf',
-      },
-    ],
+    fonts: [{ fileName: 'Selima-Regular.ttf', fontWeight: 400 }],
   },
   {
     family: 'GreatVibes',
-    fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/GreatVibes-Regular.ttf',
-      },
-    ],
+    fonts: [{ fileName: 'GreatVibes-Regular.ttf', fontWeight: 400 }],
   },
   {
     family: 'Marcellus',
-    fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Marcellus-Regular.ttf',
-      },
-    ],
+    fonts: [{ fileName: 'Marcellus-Regular.ttf', fontWeight: 400 }],
   },
   {
     family: 'EuphoriaScript',
-    fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/EuphoriaScript-Regular.ttf',
-      },
-    ],
+    fonts: [{ fileName: 'EuphoriaScript-Regular.ttf', fontWeight: 400 }],
   },
   {
     family: 'Megrim',
-    fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Megrim-Regular.ttf',
-      },
-    ],
+    fonts: [{ fileName: 'Megrim-Regular.ttf', fontWeight: 400 }],
   },
   {
     family: 'EmilysCandy',
-    fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/EmilysCandy-Regular.ttf',
-      },
-    ],
+    fonts: [{ fileName: 'EmilysCandy-Regular.ttf', fontWeight: 400 }],
   },
   {
     family: 'PressStart2P',
-    fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/PressStart2P-Regular.ttf',
-      },
-    ],
+    fonts: [{ fileName: 'PressStart2P-Regular.ttf', fontWeight: 400 }],
   },
   {
     family: 'Anton',
-    fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Anton-Regular.ttf',
-      },
-    ],
+    fonts: [{ fileName: 'Anton-Regular.ttf', fontWeight: 400 }],
   },
   {
     family: 'Audiowide',
-    fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Audiowide-Regular.ttf',
-      },
-    ],
+    fonts: [{ fileName: 'Audiowide-Regular.ttf', fontWeight: 400 }],
   },
   {
     family: 'Aldrich',
-    fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Aldrich-Regular.ttf',
-      },
-    ],
+    fonts: [{ fileName: 'Aldrich-Regular.ttf', fontWeight: 400 }],
   },
   {
     family: 'Forum',
-    fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Forum-Regular.ttf',
-      },
-    ],
+    fonts: [{ fileName: 'Forum-Regular.ttf', fontWeight: 400 }],
   },
   {
     family: 'SpecialElite',
-    fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/SpecialElite-Regular.ttf',
-      },
-    ],
+    fonts: [{ fileName: 'SpecialElite-Regular.ttf', fontWeight: 400 }],
   },
   {
     family: 'Voltaire',
-    fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Voltaire-Regular.ttf',
-      },
-    ],
+    fonts: [{ fileName: 'Voltaire-Regular.ttf', fontWeight: 400 }],
   },
   {
     family: 'SixCaps',
-    fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/SixCaps-Regular.ttf',
-      },
-    ],
+    fonts: [{ fileName: 'SixCaps-Regular.ttf', fontWeight: 400 }],
   },
   {
     family: 'TheanoDidot',
-    fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/TheanoDidot-Regular.ttf',
-      },
-    ],
+    fonts: [{ fileName: 'TheanoDidot-Regular.ttf', fontWeight: 400 }],
   },
   {
     family: 'YoungSerif',
-    fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/YoungSerif-Regular.ttf',
-      },
-    ],
+    fonts: [{ fileName: 'YoungSerif-Regular.ttf', fontWeight: 400 }],
   },
   {
     family: 'CinzelDecorative',
     fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/CinzelDecorative-Regular.ttf',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/CinzelDecorative-Bold.ttf',
-        fontWeight: 900,
-      },
+      { fileName: 'CinzelDecorative-Regular.ttf', fontWeight: 400 },
+      { fileName: 'CinzelDecorative-Bold.ttf', fontWeight: 900 },
     ],
   },
   {
     family: 'Cinzel',
     fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Cinzel-Regular.ttf',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Cinzel-Bold.ttf',
-        fontWeight: 900,
-      },
+      { fileName: 'Cinzel-Regular.ttf', fontWeight: 400 },
+      { fileName: 'Cinzel-Bold.ttf', fontWeight: 900 },
     ],
   },
   {
     family: 'BigShouldersDisplay',
     fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/BigShouldersDisplay-Regular.ttf',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/BigShouldersDisplay-Bold.ttf',
-        fontWeight: 900,
-      },
+      { fileName: 'BigShouldersDisplay-Regular.ttf', fontWeight: 400 },
+      { fileName: 'BigShouldersDisplay-Bold.ttf', fontWeight: 900 },
     ],
   },
   {
     family: 'Syncopate',
     fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Syncopate-Regular.ttf',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Syncopate-Bold.ttf',
-        fontWeight: 900,
-      },
+      { fileName: 'Syncopate-Regular.ttf', fontWeight: 400 },
+      { fileName: 'Syncopate-Bold.ttf', fontWeight: 900 },
     ],
   },
   {
     family: 'LifeSaversBold',
     fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/LifeSavers-Regular.ttf',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/LifeSavers-Bold.ttf',
-        fontWeight: 900,
-      },
+      { fileName: 'LifeSavers-Regular.ttf', fontWeight: 400 },
+      { fileName: 'LifeSavers-Bold.ttf', fontWeight: 900 },
     ],
   },
   {
-    family: 'VollkornSC-Bold',
+    family: 'VollkornSC',
     fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/VollkornSC-Regular.ttf',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/VollkornSC-Bold.ttf',
-        fontWeight: 900,
-      },
+      { fileName: 'VollkornSC-Regular.ttf', fontWeight: 400 },
+      { fileName: 'VollkornSC-Bold.ttf', fontWeight: 900 },
     ],
   },
   {
     family: 'Spartan',
     fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Spartan-Regular.ttf',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Spartan-Bold.ttf',
-        fontWeight: 900,
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Spartan-Light.ttf',
-        fontStyle: 'italic',
-      },
+      { fileName: 'Spartan-Regular.ttf', fontWeight: 400 },
+      { fileName: 'Spartan-Bold.ttf', fontWeight: 900 },
+      { fileName: 'Spartan-Light.ttf', fontStyle: 'italic' },
     ],
   },
   {
     family: 'OldStandardTT',
     fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/OldStandardTT-Regular.ttf',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/OldStandardTT-Bold.ttf',
-        fontWeight: 900,
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/OldStandardTT-Italic.ttf',
-        fontStyle: 'italic',
-      },
+      { fileName: 'OldStandardTT-Regular.ttf', fontWeight: 400 },
+      { fileName: 'OldStandardTT-Bold.ttf', fontWeight: 900 },
+      { fileName: 'OldStandardTT-Italic.ttf', fontStyle: 'italic' },
     ],
   },
   {
     family: 'Cardo',
     fonts: [
-      { src: 'https://atticus-content.s3.amazonaws.com/fonts/Cardo.ttf' },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Cardo-Bold.ttf',
-        fontWeight: 900,
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Cardo-Italic.ttf',
-        fontStyle: 'italic',
-      },
+      { fileName: 'Cardo.ttf', fontWeight: 400 },
+      { fileName: 'Cardo-Bold.ttf', fontWeight: 900 },
+      { fileName: 'Cardo-Italic.ttf', fontStyle: 'italic' },
     ],
   },
   {
     family: 'CrimsonPro',
     fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/CrimsonPro-Regular.ttf',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/CrimsonPro-Bold.ttf',
-        fontWeight: 900,
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/CrimsonPro-Italic.ttf',
-        fontStyle: 'italic',
-      },
+      { fileName: 'CrimsonPro-Regular.ttf', fontWeight: 400 },
+      { fileName: 'CrimsonPro-Bold.ttf', fontWeight: 900 },
+      { fileName: 'CrimsonPro-Italic.ttf', fontStyle: 'italic' },
     ],
   },
   {
     family: 'LibreBaskerville',
     fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/LibreBaskerville.ttf',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/LibreBaskerville-Regular.otf',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/LibreBaskerville-Bold.otf',
-        fontWeight: 900,
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/LibreBaskerville-Italic.otf',
-        fontStyle: 'italic',
-      },
+      { fileName: 'LibreBaskerville.ttf', fontWeight: 400 },
+      { fileName: 'LibreBaskerville-Regular.otf', fontWeight: 400 },
+      { fileName: 'LibreBaskerville-Bold.otf', fontWeight: 900 },
+      { fileName: 'LibreBaskerville-Italic.otf', fontStyle: 'italic' },
     ],
   },
   {
     family: 'LibreCaslon',
     fonts: [
-      { src: 'https://atticus-content.s3.amazonaws.com/fonts/LibreCaslon.ttf' },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/LibreCaslon-Regular.otf',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/LibreCaslon-Bold.otf',
-        fontWeight: 900,
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/LibreCaslon-Italic.otf',
-        fontStyle: 'italic',
-      },
+      { fileName: 'LibreCaslon.ttf', fontWeight: 400 },
+      { fileName: 'LibreCaslon-Regular.otf', fontWeight: 400 },
+      { fileName: 'LibreCaslon-Bold.otf', fontWeight: 900 },
+      { fileName: 'LibreCaslon-Italic.otf', fontStyle: 'italic' },
     ],
   },
   {
     family: 'Lora',
     fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Lora-Regular.ttf',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Lora-Bold.ttf',
-        fontWeight: 900,
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Lora-Italic.ttf',
-        fontStyle: 'italic',
-      },
+      { fileName: 'Lora-Regular.ttf', fontWeight: 400 },
+      { fileName: 'Lora-Bold.ttf', fontWeight: 900 },
+      { fileName: 'Lora-Italic.ttf', fontStyle: 'italic' },
     ],
   },
   {
     family: 'Rosario',
     fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Rosario-Regular.ttf',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Rosario-Bold.ttf',
-        fontWeight: 900,
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Rosario-Italic.ttf',
-        fontStyle: 'italic',
-      },
+      { fileName: 'Rosario-Regular.ttf', fontWeight: 400 },
+      { fileName: 'Rosario-Bold.ttf', fontWeight: 900 },
+      { fileName: 'Rosario-Italic.ttf', fontStyle: 'italic' },
     ],
   },
   {
     family: 'Spectral',
     fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Spectral-Regular.ttf',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Spectral-Bold.ttf',
-        fontWeight: 900,
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Spectral-Italic.ttf',
-        fontStyle: 'italic',
-      },
+      { fileName: 'Spectral-Regular.ttf', fontWeight: 400 },
+      { fileName: 'Spectral-Bold.ttf', fontWeight: 900 },
+      { fileName: 'Spectral-Italic.ttf', fontStyle: 'italic' },
     ],
   },
   {
     family: 'SourceSansPro',
     fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/SourceSansPro-Regular.otf',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/SourceSansPro-Bold.otf',
-        fontWeight: 900,
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/SourceSansPro-It.otf',
-        fontStyle: 'italic',
-      },
+      { fileName: 'SourceSansPro-Regular.otf', fontWeight: 400 },
+      { fileName: 'SourceSansPro-Bold.otf', fontWeight: 900 },
+      { fileName: 'SourceSansPro-It.otf', fontStyle: 'italic' },
     ],
   },
   {
     family: 'Cantarell',
     fonts: [
+      { fileName: 'Cantarell-Regular.ttf', fontWeight: 400 },
       {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Cantarell-BoldItalic.ttf',
-        fontWeight: 900,
+        fileName: 'Cantarell-BoldItalic.ttf',
         fontStyle: 'italic',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Cantarell-Bold.ttf',
         fontWeight: 900,
       },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Cantarell-Italic.ttf',
-        fontStyle: 'italic',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Cantarell-Regular.ttf',
-      },
+      { fileName: 'Cantarell-Bold.ttf', fontWeight: 900 },
+      { fileName: 'Cantarell-Italic.ttf', fontStyle: 'italic' },
     ],
   },
   {
     family: 'RobotoCondensed',
     fonts: [
+      { fileName: 'RobotoCondensed-Regular.ttf', fontWeight: 400 },
       {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/RobotoCondensed-BoldItalic.ttf',
-        fontWeight: 900,
+        fileName: 'RobotoCondensed-BoldItalic.ttf',
         fontStyle: 'italic',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/RobotoCondensed-Bold.ttf',
         fontWeight: 900,
       },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/RobotoCondensed-Italic.ttf',
-        fontStyle: 'italic',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/RobotoCondensed-Regular.ttf',
-      },
+      { fileName: 'RobotoCondensed-Bold.ttf', fontWeight: 900 },
+      { fileName: 'RobotoCondensed-Italic.ttf', fontStyle: 'italic' },
     ],
   },
   {
     family: 'Roboto-Light',
     fonts: [
+      { fileName: 'Roboto-Regular.ttf', fontWeight: 400 },
       {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Roboto-BoldItalic.ttf',
-        fontWeight: 900,
+        fileName: 'Roboto-BoldItalic.ttf',
         fontStyle: 'italic',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Roboto-Bold.ttf',
         fontWeight: 900,
       },
+      { fileName: 'Roboto-Bold.ttf', fontWeight: 900 },
+      { fileName: 'Roboto-Italic.ttf', fontStyle: 'italic' },
+    ],
+  },
+  {
+    family: 'Roboto',
+    fonts: [
+      { fileName: 'Roboto-Regular.ttf', fontWeight: 400 },
       {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Roboto-Italic.ttf',
+        fileName: 'Roboto-BoldItalic.ttf',
         fontStyle: 'italic',
+        fontWeight: 900,
       },
+      { fileName: 'Roboto-Bold.ttf', fontWeight: 900 },
+      { fileName: 'Roboto-Italic.ttf', fontStyle: 'italic' },
+    ],
+  },
+  {
+    family: 'Roboto',
+    fonts: [
       {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Roboto-Regular.ttf',
+        fileName: 'Roboto-BoldItalic.ttf',
+        fontStyle: 'italic',
+        fontWeight: 900,
       },
+      { fileName: 'Roboto-Bold.ttf', fontWeight: 900 },
+      { fileName: 'Roboto-Italic.ttf', fontStyle: 'italic' },
+      { fileName: 'Roboto-Regular.ttf' },
+      { fileName: 'Roboto-Regular.ttf', fontWeight: 400 },
     ],
   },
   {
     family: 'Poppins',
     fonts: [
+      { fileName: 'Poppins-Light.ttf', fontWeight: 300 },
+      { fileName: 'Poppins-Regular.ttf', fontWeight: 400 },
       {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Poppins-BoldItalic.ttf',
-        fontWeight: 900,
+        fileName: 'Poppins-BoldItalic.ttf',
         fontStyle: 'italic',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Poppins-Bold.ttf',
         fontWeight: 900,
       },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Poppins-Italic.ttf',
-        fontStyle: 'italic',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Poppins-Regular.ttf',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Poppins-Light.ttf',
-        fontWeight: 400,
-      },
+      { fileName: 'Poppins-Bold.ttf', fontWeight: 900 },
+      { fileName: 'Poppins-Italic.ttf', fontStyle: 'italic' },
     ],
   },
   {
     family: 'AlegreyaSansSC',
     fonts: [
+      { fileName: 'AlegreyaSansSC-Light.ttf', fontWeight: 300 },
+      { fileName: 'AlegreyaSansSC-Regular.ttf', fontWeight: 400 },
       {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/AlegreyaSansSC-BoldItalic.ttf',
-        fontWeight: 900,
+        fileName: 'AlegreyaSansSC-BoldItalic.ttf',
         fontStyle: 'italic',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/AlegreyaSansSC-Bold.ttf',
         fontWeight: 900,
       },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/AlegreyaSansSC-Italic.ttf',
-        fontStyle: 'italic',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/AlegreyaSansSC-Regular.ttf',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/AlegreyaSansSC-Light.ttf',
-        fontWeight: 400,
-      },
+      { fileName: 'AlegreyaSansSC-Bold.ttf', fontWeight: 900 },
+      { fileName: 'AlegreyaSansSC-Italic.ttf', fontStyle: 'italic' },
     ],
   },
   {
     family: 'Alegreya',
     fonts: [
+      { fileName: 'Alegreya-Regular.ttf', fontWeight: 400 },
       {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Alegreya-BoldItalic.ttf',
-        fontWeight: 900,
+        fileName: 'Alegreya-BoldItalic.ttf',
         fontStyle: 'italic',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Alegreya-Bold.ttf',
         fontWeight: 900,
       },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Alegreya-Italic.ttf',
-        fontStyle: 'italic',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Alegreya-Regular.ttf',
-      },
+      { fileName: 'Alegreya-Bold.ttf', fontWeight: 900 },
+      { fileName: 'Alegreya-Italic.ttf', fontStyle: 'italic' },
     ],
   },
   {
     family: 'Quantico',
     fonts: [
+      { fileName: 'Quantico-Regular.ttf', fontWeight: 400 },
       {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Quantico-BoldItalic.ttf',
-        fontWeight: 900,
+        fileName: 'Quantico-BoldItalic.ttf',
         fontStyle: 'italic',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Quantico-Bold.ttf',
         fontWeight: 900,
       },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Quantico-Italic.ttf',
-        fontStyle: 'italic',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Quantico-Regular.ttf',
-      },
+      { fileName: 'Quantico-Bold.ttf', fontWeight: 900 },
+      { fileName: 'Quantico-Italic.ttf', fontStyle: 'italic' },
     ],
   },
   {
     family: 'Raleway',
     fonts: [
+      { fileName: 'Raleway-Light.ttf', fontWeight: 300 },
+      { fileName: 'Raleway-Regular.ttf', fontWeight: 400 },
       {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Raleway-BoldItalic.ttf',
-        fontWeight: 900,
+        fileName: 'Raleway-BoldItalic.ttf',
         fontStyle: 'italic',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Raleway-Bold.ttf',
         fontWeight: 900,
       },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Raleway-Italic.ttf',
-        fontStyle: 'italic',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Raleway-Regular.ttf',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Raleway-Light.ttf',
-        fontWeight: 400,
-      },
+      { fileName: 'Raleway-Bold.ttf', fontWeight: 900 },
+      { fileName: 'Raleway-Italic.ttf', fontStyle: 'italic' },
     ],
   },
   {
     family: 'Oswald',
     fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Oswald-Bold.ttf',
-        fontWeight: 900,
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Oswald-Light.ttf',
-        fontStyle: 'italic',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Oswald-Regular.ttf',
-      },
+      { fileName: 'Oswald-Regular.ttf', fontWeight: 400 },
+      { fileName: 'Oswald-Bold.ttf', fontWeight: 900 },
+      { fileName: 'Oswald-Light.ttf', fontStyle: 'italic' },
     ],
   },
   {
     family: 'Montserrat',
     fonts: [
+      { fileName: 'Montserrat-Regular.ttf', fontWeight: 400 },
       {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Montserrat-BoldItalic.ttf',
-        fontWeight: 900,
+        fileName: 'Montserrat-BoldItalic.ttf',
         fontStyle: 'italic',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Montserrat-Bold.ttf',
         fontWeight: 900,
       },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Montserrat-Italic.ttf',
-        fontStyle: 'italic',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Montserrat-Regular.ttf',
-      },
+      { fileName: 'Montserrat-Bold.ttf', fontWeight: 900 },
+      { fileName: 'Montserrat-Italic.ttf', fontStyle: 'italic' },
     ],
   },
   {
     family: 'EBGaramond',
     fonts: [
+      { fileName: 'EBGaramond.ttf', fontWeight: 400 },
       {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/EBGaramond-BoldItalic.ttf',
-        fontWeight: 900,
+        fileName: 'EBGaramond-BoldItalic.ttf',
         fontStyle: 'italic',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/EBGaramond-Bold.ttf',
         fontWeight: 900,
       },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/EBGaramond-Italic.ttf',
-        fontStyle: 'italic',
-      },
-      { src: 'https://atticus-content.s3.amazonaws.com/fonts/EBGaramond.ttf' },
+      { fileName: 'EBGaramond-Bold.ttf', fontWeight: 900 },
+      { fileName: 'EBGaramond-Italic.ttf', fontStyle: 'italic' },
     ],
   },
   {
     family: 'PTSans',
     fonts: [
+      { fileName: 'PTSans-Regular.ttf', fontWeight: 400 },
       {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/PTSans-BoldItalic.ttf',
-        fontWeight: 900,
+        fileName: 'PTSans-BoldItalic.ttf',
         fontStyle: 'italic',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/PTSans-Bold.ttf',
         fontWeight: 900,
       },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/PTSans-Italic.ttf',
-        fontStyle: 'italic',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/PTSans-Regular.ttf',
-      },
+      { fileName: 'PTSans-Bold.ttf', fontWeight: 900 },
+      { fileName: 'PTSans-Italic.ttf', fontStyle: 'italic' },
     ],
   },
-  /// EXTRA
+  {
+    family: 'PT Sans',
+    fonts: [
+      { fileName: 'PTSans-Regular.ttf', fontWeight: 400 },
+      {
+        fileName: 'PTSans-BoldItalic.ttf',
+        fontStyle: 'italic',
+        fontWeight: 900,
+      },
+      { fileName: 'PTSans-Bold.ttf', fontWeight: 900 },
+      { fileName: 'PTSans-Italic.ttf', fontStyle: 'italic' },
+    ],
+  },
   {
     family: 'Allura',
-    fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/Allura-Regular.ttf',
-      },
-    ],
+    fonts: [{ fileName: 'Allura-Regular.ttf', fontWeight: 400 }],
   },
   {
     family: 'BlackOpsOne',
-    fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/BlackOpsOne-Regular.ttf',
-      },
-    ],
+    fonts: [{ fileName: 'BlackOpsOne-Regular.ttf', fontWeight: 400 }],
   },
   {
     family: 'DelaGothicOne',
-    fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/DelaGothicOne-Regular.ttf',
-      },
-    ],
+    fonts: [{ fileName: 'DelaGothicOne-Regular.ttf', fontWeight: 400 }],
   },
   {
     family: 'EBGaramond12',
     fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/EBGaramond12-Regular.ttf',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/EBGaramond12-Italic.ttf',
-        fontStyle: 'italic',
-      },
+      { fileName: 'EBGaramond12-Regular.ttf', fontWeight: 400 },
+      { fileName: 'EBGaramond12-Italic.ttf', fontStyle: 'italic' },
     ],
   },
   {
     family: 'OpenDyslexic',
     fonts: [
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/OpenDyslexic-Regular.ttf',
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/OpenDyslexic-Bold.ttf',
-        fontWeight: 900,
-      },
-      {
-        src: 'https://atticus-content.s3.amazonaws.com/fonts/OpenDyslexic-Italic.ttf',
-        fontStyle: 'italic',
-      },
+      { fileName: 'OpenDyslexic-Regular.ttf', fontWeight: 400 },
+      { fileName: 'OpenDyslexic-Bold.ttf', fontWeight: 900 },
+      { fileName: 'OpenDyslexic-Italic.ttf', fontStyle: 'italic' },
+    ],
+  },
+  {
+    family: 'OpenSans',
+    fonts: [{ fileName: 'OpenSans-Regular.ttf', fontWeight: 400 }],
+  },
+  {
+    family: 'Open Sans',
+    fonts: [{ fileName: 'OpenSans-Regular.ttf', fontWeight: 400 }],
+  },
+  {
+    family: 'LifeSavers',
+    fonts: [
+      { fileName: 'LifeSavers-Regular.ttf', fontWeight: 400 },
+      { fileName: 'LifeSavers-Bold.ttf', fontWeight: 900 },
     ],
   },
 ];
+
+const withRegularFontAsItalicFont = (fonts: FontDataFont[]) => {
+  // Get font with fontWeight 400
+  const font = fonts.find(({ fontWeight }) => fontWeight === 400);
+  if (!font) return fonts;
+  const { fileName } = font;
+  // Add this font as Italic font
+  const _fonts = [...fonts, { fileName, fontStyle: 'italic' }];
+  return _fonts;
+};
+
+const hasItalicFont = (fonts: FontDataFont[]) => {
+  return fonts.findIndex(({ fontStyle }) => fontStyle === 'italic') !== -1;
+};
+
+const addFallbacksForMissingStyles = (fonts: FontDataFont[]) => {
+  if (!hasItalicFont(fonts)) {
+    /**
+     * Use same font with fontWeight 400 as Italic font
+     */
+    return withRegularFontAsItalicFont(fonts);
+  }
+  return fonts;
+};
+
+const editorFonts = fontsData.map(({ family, fonts }) => {
+  const _fonts = addFallbacksForMissingStyles(fonts).map((font) => ({
+    ...font,
+    src: `https://atticus-content.s3.amazonaws.com/fonts/${font.fileName}`,
+  }));
+  return {
+    family,
+    fonts: _fonts,
+  } as BulkLoad;
+});
+
+export { editorFonts };
