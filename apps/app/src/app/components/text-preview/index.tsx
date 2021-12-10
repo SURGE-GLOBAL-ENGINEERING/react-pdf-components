@@ -1,8 +1,4 @@
-import {
-  Page,
-  TextNode,
-  useTheme,
-} from '@paladin-analytics/react-pdf-components';
+import { Page, TextNode } from '@paladin-analytics/react-pdf-components';
 import { FC } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -17,10 +13,8 @@ interface TextPreviewProps {}
  * *smallcaps
  */
 const TextPreview: FC<TextPreviewProps> = () => {
-  const theme = useTheme();
-
   return (
-    <Page style={[{ ...theme }]} wrap size="A4">
+    <Page wrap size="A4">
       <TextNode fontSize={40}>font size : 40</TextNode>
       <TextNode bold>Bold</TextNode>
       <TextNode italic>italic</TextNode>
