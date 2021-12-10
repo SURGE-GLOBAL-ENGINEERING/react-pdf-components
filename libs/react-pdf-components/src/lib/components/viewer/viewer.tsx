@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { CSSProperties, FC } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 
 pdfjs.GlobalWorkerOptions.workerSrc =
@@ -24,26 +24,20 @@ interface ViewerProps {
   // eslint-disable-next-line no-unused-vars
   onLoadSuccess?: (doc: Doc) => void;
   onClick?: () => void;
+  style?: CSSProperties;
 }
 
 export const Viewer: FC<ViewerProps> = ({
   url,
-  transform,
   currentPage,
-  marginTop,
-  marginBottom,
   onLoadProgress,
   onLoadSuccess,
   onClick,
+  style,
 }) => {
   return (
     <div
       style={{
-        transform,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
         // make unselectable
         WebkitTouchCallout: 'none',
         WebkitUserSelect: 'none',
@@ -51,11 +45,7 @@ export const Viewer: FC<ViewerProps> = ({
         msUserSelect: 'none',
         userSelect: 'none',
         cursor: onClick ? 'pointer' : 'auto',
-        zIndex: 1000,
-        marginTop,
-        marginBottom,
-        backgroundColor: '#fff',
-        boxShadow: '0 0 20px #969696',
+        ...style,
       }}
       onClick={onClick}
     >
