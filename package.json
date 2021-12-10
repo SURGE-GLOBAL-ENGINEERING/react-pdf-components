@@ -19,7 +19,7 @@
   },
   "private": true,
   "dependencies": {
-    "@paladin-analytics/rpdf-renderer": "^2.0.30",
+    "@paladin-analytics/rpdf-renderer": "^2.1.0",
     "core-js": "^3.6.5",
     "react": "17.0.2",
     "react-dom": "17.0.2",
