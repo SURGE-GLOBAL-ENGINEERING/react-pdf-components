@@ -42,6 +42,9 @@ const ChapterPreview: FC<ChapterPreview> = () => {
         paddingTop={30}
         marginInside={80}
         marginOutside={30}
+        footerStyles={{ fontSize: '14pt' }}
+        headerStyles={{ fontSize: '12pt' }}
+        backgroundImageSrc="https://media.istockphoto.com/photos/white-studio-background-picture-id1040250650?k=20&m=1040250650&s=612x612&w=0&h=lEWpioJ3jet0QIZVBoU2Ygaua8YMHFfHN1mvT28xRZ4="
         {...props}
       >
         <View style={{ minHeight: '20vh', justifyContent: 'center' }}>
@@ -396,7 +399,7 @@ const ChapterPreview: FC<ChapterPreview> = () => {
         pageNumberPosition="top"
         marginInside={40}
         marginOutside={20}
-        backgroundImageSrc="https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/gray-background-7131-96d780fd18d4eaf58a7331d45573204e@1x.jpg"
+        backgroundImageSrc="https://thumbs.dreamstime.com/b/fondo-cl%C3%A1sico-beige-del-papel-pintado-del-estampado-de-plores-66866744.jpg"
       >
         <View style={{ minHeight: '20vh', justifyContent: 'center' }}>
           <TextNode fontSize={20}>Chapter 2</TextNode>
