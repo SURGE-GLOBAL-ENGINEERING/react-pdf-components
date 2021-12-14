@@ -87,10 +87,12 @@ export const Chapter: FC<ChapterProps> = ({
       marginOutside,
       marginInside,
     },
-    imageFullBleed: {
+    fullBleedImageContainer: {
       position: 'absolute',
       zIndex: -1,
-      width: '100%',
+      top: 0,
+      left: 0,
+      right: 0,
     },
     page: {
       paddingBottom: transformChapterLayoutValues(
@@ -113,10 +115,9 @@ export const Chapter: FC<ChapterProps> = ({
       {/* bg-image */}
 
       {backgroundImageSrc && (
-        <RPDFImage
-          src={backgroundImageSrc}
-          style={[styleSheet.imageFullBleed]}
-        />
+        <RPDFView style={styleSheet.fullBleedImageContainer}>
+          <RPDFImage src={backgroundImageSrc} style={{ width: '100%' }} />
+        </RPDFView>
       )}
 
       {/* header */}
