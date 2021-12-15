@@ -15,6 +15,37 @@ interface TextPreviewProps {}
 const TextPreview: FC<TextPreviewProps> = () => {
   return (
     <Page wrap size="A4">
+      <TextNode
+        lineHeight={1.5}
+        fontSize={12}
+        style={{ fontFamily: 'EBGaramond12' }}
+      >
+        <TextNode smallCaps fontSize={12}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum
+          dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        </TextNode>
+        <TextNode sansSerif> quis nostrud exercitation ullamco </TextNode>
+        <TextNode>
+          laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+          in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum
+          dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+          commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+          velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+          occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+          mollit anim id est laborum.
+        </TextNode>
+      </TextNode>
       <TextNode fontSize={40}>font size : 40</TextNode>
       <TextNode bold>Bold</TextNode>
       <TextNode italic>italic</TextNode>
