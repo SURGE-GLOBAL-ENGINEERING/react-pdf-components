@@ -34,6 +34,7 @@ const ChapterPreview: FC<ChapterPreview> = () => {
       fontFamily: 'Cardo',
       fontSize: '12pt',
     },
+    headerOrFooterHiddenPages: [1],
   };
   return (
     <>
@@ -46,6 +47,7 @@ const ChapterPreview: FC<ChapterPreview> = () => {
         headerStyles={{ fontSize: '12pt' }}
         backgroundImageSrc="https://media.istockphoto.com/photos/white-studio-background-picture-id1040250650?k=20&m=1040250650&s=612x612&w=0&h=lEWpioJ3jet0QIZVBoU2Ygaua8YMHFfHN1mvT28xRZ4="
         {...props}
+        pageNumberPosition="bottom"
       >
         <View style={{ minHeight: '20vh', justifyContent: 'center' }}>
           <TextNode fontSize={20}>Chapter 1</TextNode>

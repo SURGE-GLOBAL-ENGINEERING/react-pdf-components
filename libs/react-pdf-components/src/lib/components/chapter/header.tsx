@@ -6,7 +6,7 @@ import { Style as RPDFStyle } from '@paladin-analytics/rpdf-types';
 import React, { FC } from 'react';
 import { appearOnGivenPage } from './appearOnGivenPage';
 
-const BLACKLIST_PAGE_NUMBERS = [1];
+// const BLACKLIST_PAGE_NUMBERS: number[] = [1, 2];
 const IS_DEBUG = false;
 
 export type HeaderStyle = Pick<
@@ -23,6 +23,7 @@ interface HeaderProps {
   pageHeaderAlignment?: 'center' | 'outside';
   pageNumberMargin?: number | string;
   styles?: HeaderStyle;
+  blackListedPages?: number[];
 }
 
 const Header: FC<HeaderProps> = ({
@@ -33,6 +34,7 @@ const Header: FC<HeaderProps> = ({
   isPageNumberHidden,
   pageNumberMargin = 30,
   styles,
+  blackListedPages = [],
 }) => {
   return (
     <>
@@ -62,7 +64,7 @@ const Header: FC<HeaderProps> = ({
                 transformedPageNumber(pageNumber),
                 pageNumber,
                 subPageNumber,
-                BLACKLIST_PAGE_NUMBERS
+                blackListedPages
               );
             }}
           />
@@ -78,7 +80,7 @@ const Header: FC<HeaderProps> = ({
                 evenPageHeaderText,
                 pageNumber,
                 subPageNumber,
-                BLACKLIST_PAGE_NUMBERS
+                blackListedPages
               );
             }}
           />
@@ -105,7 +107,7 @@ const Header: FC<HeaderProps> = ({
                   evenPageHeaderText,
                   pageNumber,
                   subPageNumber,
-                  BLACKLIST_PAGE_NUMBERS
+                  blackListedPages
                 );
               else {
                 return appearOnGivenPage(
@@ -113,7 +115,7 @@ const Header: FC<HeaderProps> = ({
                   oddPageHeaderText,
                   pageNumber,
                   subPageNumber,
-                  BLACKLIST_PAGE_NUMBERS
+                  blackListedPages
                 );
               }
             }}
@@ -142,7 +144,7 @@ const Header: FC<HeaderProps> = ({
                 oddPageHeaderText,
                 pageNumber,
                 subPageNumber,
-                BLACKLIST_PAGE_NUMBERS
+                blackListedPages
               );
             }}
           />
@@ -165,7 +167,7 @@ const Header: FC<HeaderProps> = ({
                 transformedPageNumber(pageNumber),
                 pageNumber,
                 subPageNumber,
-                BLACKLIST_PAGE_NUMBERS
+                blackListedPages
               );
             }}
           />
