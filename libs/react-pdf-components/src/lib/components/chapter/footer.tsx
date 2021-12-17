@@ -3,6 +3,7 @@ import { Style as RPDFStyle } from '@paladin-analytics/rpdf-types';
 import React, { FC } from 'react';
 import { appearOnGivenPage } from './appearOnGivenPage';
 
+// const blackListedPages: number[] = [1, 2];
 export type FooterStyle = Pick<
   RPDFStyle,
   'position' | 'fontFamily' | 'fontSize'
@@ -14,12 +15,14 @@ interface FooterProps {
   transformValue: (pageNumber: number) => string;
   isPageNumberHidden?: boolean;
   styles?: FooterStyle;
+  blackListedPages?: number[];
 }
 
 const Footer: FC<FooterProps> = ({
   pageNumberAlignment,
   transformValue,
   styles,
+  blackListedPages = [],
 }) => {
   if (pageNumberAlignment === 'center') {
     return (
@@ -32,7 +35,7 @@ const Footer: FC<FooterProps> = ({
             transformValue(pageNumber),
             pageNumber,
             subPageNumber,
-            []
+            blackListedPages
           );
         }}
       />
@@ -50,7 +53,7 @@ const Footer: FC<FooterProps> = ({
             transformValue(pageNumber),
             pageNumber,
             subPageNumber,
-            []
+            blackListedPages
           );
         }}
       />
@@ -64,7 +67,7 @@ const Footer: FC<FooterProps> = ({
             transformValue(pageNumber),
             pageNumber,
             subPageNumber,
-            []
+            blackListedPages
           );
         }}
       />

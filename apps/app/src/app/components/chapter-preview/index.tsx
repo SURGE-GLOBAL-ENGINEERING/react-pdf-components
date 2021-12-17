@@ -34,6 +34,8 @@ const ChapterPreview: FC<ChapterPreview> = () => {
       fontFamily: 'Cardo',
       fontSize: '12pt',
     },
+    headerHiddenPages: [1],
+    footerHiddenPages: [1],
   };
   return (
     <>
@@ -46,6 +48,7 @@ const ChapterPreview: FC<ChapterPreview> = () => {
         headerStyles={{ fontSize: '12pt' }}
         backgroundImageSrc="https://media.istockphoto.com/photos/white-studio-background-picture-id1040250650?k=20&m=1040250650&s=612x612&w=0&h=lEWpioJ3jet0QIZVBoU2Ygaua8YMHFfHN1mvT28xRZ4="
         {...props}
+        pageNumberPosition="top"
       >
         <View style={{ minHeight: '20vh', justifyContent: 'center' }}>
           <TextNode fontSize={20}>Chapter 1</TextNode>
@@ -396,9 +399,10 @@ const ChapterPreview: FC<ChapterPreview> = () => {
         getTransformedPageNumber={(no) => String(no)}
         pageHeaderAlignment="center"
         pageNumberAlignment="center"
-        pageNumberPosition="top"
+        pageNumberPosition="bottom"
         marginInside={40}
         marginOutside={20}
+        headerHiddenPages={[1]}
         backgroundImageSrc="https://thumbs.dreamstime.com/b/fondo-cl%C3%A1sico-beige-del-papel-pintado-del-estampado-de-plores-66866744.jpg"
       >
         <View style={{ minHeight: '20vh', justifyContent: 'center' }}>
