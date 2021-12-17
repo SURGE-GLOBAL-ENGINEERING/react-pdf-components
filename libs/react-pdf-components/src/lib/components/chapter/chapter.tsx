@@ -33,7 +33,8 @@ export interface ChapterProps {
   evenPageHeaderText?: string;
   oddPageHeaderText?: string;
   pageHeaderAlignment?: 'outside' | 'center';
-  headerOrFooterHiddenPages?: number[];
+  headerHiddenPages?: number[];
+  footerHiddenPages?: number[];
 
   // eslint-disable-next-line no-unused-vars
   getTransformedPageNumber: (pageNumber: number) => string;
@@ -82,7 +83,8 @@ export const Chapter: FC<ChapterProps> = ({
   footerStyles,
   headerStyles,
   children,
-  headerOrFooterHiddenPages = [],
+  headerHiddenPages,
+  footerHiddenPages,
 }) => {
   const styleSheet = StyleSheet.create({
     common: {
@@ -143,7 +145,7 @@ export const Chapter: FC<ChapterProps> = ({
           isPageNumberHidden={pageNumberPosition === 'bottom'}
           transformedPageNumber={getTransformedPageNumber}
           pageNumberMargin={pageNumberMargin}
-          blackListedPages={headerOrFooterHiddenPages}
+          blackListedPages={headerHiddenPages}
           styles={headerStyles}
         />
       </RPDFView>
@@ -177,7 +179,7 @@ export const Chapter: FC<ChapterProps> = ({
       >
         {pageNumberAlignment && pageNumberPosition === 'bottom' && (
           <Footer
-            blackListedPages={headerOrFooterHiddenPages}
+            blackListedPages={footerHiddenPages}
             transformValue={getTransformedPageNumber}
             pageNumberAlignment={pageNumberAlignment}
             styles={footerStyles}
