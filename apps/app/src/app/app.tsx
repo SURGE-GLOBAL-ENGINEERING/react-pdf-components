@@ -147,6 +147,10 @@ export function App() {
                         <Viewer
                           url={PDFUrl}
                           currentPage={currentPage}
+                          onLoadProgress={() => {
+                            // eslint-disable-next-line no-debugger
+                            // debugger;
+                          }}
                           onLoadSuccess={(doc) => setTotalPages(doc.numPages)}
                           style={{
                             transform: 'scale(0.7)',

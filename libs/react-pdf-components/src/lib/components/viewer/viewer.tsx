@@ -1,5 +1,6 @@
-import { CSSProperties, FC } from 'react';
+import { createRef, CSSProperties, FC, useEffect } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
+const { useScreenshot } = require('use-react-screenshot');
 
 pdfjs.GlobalWorkerOptions.workerSrc =
   '//cdn.jsdelivr.net/npm/pdfjs-dist@2.9.359/build/pdf.worker.js';
@@ -35,27 +36,64 @@ export const Viewer: FC<ViewerProps> = ({
   onClick,
   style,
 }) => {
+  const ref = createRef();
+  const [image, takeScreenshot] = useScreenshot();
+  const getImage = () => {
+    console.log('Image capt');
+
+    takeScreenshot(ref.current);
+  };
+
+  useEffect(() => {
+    console.log('image change', image);
+  }, [image]);
+
   return (
-    <div
-      style={{
-        // make unselectable
-        WebkitTouchCallout: 'none',
-        WebkitUserSelect: 'none',
-        MozUserSelect: 'none',
-        msUserSelect: 'none',
-        userSelect: 'none',
-        cursor: onClick ? 'pointer' : 'auto',
-        ...style,
-      }}
-      onClick={onClick}
-    >
-      <Document
-        file={url}
-        onLoadSuccess={onLoadSuccess}
-        onLoadProgress={onLoadProgress}
+    <div>
+      <img width={1000} src={image} alt={'Screenshot'} />
+      <button onChange={getImage}>Click</button>
+      <div
+        style={{
+          // make unselectable
+          WebkitTouchCallout: 'none',
+          WebkitUserSelect: 'none',
+          MozUserSelect: 'none',
+          msUserSelect: 'none',
+          userSelect: 'none',
+          cursor: onClick ? 'pointer' : 'auto',
+          ...style,
+        }}
+        onClick={onClick}
       >
-        <Page pageNumber={currentPage} renderAnnotationLayer={false} />
-      </Document>
+        {/* { 
+        PleaceHolderCompo
+      } */}
+        <Document
+          file={url}
+          // options={}
+
+          // renderMode=""
+          ref={ref as any}
+          onLoadSuccess={(data) => {
+            onLoadSuccess && onLoadSuccess(data);
+            getImage();
+          }}
+          onLoadProgress={onLoadProgress}
+          loading={
+            <div
+              style={{
+                position: 'absolute',
+                zIndex: 10,
+                backgroundColor: 'red',
+                width: 800,
+                height: 800,
+              }}
+            ></div>
+          }
+        >
+          <Page pageNumber={currentPage} renderAnnotationLayer={false} />
+        </Document>
+      </div>
     </div>
   );
 };
