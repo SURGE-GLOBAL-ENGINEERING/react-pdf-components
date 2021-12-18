@@ -3,80 +3,11 @@ import {
   View as RPDFView,
 } from '@paladin-analytics/rpdf-renderer';
 import { Style as RPDFStyles } from '@paladin-analytics/rpdf-types';
-import {
-  createElement,
-  FC,
-  isValidElement,
-  ReactElement,
-  useContext,
-} from 'react';
+import { FC, ReactElement, useContext } from 'react';
 import { LevelContext, ListProps, TypeContext } from '../list';
 import { TextNodeProps } from '../text-node';
 
 const bulletCandidates = ['•'];
-
-export const addListItemPrefix = (
-  element: ReactElement,
-  level: number,
-  type: 'ol' | 'ul',
-  index?: number,
-  style?: RPDFStyles
-) => {
-  if (!isValidElement(element)) {
-    throw new Error('Invalid react element found in the tree');
-  }
-
-  if (type === 'ol' && index) {
-    return (
-      <RPDFText>
-        <RPDFText
-          style={{
-            fontFamily: style?.fontFamily,
-            fontSize: style?.fontSize,
-          }}
-        >
-          {index}.{' '}
-        </RPDFText>
-        {element}
-      </RPDFText>
-    );
-  }
-
-  const candidateIndex = level % bulletCandidates.length;
-
-  return (
-    <RPDFText>
-      <RPDFText
-        style={{
-          ...{ fontSize: style?.fontSize },
-          ...{ fontFamily: 'Courier' },
-        }}
-      >
-        {bulletCandidates[candidateIndex]}
-      </RPDFText>
-      {element}
-    </RPDFText>
-  );
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const withListItemPrefix = (
-  children: any,
-  level: number,
-  type: 'ol' | 'ul',
-  index?: number,
-  style?: RPDFStyles
-) => {
-  if (!Array.isArray(children)) {
-    return [addListItemPrefix(children, level, type, index, style)];
-  }
-
-  return [
-    addListItemPrefix(children[0], level, type, index, style),
-    ...children.slice(1),
-  ];
-};
-
 export interface ListItemProps {
   children?:
     | ReactElement<TextNodeProps>
@@ -84,16 +15,59 @@ export interface ListItemProps {
 
   // index should be available if the list is ordered
   index?: number;
+  // count must be available if the list is ordered
+  count?: number;
   style?: RPDFStyles;
 }
 
-export const ListItem: FC<ListItemProps> = ({ children, index, style }) => {
+export const ListItem: FC<ListItemProps> = ({
+  children,
+  index,
+  count,
+  style,
+}) => {
   const level = useContext(LevelContext);
   const type = useContext(TypeContext);
 
-  return createElement(
-    RPDFView,
-    {},
-    ...withListItemPrefix(children, level, type, index, style)
+  const itemSymbol =
+    type === 'ol'
+      ? `${index || '1'}.`
+      : `${bulletCandidates[level % bulletCandidates.length]}`;
+
+  const itemSymbolStyle: RPDFStyles = {
+    fontSize: style?.fontSize,
+  };
+
+  const baseWidth =
+    0.5 *
+    (style?.fontSize && typeof style?.fontSize === 'number'
+      ? style?.fontSize
+      : 20);
+
+  const digits = 1 + Math.ceil(Math.log10(count || 1));
+  const itemSymbolMinWidth = baseWidth * digits;
+
+  if (type === 'ol') {
+    itemSymbolStyle.fontFamily = style?.fontFamily;
+  }
+
+  const item = (
+    <RPDFView style={{ flexDirection: 'row' }}>
+      <RPDFView
+        style={{
+          width: style?.fontSize,
+          minWidth: itemSymbolMinWidth,
+          textAlign: 'right',
+          alignContent: 'center',
+          alignItems: 'flex-end',
+          marginRight: 4,
+        }}
+      >
+        <RPDFText style={itemSymbolStyle}>{itemSymbol}</RPDFText>
+      </RPDFView>
+      <RPDFView>{children}</RPDFView>
+    </RPDFView>
   );
+
+  return item;
 };
