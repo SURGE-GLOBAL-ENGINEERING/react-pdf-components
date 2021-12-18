@@ -91,6 +91,8 @@ export interface TextNodeProps extends ReactPDF.TextProps, Features {
 
 export const TextNode: FunctionComponent<TextNodeProps> = ({
   style,
+  orphans = 2,
+  widows = 2,
   ...otherProps
 }) => {
   // used to get the list item type if the current is a list item
@@ -127,7 +129,12 @@ export const TextNode: FunctionComponent<TextNodeProps> = ({
   handleSpecialStyles();
 
   return (
-    <RPDFText style={[...composedStyles]} {...otherProps}>
+    <RPDFText
+      widows={widows}
+      orphans={orphans}
+      style={[...composedStyles]}
+      {...otherProps}
+    >
       {otherProps.children}
     </RPDFText>
   );
