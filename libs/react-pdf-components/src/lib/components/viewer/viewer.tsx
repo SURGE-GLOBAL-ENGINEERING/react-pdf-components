@@ -1,5 +1,6 @@
 import { CSSProperties, FC } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
+import { RenderFunction } from 'react-pdf/dist/Page';
 
 pdfjs.GlobalWorkerOptions.workerSrc =
   '//cdn.jsdelivr.net/npm/pdfjs-dist@2.9.359/build/pdf.worker.js';
@@ -24,6 +25,9 @@ interface ViewerProps {
   // eslint-disable-next-line no-unused-vars
   onLoadSuccess?: (doc: Doc) => void;
   onClick?: () => void;
+  error?: RenderFunction;
+  loading?: RenderFunction;
+  noData?: RenderFunction;
   style?: CSSProperties;
 }
 
@@ -34,28 +38,41 @@ export const Viewer: FC<ViewerProps> = ({
   onLoadSuccess,
   onClick,
   style,
+  loading,
+  error,
+  noData,
 }) => {
   return (
-    <div
-      style={{
-        // make unselectable
-        WebkitTouchCallout: 'none',
-        WebkitUserSelect: 'none',
-        MozUserSelect: 'none',
-        msUserSelect: 'none',
-        userSelect: 'none',
-        cursor: onClick ? 'pointer' : 'auto',
-        ...style,
-      }}
-      onClick={onClick}
-    >
-      <Document
-        file={url}
-        onLoadSuccess={onLoadSuccess}
-        onLoadProgress={onLoadProgress}
+    <div>
+      <div
+        style={{
+          // make unselectable
+          WebkitTouchCallout: 'none',
+          WebkitUserSelect: 'none',
+          MozUserSelect: 'none',
+          msUserSelect: 'none',
+          userSelect: 'none',
+          cursor: onClick ? 'pointer' : 'auto',
+          ...style,
+        }}
+        onClick={onClick}
       >
-        <Page pageNumber={currentPage} renderAnnotationLayer={false} />
-      </Document>
+        {/* { 
+        PleaceHolderCompo
+      } */}
+        <Document
+          file={url}
+          onLoadSuccess={(data) => {
+            onLoadSuccess && onLoadSuccess(data);
+          }}
+          onLoadProgress={onLoadProgress}
+          error={error}
+          loading={loading}
+          noData={noData}
+        >
+          <Page pageNumber={currentPage} renderAnnotationLayer={false} />
+        </Document>
+      </div>
     </div>
   );
 };
