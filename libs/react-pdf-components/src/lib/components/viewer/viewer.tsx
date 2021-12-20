@@ -1,6 +1,6 @@
-import { createRef, CSSProperties, FC, useEffect } from 'react';
+import { CSSProperties, FC } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
-const { useScreenshot } = require('use-react-screenshot');
+import { RenderFunction } from 'react-pdf/dist/Page';
 
 pdfjs.GlobalWorkerOptions.workerSrc =
   '//cdn.jsdelivr.net/npm/pdfjs-dist@2.9.359/build/pdf.worker.js';
@@ -25,6 +25,9 @@ interface ViewerProps {
   // eslint-disable-next-line no-unused-vars
   onLoadSuccess?: (doc: Doc) => void;
   onClick?: () => void;
+  error?: RenderFunction;
+  loading?: RenderFunction;
+  noData?: RenderFunction;
   style?: CSSProperties;
 }
 
@@ -35,23 +38,12 @@ export const Viewer: FC<ViewerProps> = ({
   onLoadSuccess,
   onClick,
   style,
+  loading,
+  error,
+  noData,
 }) => {
-  const ref = createRef();
-  const [image, takeScreenshot] = useScreenshot();
-  const getImage = () => {
-    console.log('Image capt');
-
-    takeScreenshot(ref.current);
-  };
-
-  useEffect(() => {
-    console.log('image change', image);
-  }, [image]);
-
   return (
     <div>
-      <img width={1000} src={image} alt={'Screenshot'} />
-      <button onChange={getImage}>Click</button>
       <div
         style={{
           // make unselectable
@@ -70,26 +62,13 @@ export const Viewer: FC<ViewerProps> = ({
       } */}
         <Document
           file={url}
-          // options={}
-
-          // renderMode=""
-          ref={ref as any}
           onLoadSuccess={(data) => {
             onLoadSuccess && onLoadSuccess(data);
-            getImage();
           }}
           onLoadProgress={onLoadProgress}
-          loading={
-            <div
-              style={{
-                position: 'absolute',
-                zIndex: 10,
-                backgroundColor: 'red',
-                width: 800,
-                height: 800,
-              }}
-            ></div>
-          }
+          error={error}
+          loading={loading}
+          noData={noData}
         >
           <Page pageNumber={currentPage} renderAnnotationLayer={false} />
         </Document>
