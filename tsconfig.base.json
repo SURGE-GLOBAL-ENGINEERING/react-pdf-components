@@ -14,9 +14,6 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "typeRoots": [
-      "./@types"
-    ],
     "paths": {
       "@paladin-analytics/react-pdf-components": [
         "libs/react-pdf-components/src/index.ts"
