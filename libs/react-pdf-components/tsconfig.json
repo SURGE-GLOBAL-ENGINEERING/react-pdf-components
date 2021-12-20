@@ -4,8 +4,7 @@
     "jsx": "react-jsx",
     "allowJs": true,
     "esModuleInterop": true,
-    "noImplicitAny": false,
-    "strict": true,
+    "strict": true
   },
   "files": [],
   "include": [],
