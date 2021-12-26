@@ -1,32 +1,3 @@
-const alphabet = [
-    'a',
-    'b',
-    'c',
-    'd',
-    'e',
-    'f',
-    'g',
-    'h',
-    'i',
-    'j',
-    'k',
-    'l',
-    'm',
-    'n',
-    'o',
-    'p',
-    'q',
-    'r',
-    's',
-    't',
-    'u',
-    'v',
-    'w',
-    'x',
-    'y',
-    'z',
-];
-
 const romans: { [key: string]: number } = {
     "M": 1000,
     "CM": 900,
@@ -44,24 +15,20 @@ const romans: { [key: string]: number } = {
 };
 
 
-export const convertToAlphabetic = (input: number) => {
-    const result = [];
-    if (input <= 26) {
-        result.push(alphabet[input - 1]);
-    } else {
-        const remainder = input % alphabet.length;
-        const quo = Math.floor(input / alphabet.length);
+const ASCII_OFFSET = 65;
+export const convertToAlphabetic = (inputNo: number): string => {
+    let result = '', midRemainder;
 
-        result.push(alphabet[quo - 1]);
+    while (inputNo > 0) {
+        midRemainder = (inputNo - 1) % 26;
+        // gets the ASCII character
+        result = String.fromCharCode(ASCII_OFFSET + midRemainder) + result;
 
-        if (remainder > 0) {
-            // adding remaining value - remainder will only range withing 1-25
-            result.push(alphabet[remainder - 1]);
-        }
+        // remainder sets for the next round
+        inputNo = (inputNo - midRemainder) / 26 | 0;
     }
-    return result.join('');
+    return result.toLowerCase();
 };
-
 
 export const convertToRoman = (num: number) => {
     const result = [];
