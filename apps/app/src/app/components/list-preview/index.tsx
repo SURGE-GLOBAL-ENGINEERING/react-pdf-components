@@ -13,6 +13,7 @@ const ListPreview: FC = () => {
     'laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit ' +
     'in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat' +
     'cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+
   const items: string[] = [];
   for (let i = 0; i < 500; i += 1) items.push(`Hello there ${i + 1}`);
 
@@ -40,7 +41,7 @@ const ListPreview: FC = () => {
       </List>
 
       <List type="ol" style={{ fontFamily: 'EmilysCandy', fontSize: 11 }}>
-        {items.slice(0, 5).map((upperItem, upperIndex) => (
+        {items.slice(0, 2).map((upperItem, upperIndex) => (
           <ListItem key={upperIndex}>
             <>
               <TextNode>{upperItem}</TextNode>
@@ -51,6 +52,26 @@ const ListPreview: FC = () => {
                 {items.slice(0, 2).map((item, index) => (
                   <ListItem key={index}>
                     <TextNode>{item}</TextNode>
+                    <List
+                      type="ol"
+                      style={{ fontFamily: 'EmilysCandy', fontSize: 11 }}
+                    >
+                      {items.slice(0, 8).map((item2, index2) => (
+                        <ListItem key={index2}>
+                          <TextNode>{item2}</TextNode>
+                          <List
+                            type="ol"
+                            style={{ fontFamily: 'EmilysCandy', fontSize: 11 }}
+                          >
+                            {items.slice(0, 8).map((item3, index3) => (
+                              <ListItem key={index3}>
+                                <TextNode>{item3}</TextNode>
+                              </ListItem>
+                            ))}
+                          </List>
+                        </ListItem>
+                      ))}
+                    </List>
                   </ListItem>
                 ))}
               </List>

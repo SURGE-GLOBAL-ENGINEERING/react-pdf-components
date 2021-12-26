@@ -6,8 +6,15 @@ import { Style as RPDFStyles } from '@paladin-analytics/rpdf-types';
 import { FC, ReactElement, useContext } from 'react';
 import { LevelContext, ListProps, TypeContext } from '../list';
 import { TextNodeProps } from '../text-node';
+import { convertToAlphabetic, convertToRoman } from './number-converters';
 
 const bulletCandidates = ['•', '◦', '▪'];
+// eslint-disable-next-line no-unused-vars
+const orderedSymbolGenerators: ((no: number) => string)[] = [
+  (number) => String(number),
+  convertToAlphabetic,
+  convertToRoman,
+];
 export interface ListItemProps {
   children?:
     | ReactElement<TextNodeProps>
@@ -28,11 +35,11 @@ export const ListItem: FC<ListItemProps> = ({
 }) => {
   const level = useContext(LevelContext);
   const type = useContext(TypeContext);
-
+  const symbolIndex = (level - 1) % bulletCandidates.length;
   const itemSymbol =
     type === 'ol'
-      ? `${index || '1'}.`
-      : `${bulletCandidates[(level - 1) % bulletCandidates.length]}`;
+      ? `${orderedSymbolGenerators[symbolIndex](index || 1)}.`
+      : `${bulletCandidates[symbolIndex]}`;
 
   const itemSymbolStyle: RPDFStyles = {
     fontSize: style?.fontSize,
