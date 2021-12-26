@@ -513,10 +513,14 @@ const editorFonts = fontsData.map(({ family, fonts }) => {
     ...font,
     src: `https://atticus-content.s3.amazonaws.com/fonts/${font.fileName}`,
   }));
+
   return {
     family,
     fonts: _fonts,
   } as BulkLoad;
 });
 
+editorFonts.push({ family: "Inter", fonts: [{ src: "../assets/fonts/Inter-Regular.ttf" }] });
+
 export { editorFonts };
+

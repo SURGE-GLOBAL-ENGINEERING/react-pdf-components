@@ -7,7 +7,7 @@ import { FC, ReactElement, useContext } from 'react';
 import { LevelContext, ListProps, TypeContext } from '../list';
 import { TextNodeProps } from '../text-node';
 
-const bulletCandidates = ['•'];
+const bulletCandidates = ['•', '◦', '▪'];
 export interface ListItemProps {
   children?:
     | ReactElement<TextNodeProps>
@@ -32,7 +32,7 @@ export const ListItem: FC<ListItemProps> = ({
   const itemSymbol =
     type === 'ol'
       ? `${index || '1'}.`
-      : `${bulletCandidates[level % bulletCandidates.length]}`;
+      : `${bulletCandidates[(level - 1) % bulletCandidates.length]}`;
 
   const itemSymbolStyle: RPDFStyles = {
     fontSize: style?.fontSize,
@@ -49,6 +49,8 @@ export const ListItem: FC<ListItemProps> = ({
 
   if (type === 'ol') {
     itemSymbolStyle.fontFamily = style?.fontFamily;
+  } else {
+    itemSymbolStyle.fontFamily = 'Inter';
   }
 
   const item = (
