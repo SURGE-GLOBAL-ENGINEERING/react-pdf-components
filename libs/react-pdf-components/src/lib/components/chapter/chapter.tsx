@@ -4,12 +4,14 @@ import {
   StyleSheet,
   View as RPDFView,
 } from '@paladin-analytics/rpdf-renderer';
+import { Style } from '@paladin-analytics/rpdf-types';
 import { FC } from 'react';
 import Footer, { FooterStyle } from './footer';
 import Header, { HeaderStyle } from './header';
 
 export interface ChapterProps {
   backgroundImageSrc?: string;
+  backgroundImageStyles?: Pick<Style, 'opacity'>;
 
   // default page size will be A4
   pageWidth?: string | number;
@@ -65,6 +67,7 @@ const transformChapterLayoutValues = (
 
 export const Chapter: FC<ChapterProps> = ({
   backgroundImageSrc,
+  backgroundImageStyles,
   marginInside,
   marginOutside,
   pageNumberPosition,
@@ -98,6 +101,10 @@ export const Chapter: FC<ChapterProps> = ({
       left: 0,
       right: 0,
     },
+    fullBleedImage: {
+      ...backgroundImageStyles,
+      width: '100%',
+    },
     page: {
       paddingBottom: transformChapterLayoutValues(
         paddingBottom,
@@ -120,7 +127,10 @@ export const Chapter: FC<ChapterProps> = ({
 
       {backgroundImageSrc && (
         <RPDFView style={styleSheet.fullBleedImageContainer}>
-          <RPDFImage src={backgroundImageSrc} style={{ width: '100%' }} />
+          <RPDFImage
+            src={backgroundImageSrc}
+            style={styleSheet.fullBleedImage}
+          />
         </RPDFView>
       )}
 
