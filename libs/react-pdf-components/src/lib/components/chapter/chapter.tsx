@@ -169,6 +169,7 @@ export const Chapter: FC<ChapterProps> = ({
       <RPDFView
         style={[
           {
+            // ! adding paddingTop/marginTop will prevent rendering child components
             position: 'absolute',
             bottom: 0,
             left: 0,
@@ -179,7 +180,6 @@ export const Chapter: FC<ChapterProps> = ({
             ),
             display: 'flex',
             alignSelf: 'flex-end',
-            paddingTop: 2,
             justifyContent: 'flex-end',
             paddingBottom,
           },
