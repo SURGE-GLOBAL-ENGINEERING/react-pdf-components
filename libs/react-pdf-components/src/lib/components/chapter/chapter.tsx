@@ -6,12 +6,14 @@ import {
 } from '@paladin-analytics/rpdf-renderer';
 import { Style } from '@paladin-analytics/rpdf-types';
 import { FC } from 'react';
+import { appendUrl } from '../../utils';
 import Footer, { FooterStyle } from './footer';
 import Header, { HeaderStyle } from './header';
 
 export interface ChapterProps {
   backgroundImageSrc?: string;
   backgroundImageStyles?: Pick<Style, 'opacity'>;
+  disableImageSrcURLAppends?: boolean;
 
   // default page size will be A4
   pageWidth?: string | number;
@@ -68,6 +70,7 @@ const transformChapterLayoutValues = (
 export const Chapter: FC<ChapterProps> = ({
   backgroundImageSrc,
   backgroundImageStyles,
+  disableImageSrcURLAppends = false,
   marginInside,
   marginOutside,
   pageNumberPosition,
@@ -128,7 +131,11 @@ export const Chapter: FC<ChapterProps> = ({
       {backgroundImageSrc && (
         <RPDFView style={styleSheet.fullBleedImageContainer}>
           <RPDFImage
-            src={backgroundImageSrc}
+            src={
+              backgroundImageSrc && disableImageSrcURLAppends
+                ? appendUrl(backgroundImageSrc, { renderer: 'pdf' })
+                : backgroundImageSrc
+            }
             style={styleSheet.fullBleedImage}
           />
         </RPDFView>
