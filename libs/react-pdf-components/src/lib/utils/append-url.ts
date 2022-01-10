@@ -4,7 +4,7 @@ export const appendUrl = (
 ) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const queryParameterString = Object.keys(queryParams)
-    .map((key) => `${key}=${queryParams[key as any]}`)
+    .map((key) => `${key}=${queryParams[key]}`)
     .join('&');
 
   /**

@@ -67,11 +67,12 @@ function ImageCore({
     },
   });
 
-  const imageSrc = !disableURLAppends
-    ? appendUrl(rPDFImageProps.src as any, {
-        renderer: 'pdf',
-      })
-    : rPDFImageProps.src;
+  const imageSrc =
+    rPDFImageProps.src && !disableURLAppends
+      ? appendUrl(rPDFImageProps.src.toString(), {
+          renderer: 'pdf',
+        })
+      : rPDFImageProps.src;
 
   return (
     <RPDFView
