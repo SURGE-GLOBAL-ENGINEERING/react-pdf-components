@@ -3,10 +3,11 @@ import ReactPDF, {
   Link as RPDFLink,
   StyleSheet,
   Text as RPDFText,
-  View as RPDFView
+  View as RPDFView,
 } from '@paladin-analytics/rpdf-renderer';
 import { Style } from '@paladin-analytics/rpdf-types';
 import { FunctionComponent } from 'react';
+import { appendUrl } from '../../utils';
 
 /**
  * Atticus Image Features
@@ -15,7 +16,6 @@ import { FunctionComponent } from 'react';
     - wrap
     - size -> percentage
     - link -> string
-    
  */
 
 type alignmentType = 'left' | 'center' | 'right';
@@ -30,6 +30,7 @@ interface ImageCoreProps extends ReactPDF.ImageWithSrcProp {
    */
   width?: number; //Percentage of parent element
   link?: string;
+  disableURLAppends?: boolean;
 }
 
 const IS_DEBUG = false;
@@ -41,6 +42,7 @@ function ImageCore({
   link,
   captionTextStyles,
   imageContainerStyle,
+  disableURLAppends = false,
   ...rPDFImageProps
 }: ImageCoreProps) {
   const styles = StyleSheet.create({
@@ -65,6 +67,13 @@ function ImageCore({
     },
   });
 
+  const imageSrc =
+    rPDFImageProps.src && !disableURLAppends
+      ? appendUrl(rPDFImageProps.src.toString(), {
+          renderer: 'pdf',
+        })
+      : rPDFImageProps.src;
+
   return (
     <RPDFView
       style={[styles.container, imageContainerStyle || {}]}
@@ -75,6 +84,7 @@ function ImageCore({
           debug={IS_DEBUG}
           style={[styles.image]}
           {...rPDFImageProps}
+          src={imageSrc}
         />
         {caption && (
           <RPDFText
