@@ -132,7 +132,7 @@ export const Chapter: FC<ChapterProps> = ({
         <RPDFView style={styleSheet.fullBleedImageContainer}>
           <RPDFImage
             src={
-              backgroundImageSrc && disableImageSrcURLAppends
+              backgroundImageSrc && !disableImageSrcURLAppends
                 ? appendUrl(backgroundImageSrc, { renderer: 'pdf' })
                 : backgroundImageSrc
             }
