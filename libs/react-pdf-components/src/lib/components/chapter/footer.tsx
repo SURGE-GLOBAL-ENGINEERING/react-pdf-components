@@ -1,4 +1,4 @@
-import { Text as RPDFText } from '@paladin-analytics/rpdf-renderer';
+import { StyleSheet, Text as RPDFText } from '@paladin-analytics/rpdf-renderer';
 import { Style as RPDFStyle } from '@paladin-analytics/rpdf-types';
 import React, { FC } from 'react';
 import { appearOnGivenPage } from './appearOnGivenPage';
@@ -21,13 +21,20 @@ interface FooterProps {
 const Footer: FC<FooterProps> = ({
   pageNumberAlignment,
   transformValue,
-  styles,
+  styles: footerStyles,
   blackListedPages = [],
 }) => {
+  const styles = StyleSheet.create({
+    text: {
+      ...footerStyles,
+      minHeight: footerStyles?.fontSize,
+    },
+  });
+
   if (pageNumberAlignment === 'center') {
     return (
       <RPDFText
-        style={[styles || {}, { alignSelf: 'center' }]}
+        style={[styles.text, { alignSelf: 'center' }]}
         fixed
         render={({ pageNumber, subPageNumber }) => {
           return appearOnGivenPage(
@@ -45,7 +52,7 @@ const Footer: FC<FooterProps> = ({
   return (
     <>
       <RPDFText
-        style={[styles || {}, { alignSelf: 'flex-end' }]}
+        style={[styles.text, { alignSelf: 'flex-end' }]}
         fixed
         render={({ pageNumber, subPageNumber }) => {
           return appearOnGivenPage(
@@ -59,7 +66,7 @@ const Footer: FC<FooterProps> = ({
       />
 
       <RPDFText
-        style={[styles || {}, { alignSelf: 'flex-start' }]}
+        style={[styles.text, { alignSelf: 'flex-start' }]}
         fixed
         render={({ pageNumber, subPageNumber }) => {
           return appearOnGivenPage(
