@@ -186,9 +186,7 @@ export const Chapter: FC<ChapterProps> = ({
               paddingBottomMultiplier
             ),
             display: 'flex',
-            alignSelf: 'flex-end',
-            justifyContent: 'flex-end',
-            paddingBottom,
+            flexDirection: 'column',
           },
           styleSheet.common,
         ]}
