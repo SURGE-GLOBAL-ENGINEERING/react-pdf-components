@@ -14,7 +14,19 @@ interface TextPreviewProps {}
  */
 const TextPreview: FC<TextPreviewProps> = () => {
   return (
-    <Page wrap size="A4">
+    <Page wrap size="A4" style={{ fontFamily: 'EBGaramond12' }}>
+      <TextNode monospace bold>
+        MonoSpcace - bold ut aliquip ex ea commodo consequat. Duis aute irure
+        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+        nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+        culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor
+        sit
+      </TextNode>
+
+      <TextNode monospace>
+        MonoSpcace - ut aliquip ex ea commodo consequat. Duis aute irure dolor
+        in reprehenderit in voluptate velit esse cillum
+      </TextNode>
       <TextNode
         lineHeight={1.5}
         fontSize={12}
