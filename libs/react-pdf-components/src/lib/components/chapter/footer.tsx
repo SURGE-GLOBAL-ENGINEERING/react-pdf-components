@@ -1,4 +1,8 @@
-import { StyleSheet, Text as RPDFText } from '@paladin-analytics/rpdf-renderer';
+import {
+  StyleSheet,
+  Text as RPDFText,
+  View as RPDFView,
+} from '@paladin-analytics/rpdf-renderer';
 import { Style as RPDFStyle } from '@paladin-analytics/rpdf-types';
 import React, { FC } from 'react';
 import { appearOnGivenPage } from './appearOnGivenPage';
@@ -29,46 +33,24 @@ const Footer: FC<FooterProps> = ({
       ...footerStyles,
       minHeight: footerStyles?.fontSize,
     },
+    container: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignSelf: 'auto',
+      justifyContent: 'space-between',
+      alignItems: 'stretch',
+      alignContent: 'stretch',
+    },
   });
 
-  if (pageNumberAlignment === 'center') {
-    return (
-      <RPDFText
-        style={[styles.text, { alignSelf: 'center' }]}
-        fixed
-        render={({ pageNumber, subPageNumber }) => {
-          return appearOnGivenPage(
-            'all',
-            transformValue(pageNumber),
-            pageNumber,
-            subPageNumber,
-            blackListedPages
-          );
-        }}
-      />
-    );
-  }
-
   return (
-    <>
+    <RPDFView style={styles.container}>
       <RPDFText
-        style={[styles.text, { alignSelf: 'flex-end' }]}
-        fixed
+        style={[styles.text]}
         render={({ pageNumber, subPageNumber }) => {
-          return appearOnGivenPage(
-            'odd',
-            transformValue(pageNumber),
-            pageNumber,
-            subPageNumber,
-            blackListedPages
-          );
-        }}
-      />
-
-      <RPDFText
-        style={[styles.text, { alignSelf: 'flex-start' }]}
-        fixed
-        render={({ pageNumber, subPageNumber }) => {
+          if (pageNumberAlignment === 'center') {
+            return '';
+          }
           return appearOnGivenPage(
             'even',
             transformValue(pageNumber),
@@ -77,8 +59,38 @@ const Footer: FC<FooterProps> = ({
             blackListedPages
           );
         }}
-      />
-    </>
+      ></RPDFText>
+      <RPDFText
+        style={[styles.text]}
+        render={({ pageNumber, subPageNumber }) => {
+          if (pageNumberAlignment === 'outside') {
+            return '';
+          }
+          return appearOnGivenPage(
+            'all',
+            transformValue(pageNumber),
+            pageNumber,
+            subPageNumber,
+            blackListedPages
+          );
+        }}
+      ></RPDFText>
+      <RPDFText
+        style={[styles.text]}
+        render={({ pageNumber, subPageNumber }) => {
+          if (pageNumberAlignment === 'center') {
+            return '';
+          }
+          return appearOnGivenPage(
+            'odd',
+            transformValue(pageNumber),
+            pageNumber,
+            subPageNumber,
+            blackListedPages
+          );
+        }}
+      ></RPDFText>
+    </RPDFView>
   );
 };
 
