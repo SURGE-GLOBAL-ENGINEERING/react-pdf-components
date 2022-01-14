@@ -184,6 +184,9 @@ export const Chapter: FC<ChapterProps> = ({
             ),
             display: 'flex',
             flexDirection: 'column',
+            justifyContent: 'flex-start',
+            alignItems: 'stretch',
+            alignContent: 'stretch',
           },
           styleSheet.common,
         ]}
