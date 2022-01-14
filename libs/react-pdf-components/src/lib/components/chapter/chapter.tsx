@@ -48,7 +48,8 @@ export interface ChapterProps {
    */
   pageNumberMargin?: number | string;
   footerStyles?: Pick<FooterStyle, 'fontFamily' | 'fontSize'>;
-  headerStyles?: Pick<HeaderStyle, 'fontFamily' | 'fontSize'>;
+  headerStyles?: Pick<HeaderStyle, 'fontFamily' | 'fontSize'> &
+    Pick<Style, 'marginBottom'>;
 }
 
 const transformChapterLayoutValues = (
@@ -115,6 +116,13 @@ export const Chapter: FC<ChapterProps> = ({
       ),
       paddingTop,
     },
+    headerContainer: {
+      minHeight: paddingTop,
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginBottom: headerStyles?.marginBottom || 0,
+    },
   });
 
   return (
@@ -143,18 +151,7 @@ export const Chapter: FC<ChapterProps> = ({
 
       {/* header */}
 
-      <RPDFView
-        fixed
-        style={[
-          {
-            minHeight: paddingTop,
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          },
-          styleSheet.common,
-        ]}
-      >
+      <RPDFView fixed style={[styleSheet.headerContainer, styleSheet.common]}>
         <Header
           evenPageHeaderText={evenPageHeaderText}
           pageHeaderAlignment={pageHeaderAlignment}
