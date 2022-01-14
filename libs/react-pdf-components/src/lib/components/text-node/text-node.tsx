@@ -50,9 +50,6 @@ const styles = StyleSheet.create({
   underline: {
     textDecoration: 'underline',
   },
-  underlineStrikeThrough: {
-    textDecoration: 'underline line-through',
-  },
   strikeThrough: {
     textDecoration: 'line-through',
   },
@@ -69,6 +66,17 @@ const styles = StyleSheet.create({
     fontVariant: 'small-caps',
   },
   baseStyles: {},
+
+  // special styles
+  underlineStrikeThrough: {
+    textDecoration: 'underline line-through',
+  },
+  codeBold: {
+    fontFamily: 'Courier-Bold',
+  },
+  monospaceBold: {
+    fontFamily: 'Courier-Bold',
+  },
 });
 
 const featureToStyleMap: Record<keyof Features, keyof typeof styles> = {
@@ -120,9 +128,15 @@ export const TextNode: FunctionComponent<TextNodeProps> = ({
     }
   };
   const handleSpecialStyles = () => {
-    if (otherProps.underline && otherProps.strikeThrough)
-      //handle spacial style cases --->
+    //handle spacial style cases
+    const { underline, strikeThrough, code, bold, monospace } = otherProps;
+    if (underline && strikeThrough) {
       composedStyles.push(styles.underlineStrikeThrough);
+    } else if (code && bold) {
+      composedStyles.push(styles.codeBold);
+    } else if (monospace && bold) {
+      composedStyles.push(styles.monospaceBold);
+    }
   };
 
   composeStyles();
