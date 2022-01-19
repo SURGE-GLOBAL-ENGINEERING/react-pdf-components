@@ -31,7 +31,6 @@ const Footer: FC<FooterProps> = ({
   const styles = StyleSheet.create({
     text: {
       ...footerStyles,
-      minHeight: footerStyles?.fontSize,
     },
     container: {
       display: 'flex',
