@@ -4,6 +4,7 @@ import {
 } from '@paladin-analytics/rpdf-renderer';
 import { Style as RPDFStyle } from '@paladin-analytics/rpdf-types';
 import React, { FC } from 'react';
+import { transformLayoutValues } from '../../utils/transform-layout-values';
 import { appearOnGivenPage } from './appearOnGivenPage';
 
 // const BLACKLIST_PAGE_NUMBERS: number[] = [1, 2];
@@ -45,6 +46,7 @@ const Header: FC<HeaderProps> = ({
         style={{
           display: 'flex',
           flexDirection: 'row',
+          height: transformLayoutValues(styles?.fontSize, 2.4),
         }}
       >
         {!isPageNumberHidden && (
@@ -94,6 +96,7 @@ const Header: FC<HeaderProps> = ({
           style={{
             width: '100%',
             display: 'flex',
+            height: transformLayoutValues(styles?.fontSize, 2.4),
           }}
         >
           <RPDFText
@@ -132,6 +135,7 @@ const Header: FC<HeaderProps> = ({
           display: 'flex',
           flexDirection: 'row',
           // justifyContent: 'flex-end',
+          height: transformLayoutValues(styles?.fontSize, 2.4),
         }}
       >
         {pageHeaderAlignment === 'outside' && (

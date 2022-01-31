@@ -7,6 +7,7 @@ import {
 import { Style } from '@paladin-analytics/rpdf-types';
 import { FC } from 'react';
 import { appendUrl } from '../../utils';
+import { transformLayoutValues } from '../../utils/transform-layout-values';
 import Footer, { FooterStyle } from './footer';
 import Header, { HeaderStyle } from './header';
 
@@ -52,22 +53,6 @@ export interface ChapterProps {
     Pick<Style, 'marginBottom'>;
 }
 
-const transformChapterLayoutValues = (
-  value?: string | number,
-  multiplier = 1
-) => {
-  if (typeof value === 'string') {
-    const strArr = value.split(/(\d+)/).filter(Boolean);
-    if (!+strArr[0]) return value;
-    const _value = +strArr[0] * multiplier;
-    return `${_value}${strArr[1]}`;
-  }
-  if (typeof value === 'number') {
-    return value * multiplier;
-  }
-  return value;
-};
-
 export const Chapter: FC<ChapterProps> = ({
   backgroundImageSrc,
   backgroundImageStyles,
@@ -110,7 +95,7 @@ export const Chapter: FC<ChapterProps> = ({
       width: '100%',
     },
     page: {
-      paddingBottom: transformChapterLayoutValues(
+      paddingBottom: transformLayoutValues(
         paddingBottom,
         paddingBottomMultiplier
       ),
@@ -178,7 +163,7 @@ export const Chapter: FC<ChapterProps> = ({
             bottom: 0,
             left: 0,
             right: 0,
-            minHeight: transformChapterLayoutValues(
+            minHeight: transformLayoutValues(
               paddingBottom,
               paddingBottomMultiplier
             ),
