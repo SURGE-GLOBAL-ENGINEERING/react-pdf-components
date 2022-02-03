@@ -51,6 +51,8 @@ export interface ChapterProps {
   footerStyles?: Pick<FooterStyle, 'fontFamily' | 'fontSize'>;
   headerStyles?: Pick<HeaderStyle, 'fontFamily' | 'fontSize'> &
     Pick<Style, 'marginBottom'>;
+  assumeUsingOnlyFirstPage?: boolean;
+  firstPageLightText?: boolean;
 }
 
 export const Chapter: FC<ChapterProps> = ({
@@ -77,11 +79,15 @@ export const Chapter: FC<ChapterProps> = ({
   children,
   headerHiddenPages,
   footerHiddenPages,
+  assumeUsingOnlyFirstPage = false,
+  firstPageLightText = false,
 }) => {
   const styleSheet = StyleSheet.create({
     common: {
       marginOutside,
       marginInside,
+      color:
+        firstPageLightText && assumeUsingOnlyFirstPage ? '#ffffff' : '#000000',
     },
     fullBleedImageContainer: {
       position: 'absolute',
@@ -93,6 +99,7 @@ export const Chapter: FC<ChapterProps> = ({
     fullBleedImage: {
       ...backgroundImageStyles,
       width: '100%',
+      height: '100%',
     },
     page: {
       paddingBottom: transformLayoutValues(
@@ -122,7 +129,10 @@ export const Chapter: FC<ChapterProps> = ({
       {/* bg-image */}
 
       {backgroundImageSrc && (
-        <RPDFView style={styleSheet.fullBleedImageContainer}>
+        <RPDFView
+          fixed={assumeUsingOnlyFirstPage}
+          style={styleSheet.fullBleedImageContainer}
+        >
           <RPDFImage
             src={
               backgroundImageSrc && !disableImageSrcURLAppends
