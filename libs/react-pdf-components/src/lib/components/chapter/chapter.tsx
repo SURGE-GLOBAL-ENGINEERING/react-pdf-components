@@ -126,13 +126,10 @@ export const Chapter: FC<ChapterProps> = ({
       }
       style={[styleSheet.page]}
     >
-      {/* bg-image */}
+      {/* full-bleed bg-image */}
 
-      {backgroundImageSrc && (
-        <RPDFView
-          fixed={assumeUsingOnlyFirstPage}
-          style={styleSheet.fullBleedImageContainer}
-        >
+      {backgroundImageSrc && assumeUsingOnlyFirstPage && (
+        <RPDFView fixed style={styleSheet.fullBleedImageContainer}>
           <RPDFImage
             src={
               backgroundImageSrc && !disableImageSrcURLAppends
