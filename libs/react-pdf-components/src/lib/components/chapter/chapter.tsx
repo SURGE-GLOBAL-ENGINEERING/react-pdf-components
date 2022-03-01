@@ -50,7 +50,7 @@ export interface ChapterProps {
   pageNumberMargin?: number | string;
   footerStyles?: Pick<FooterStyle, 'fontFamily' | 'fontSize' | 'lineHeight'>;
   headerStyles?: Pick<HeaderStyle, 'fontFamily' | 'fontSize'> &
-    Pick<Style, 'marginBottom'>;
+    Pick<Style, 'marginBottom' | 'minHeight'>;
   assumeUsingOnlyFirstPage?: boolean;
   firstPageLightText?: boolean;
 }
@@ -109,7 +109,7 @@ export const Chapter: FC<ChapterProps> = ({
       paddingTop,
     },
     headerContainer: {
-      minHeight: paddingTop,
+      minHeight: headerStyles?.minHeight || 0,
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -152,7 +152,10 @@ export const Chapter: FC<ChapterProps> = ({
           transformedPageNumber={getTransformedPageNumber}
           pageNumberMargin={pageNumberMargin}
           blackListedPages={headerHiddenPages}
-          styles={headerStyles}
+          styles={{
+            fontFamily: headerStyles?.fontFamily,
+            fontSize: headerStyles?.fontSize,
+          }}
         />
       </RPDFView>
 
