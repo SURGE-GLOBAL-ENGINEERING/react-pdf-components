@@ -10,7 +10,7 @@ import { appearOnGivenPage } from './appearOnGivenPage';
 // const blackListedPages: number[] = [1, 2];
 export type FooterStyle = Pick<
   RPDFStyle,
-  'position' | 'fontFamily' | 'fontSize'
+  'position' | 'fontFamily' | 'fontSize' | 'lineHeight'
 >;
 
 interface FooterProps {
