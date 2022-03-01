@@ -48,7 +48,7 @@ export interface ChapterProps {
    * Header nad Footer styles for `fontFamily` and `fontSize`
    */
   pageNumberMargin?: number | string;
-  footerStyles?: Pick<FooterStyle, 'fontFamily' | 'fontSize'>;
+  footerStyles?: Pick<FooterStyle, 'fontFamily' | 'fontSize' | 'lineHeight'>;
   headerStyles?: Pick<HeaderStyle, 'fontFamily' | 'fontSize'> &
     Pick<Style, 'marginBottom'>;
   assumeUsingOnlyFirstPage?: boolean;
