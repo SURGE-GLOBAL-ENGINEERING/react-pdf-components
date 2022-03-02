@@ -10,7 +10,7 @@ import { appearOnGivenPage } from './appearOnGivenPage';
 // const blackListedPages: number[] = [1, 2];
 export type FooterStyle = Pick<
   RPDFStyle,
-  'position' | 'fontFamily' | 'fontSize' | 'lineHeight'
+  'position' | 'fontFamily' | 'fontSize' | 'minHeight'
 >;
 
 interface FooterProps {
@@ -30,7 +30,8 @@ const Footer: FC<FooterProps> = ({
 }) => {
   const styles = StyleSheet.create({
     text: {
-      ...footerStyles,
+      fontFamily: footerStyles?.fontFamily,
+      fontSize: footerStyles?.fontSize,
     },
     container: {
       display: 'flex',
@@ -39,6 +40,7 @@ const Footer: FC<FooterProps> = ({
       justifyContent: 'space-between',
       alignItems: 'stretch',
       alignContent: 'stretch',
+      minHeight: footerStyles?.minHeight,
     },
   });
 
