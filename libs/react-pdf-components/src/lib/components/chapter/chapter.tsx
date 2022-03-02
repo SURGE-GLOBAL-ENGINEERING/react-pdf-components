@@ -7,7 +7,10 @@ import {
 import { Style } from '@paladin-analytics/rpdf-types';
 import { FC } from 'react';
 import { appendUrl } from '../../utils';
-import { transformLayoutValues } from '../../utils/transform-layout-values';
+import {
+  calculateValues,
+  Calculator,
+} from '../../utils/transform-layout-values';
 import Footer, { FooterStyle } from './footer';
 import Header, { HeaderStyle } from './header';
 
@@ -27,7 +30,7 @@ export interface ChapterProps {
   /**
    * This used to set space between the page content and page number in the footer
    */
-  paddingBottomMultiplier?: number;
+  spaceBetweenBodyAndFooter?: number | string;
   //Header - Footer config
   pageNumberPosition: 'top' | 'bottom';
   pageNumberAlignment: 'outside' | 'center';
@@ -48,9 +51,9 @@ export interface ChapterProps {
    * Header nad Footer styles for `fontFamily` and `fontSize`
    */
   pageNumberMargin?: number | string;
-  footerStyles?: Pick<FooterStyle, 'fontFamily' | 'fontSize' | 'lineHeight'>;
-  headerStyles?: Pick<HeaderStyle, 'fontFamily' | 'fontSize'> &
-    Pick<Style, 'marginBottom' | 'minHeight'>;
+  footerStyles?: Pick<FooterStyle, 'fontFamily' | 'fontSize' | 'minHeight'>;
+  headerStyles?: Pick<HeaderStyle, 'fontFamily' | 'fontSize' | 'minHeight'> &
+    Pick<Style, 'marginBottom'>;
   assumeUsingOnlyFirstPage?: boolean;
   firstPageLightText?: boolean;
 }
@@ -71,7 +74,7 @@ export const Chapter: FC<ChapterProps> = ({
   pageHeight,
   pageWidth,
   paddingBottom,
-  paddingBottomMultiplier = 1.5,
+  spaceBetweenBodyAndFooter = 10,
   paddingTop,
   pageNumberMargin,
   footerStyles,
@@ -82,6 +85,19 @@ export const Chapter: FC<ChapterProps> = ({
   assumeUsingOnlyFirstPage = false,
   firstPageLightText = false,
 }) => {
+  const getPagePaddingBottom = () => {
+    const paddingBottomWithoutFooter = calculateValues(
+      paddingBottom as string | number,
+      spaceBetweenBodyAndFooter,
+      Calculator.add
+    );
+    return calculateValues(
+      paddingBottomWithoutFooter,
+      footerStyles?.minHeight || 0,
+      Calculator.add
+    );
+  };
+
   const styleSheet = StyleSheet.create({
     common: {
       marginOutside,
@@ -102,10 +118,7 @@ export const Chapter: FC<ChapterProps> = ({
       height: '100%',
     },
     page: {
-      paddingBottom: transformLayoutValues(
-        paddingBottom,
-        paddingBottomMultiplier
-      ),
+      paddingBottom: getPagePaddingBottom(),
       paddingTop,
     },
     headerContainer: {
@@ -152,10 +165,7 @@ export const Chapter: FC<ChapterProps> = ({
           transformedPageNumber={getTransformedPageNumber}
           pageNumberMargin={pageNumberMargin}
           blackListedPages={headerHiddenPages}
-          styles={{
-            fontFamily: headerStyles?.fontFamily,
-            fontSize: headerStyles?.fontSize,
-          }}
+          styles={headerStyles}
         />
       </RPDFView>
 
@@ -173,15 +183,13 @@ export const Chapter: FC<ChapterProps> = ({
             bottom: 0,
             left: 0,
             right: 0,
-            minHeight: transformLayoutValues(
-              paddingBottom,
-              paddingBottomMultiplier
-            ),
+            minHeight: getPagePaddingBottom(),
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'flex-start',
             alignItems: 'stretch',
             alignContent: 'stretch',
+            paddingTop: spaceBetweenBodyAndFooter,
           },
           styleSheet.common,
         ]}
@@ -192,7 +200,10 @@ export const Chapter: FC<ChapterProps> = ({
             blackListedPages={footerHiddenPages}
             transformValue={getTransformedPageNumber}
             pageNumberAlignment={pageNumberAlignment}
-            styles={footerStyles}
+            styles={{
+              ...footerStyles,
+              minHeight: headerStyles?.minHeight,
+            }}
           />
         )}
       </RPDFView>
