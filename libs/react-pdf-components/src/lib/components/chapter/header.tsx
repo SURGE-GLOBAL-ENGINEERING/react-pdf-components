@@ -4,7 +4,6 @@ import {
 } from '@paladin-analytics/rpdf-renderer';
 import { Style as RPDFStyle } from '@paladin-analytics/rpdf-types';
 import React, { FC } from 'react';
-import { transformLayoutValues } from '../../utils/transform-layout-values';
 import { appearOnGivenPage } from './appearOnGivenPage';
 
 // const BLACKLIST_PAGE_NUMBERS: number[] = [1, 2];
@@ -12,7 +11,7 @@ const IS_DEBUG = false;
 
 export type HeaderStyle = Pick<
   RPDFStyle,
-  'position' | 'fontFamily' | 'fontSize'
+  'position' | 'fontFamily' | 'fontSize' | 'minHeight'
 >;
 
 interface HeaderProps {
@@ -46,19 +45,18 @@ const Header: FC<HeaderProps> = ({
         style={{
           display: 'flex',
           flexDirection: 'row',
-          height: transformLayoutValues(styles?.fontSize, 2.4),
+          minHeight: styles?.minHeight,
         }}
       >
         {!isPageNumberHidden && (
           <RPDFText
-            style={[
-              styles || {},
-              {
-                ...(pageHeaderAlignment === 'outside' && {
-                  marginRight: pageNumberMargin,
-                }),
-              },
-            ]}
+            style={{
+              fontFamily: styles?.fontFamily,
+              fontSize: styles?.fontSize,
+              ...(pageHeaderAlignment === 'outside' && {
+                marginRight: pageNumberMargin,
+              }),
+            }}
             fixed
             render={({ pageNumber, subPageNumber }) => {
               return appearOnGivenPage(
@@ -74,7 +72,10 @@ const Header: FC<HeaderProps> = ({
 
         {pageHeaderAlignment === 'outside' && (
           <RPDFText
-            style={[styles || {}]}
+            style={{
+              fontFamily: styles?.fontFamily,
+              fontSize: styles?.fontSize,
+            }}
             fixed
             render={({ pageNumber, subPageNumber }) => {
               return appearOnGivenPage(
@@ -96,12 +97,16 @@ const Header: FC<HeaderProps> = ({
           style={{
             width: '100%',
             display: 'flex',
-            height: transformLayoutValues(styles?.fontSize, 2.4),
+            minHeight: styles?.minHeight,
           }}
         >
           <RPDFText
             debug={IS_DEBUG}
-            style={[styles || {}, { textAlign: 'center' }]}
+            style={{
+              fontFamily: styles?.fontFamily,
+              fontSize: styles?.fontSize,
+              textAlign: 'center',
+            }}
             fixed
             render={({ pageNumber, subPageNumber }) => {
               if (pageNumber % 2 === 0)
@@ -135,12 +140,15 @@ const Header: FC<HeaderProps> = ({
           display: 'flex',
           flexDirection: 'row',
           // justifyContent: 'flex-end',
-          height: transformLayoutValues(styles?.fontSize, 2.4),
+          minHeight: styles?.minHeight,
         }}
       >
         {pageHeaderAlignment === 'outside' && (
           <RPDFText
-            style={[styles || {}]}
+            style={{
+              fontFamily: styles?.fontFamily,
+              fontSize: styles?.fontSize,
+            }}
             fixed
             render={({ pageNumber, subPageNumber }) => {
               return appearOnGivenPage(
@@ -156,14 +164,13 @@ const Header: FC<HeaderProps> = ({
 
         {!isPageNumberHidden && (
           <RPDFText
-            style={[
-              styles || {},
-              {
-                ...(pageHeaderAlignment === 'outside' && {
-                  marginLeft: pageNumberMargin,
-                }),
-              },
-            ]}
+            style={{
+              fontFamily: styles?.fontFamily,
+              fontSize: styles?.fontSize,
+              ...(pageHeaderAlignment === 'outside' && {
+                marginLeft: pageNumberMargin,
+              }),
+            }}
             fixed
             render={({ pageNumber, subPageNumber }) => {
               return appearOnGivenPage(
