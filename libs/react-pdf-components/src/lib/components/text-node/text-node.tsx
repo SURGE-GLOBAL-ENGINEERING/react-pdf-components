@@ -4,23 +4,6 @@ import ReactPDF, {
 } from '@paladin-analytics/rpdf-renderer';
 import { FunctionComponent } from 'react';
 
-/**
- * Atticus :: TextNode features
- *
- * *bold
- * *italic
- * *underline
- * *strikethrough
- * *superscript
- * *subscript
- * *smallcaps
- * *code       [Courier]--> add other font types
- * *monospace  [Courier]--> add other font types
- * *sansserif  [PT Sans]--> add other font types
- * ?dropcap
- *
- */
-
 type Features = {
   superscript?: boolean;
   subscript?: boolean;
@@ -28,10 +11,7 @@ type Features = {
   italic?: boolean;
   underline?: boolean;
   strikeThrough?: boolean;
-  code?: boolean;
   smallCaps?: boolean;
-  monospace?: boolean;
-  sansSerif?: boolean;
 };
 
 const styles = StyleSheet.create({
@@ -53,15 +33,6 @@ const styles = StyleSheet.create({
   strikeThrough: {
     textDecoration: 'line-through',
   },
-  code: {
-    fontFamily: 'CourierPrime',
-  },
-  sansSerif: {
-    fontFamily: 'PTSans',
-  },
-  monospace: {
-    fontFamily: 'CourierPrime',
-  },
   smallCaps: {
     fontVariant: 'small-caps',
   },
@@ -70,12 +41,6 @@ const styles = StyleSheet.create({
   // special styles
   underlineStrikeThrough: {
     textDecoration: 'underline line-through',
-  },
-  codeBold: {
-    fontFamily: 'CourierPrime',
-  },
-  monospaceBold: {
-    fontFamily: 'CourierPrime',
   },
 });
 
@@ -86,10 +51,7 @@ const featureToStyleMap: Record<keyof Features, keyof typeof styles> = {
   italic: 'italic',
   underline: 'underline',
   strikeThrough: 'strikeThrough',
-  code: 'code',
-  monospace: 'monospace',
   smallCaps: 'smallCaps',
-  sansSerif: 'sansSerif',
 };
 
 export interface TextNodeProps extends ReactPDF.TextProps, Features {
@@ -129,13 +91,9 @@ export const TextNode: FunctionComponent<TextNodeProps> = ({
   };
   const handleSpecialStyles = () => {
     //handle spacial style cases
-    const { underline, strikeThrough, code, bold, monospace } = otherProps;
+    const { underline, strikeThrough } = otherProps;
     if (underline && strikeThrough) {
       composedStyles.push(styles.underlineStrikeThrough);
-    } else if (code && bold) {
-      composedStyles.push(styles.codeBold);
-    } else if (monospace && bold) {
-      composedStyles.push(styles.monospaceBold);
     }
   };
 
