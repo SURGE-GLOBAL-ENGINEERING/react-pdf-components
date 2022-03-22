@@ -38,7 +38,7 @@ const FloatPreview: FC<FloatPreviewProps> = () => {
         error ipsam debitis.
       </TextNode>
       <TextNode> </TextNode>
-      <TextNode fontSize={16} code>
+      <TextNode fontSize={16}>
         Code, ipsum dolor sit amet consectetur adipisicing elit. Numquam fugiat
         qui eosquod asperiores provident, quo deleniti vel velit ducimus
         suscipit vitae error ipsam debitis. Numquam fugiat qui eosquod
