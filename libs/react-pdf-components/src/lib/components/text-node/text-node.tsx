@@ -54,13 +54,13 @@ const styles = StyleSheet.create({
     textDecoration: 'line-through',
   },
   code: {
-    fontFamily: 'Courier',
+    fontFamily: 'CourierPrime',
   },
   sansSerif: {
-    fontFamily: 'PT Sans',
+    fontFamily: 'PTSans',
   },
   monospace: {
-    fontFamily: 'Courier',
+    fontFamily: 'CourierPrime',
   },
   smallCaps: {
     fontVariant: 'small-caps',
@@ -72,10 +72,10 @@ const styles = StyleSheet.create({
     textDecoration: 'underline line-through',
   },
   codeBold: {
-    fontFamily: 'Courier-Bold',
+    fontFamily: 'CourierPrime',
   },
   monospaceBold: {
-    fontFamily: 'Courier-Bold',
+    fontFamily: 'CourierPrime',
   },
 });
 
