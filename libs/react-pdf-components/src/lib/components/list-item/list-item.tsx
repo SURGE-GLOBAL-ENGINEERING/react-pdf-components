@@ -90,10 +90,14 @@ export interface ListItemProps {
 export const ListItem: FC<ListItemProps> = ({ children, index, style }) => {
   const level = useContext(LevelContext);
   const type = useContext(TypeContext);
+  const parentStyle = useContext(StyleContext);
 
   return createElement(
     RPDFView,
     {},
-    ...withListItemPrefix(children, level, type, index, style)
+    ...withListItemPrefix(children, level, type, index, {
+      ...parentStyle,
+      ...style,
+    })
   );
 };
