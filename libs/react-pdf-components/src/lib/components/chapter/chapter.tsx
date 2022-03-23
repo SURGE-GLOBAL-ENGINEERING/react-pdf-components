@@ -18,6 +18,7 @@ export interface ChapterProps {
   backgroundImageSrc?: string;
   backgroundImageStyles?: Pick<Style, 'opacity'>;
   disableImageSrcURLAppends?: boolean;
+  style?: Style;
 
   // default page size will be A4
   pageWidth?: string | number;
@@ -62,6 +63,7 @@ export const Chapter: FC<ChapterProps> = ({
   backgroundImageSrc,
   backgroundImageStyles,
   disableImageSrcURLAppends = false,
+  style,
   marginInside,
   marginOutside,
   pageNumberPosition,
@@ -120,6 +122,7 @@ export const Chapter: FC<ChapterProps> = ({
     page: {
       paddingBottom: getPagePaddingBottom(),
       paddingTop,
+      ...style,
     },
     headerContainer: {
       minHeight: headerStyles?.minHeight || 0,
