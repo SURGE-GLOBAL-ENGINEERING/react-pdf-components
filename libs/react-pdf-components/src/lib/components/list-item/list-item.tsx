@@ -1,4 +1,5 @@
 import {
+  Image as RPDFImage,
   Text as RPDFText,
   View as RPDFView,
 } from '@paladin-analytics/rpdf-renderer';
@@ -10,10 +11,13 @@ import {
   ReactElement,
   useContext,
 } from 'react';
-import { LevelContext, ListProps, TypeContext } from '../list';
+import { LevelContext, ListProps, StyleContext, TypeContext } from '../list';
 import { TextNodeProps } from '../text-node';
 
-const bulletCandidates = ['•'];
+const bulletCandidatesImageDataUrls = [
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAJVJREFUSInt0r0NwjAQQOEvMAk9CVtAzRpp2YBF+BmBBsEEVBSIHRAlCxCKpExkWxRp/KrT2c93ujOZTCYzPkXC3QrLLr7iESNNIx/fYI0zXqgxwy2hwUEWOPTkjyhD8iSiwAq7nvy+O/u7wFf/rgo0EX6QyvCI5iE5Zslv7UJrfLp4iztOITnlm5bamTe44JngZkbkBz74FFKIvkIXAAAAAElFTkSuQmCC',
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAI5JREFUSInt0rENwjAQheEPKFkAmIGELWAhxDysQAljEGp6JGpKQhHTICLHSqQ0/qWTrLPfvbuTyWQymfGZJLwtsQ3nC65DNnJAhWeICvuhim9CwfonKhQx8bSDwQ7LP/lFuOtt8G7JfyfpTal9ReuYeNbB4IE5VpqJX7jjiFNMnPJNC83Oa5xxS9BmRuQDI28dXM/cSMwAAAAASUVORK5CYII=',
+];
 
 export const addListItemPrefix = (
   element: ReactElement,
@@ -42,17 +46,18 @@ export const addListItemPrefix = (
     );
   }
 
-  const candidateIndex = level % bulletCandidates.length;
+  const candidateIndex = level % bulletCandidatesImageDataUrls.length;
 
   return (
     <RPDFText>
       <RPDFText
         style={{
-          ...{ fontSize: style?.fontSize },
-          ...{ fontFamily: 'Courier' },
+          fontSize: style?.fontSize,
+          width: style?.fontSize,
         }}
       >
-        {bulletCandidates[candidateIndex]}
+        <RPDFImage src={bulletCandidatesImageDataUrls[candidateIndex]} />
+        {'  '}
       </RPDFText>
       {element}
     </RPDFText>
@@ -90,10 +95,14 @@ export interface ListItemProps {
 export const ListItem: FC<ListItemProps> = ({ children, index, style }) => {
   const level = useContext(LevelContext);
   const type = useContext(TypeContext);
+  const parentStyle = useContext(StyleContext);
 
   return createElement(
     RPDFView,
     {},
-    ...withListItemPrefix(children, level, type, index, style)
+    ...withListItemPrefix(children, level, type, index, {
+      ...parentStyle,
+      ...style,
+    })
   );
 };

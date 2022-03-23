@@ -6,6 +6,7 @@ import { ListItemProps } from '../list-item';
 
 export const LevelContext = createContext<number>(0);
 export const TypeContext = createContext<'ol' | 'ul'>('ol');
+export const StyleContext = createContext<RPDFStyles | undefined>({});
 
 // utility function to add props to single and multiple children
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -22,23 +23,35 @@ const addPropsToChildren = (children: any) => {
 export interface ListProps {
   type: 'ul' | 'ol';
   children?: ReactElement<ListItemProps> | ReactElement<ListItemProps>[];
-  style?: RPDFStyles;
+  style?: RPDFStyles | RPDFStyles[];
 }
 
 export const List: FC<ListProps> = ({ children, type, style }) => {
   const level = useContext(LevelContext);
 
+  const getStyles = () => {
+    if (!style) return {};
+    if (Array.isArray(style)) {
+      return style.reduce((pre, curr) => Object.assign(pre, curr), {});
+    }
+    return style;
+  };
+
   const styles = StyleSheet.create({
     list: {
       marginLeft: `${LIST_ITEM_INDENT_WIDTH}pt`,
-      ...style,
+      ...getStyles(),
     },
   });
 
   return (
     <LevelContext.Provider value={level + 1}>
       <TypeContext.Provider value={type}>
-        <RPDFView style={styles.list}>{addPropsToChildren(children)}</RPDFView>
+        <StyleContext.Provider value={getStyles()}>
+          <RPDFView style={styles.list}>
+            {addPropsToChildren(children)}
+          </RPDFView>
+        </StyleContext.Provider>
       </TypeContext.Provider>
     </LevelContext.Provider>
   );

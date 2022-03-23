@@ -227,12 +227,31 @@ const ListPreview: FC = () => {
           <TextNode>chapter 5</TextNode>
         </ListItem>
       </List>
-      <List type="ul">
+      <List type="ul" style={{ fontFamily: 'EmilysCandy', fontSize: 11 }}>
         <ListItem>
           <TextNode>sub section 1</TextNode>
         </ListItem>
         <ListItem>
           <TextNode>sub section 2</TextNode>
+          <List type="ul" style={{ fontFamily: 'EmilysCandy', fontSize: 11 }}>
+            <ListItem>
+              <TextNode>sub section 1</TextNode>
+            </ListItem>
+            <ListItem>
+              <TextNode>sub section 2</TextNode>
+              <List
+                type="ul"
+                style={{ fontFamily: 'EmilysCandy', fontSize: 11 }}
+              >
+                <ListItem>
+                  <TextNode>sub section 1</TextNode>
+                </ListItem>
+                <ListItem>
+                  <TextNode>sub section 2</TextNode>
+                </ListItem>
+              </List>
+            </ListItem>
+          </List>
         </ListItem>
       </List>
     </Page>
