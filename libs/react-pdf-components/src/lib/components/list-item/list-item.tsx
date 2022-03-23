@@ -14,7 +14,7 @@ import {
 import { LevelContext, ListProps, StyleContext, TypeContext } from '../list';
 import { TextNodeProps } from '../text-node';
 
-const bulletCandidatesImageDataUri = [
+const bulletCandidatesImageDataUrl = [
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAJVJREFUSInt0r0NwjAQQOEvMAk9CVtAzRpp2YBF+BmBBsEEVBSIHRAlCxCKpExkWxRp/KrT2c93ujOZTCYzPkXC3QrLLr7iESNNIx/fYI0zXqgxwy2hwUEWOPTkjyhD8iSiwAq7nvy+O/u7wFf/rgo0EX6QyvCI5iE5Zslv7UJrfLp4iztOITnlm5bamTe44JngZkbkBz74FFKIvkIXAAAAAElFTkSuQmCC',
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAI5JREFUSInt0rENwjAQheEPKFkAmIGELWAhxDysQAljEGp6JGpKQhHTICLHSqQ0/qWTrLPfvbuTyWQymfGZJLwtsQ3nC65DNnJAhWeICvuhim9CwfonKhQx8bSDwQ7LP/lFuOtt8G7JfyfpTal9ReuYeNbB4IE5VpqJX7jjiFNMnPJNC83Oa5xxS9BmRuQDI28dXM/cSMwAAAAASUVORK5CYII=',
 ];
@@ -46,7 +46,7 @@ export const addListItemPrefix = (
     );
   }
 
-  const candidateIndex = level % bulletCandidatesImageDataUri.length;
+  const candidateIndex = level % bulletCandidatesImageDataUrl.length;
 
   return (
     <RPDFText>
@@ -56,7 +56,7 @@ export const addListItemPrefix = (
           width: style?.fontSize,
         }}
       >
-        <RPDFImage src={bulletCandidatesImageDataUri[candidateIndex]} />
+        <RPDFImage src={bulletCandidatesImageDataUrl[candidateIndex]} />
         {'  '}
       </RPDFText>
       {element}
