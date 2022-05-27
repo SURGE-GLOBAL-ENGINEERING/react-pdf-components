@@ -1,4 +1,4 @@
-import { Theme, Viewer } from '@paladin-analytics/react-pdf-components';
+import { Viewer } from '@paladin-analytics/react-pdf-components';
 import ReactPDF, {
   Document,
   Font,
@@ -22,7 +22,6 @@ editorFonts.forEach((el) => {
 });
 interface WithPDFViewerProps extends ReactPDF.PDFViewerProps {
   documentProps?: ReactPDF.DocumentProps;
-  themeConfig?: Theme;
 }
 
 const WithPDFViewer: React.FC<WithPDFViewerProps> = ({
@@ -84,8 +83,6 @@ export function App() {
   };
 
   return (
-    // TODO react-pdf have a issue with context-providers https://github.com/diegomura/react-pdf/issues/522
-    // <ThemeProvider themeConfig={{ fontFamily: fontState }}>
     <Router>
       <div className={styles.app}>
         <nav>
@@ -170,7 +167,6 @@ export function App() {
         </Switch>
       </div>
     </Router>
-    // </ThemeProvider>
   );
 }
 

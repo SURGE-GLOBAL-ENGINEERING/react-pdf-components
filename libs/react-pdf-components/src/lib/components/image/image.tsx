@@ -119,7 +119,6 @@ export const Image: FunctionComponent<ImageProps> = ({
   ...coreImageProps
 }) => {
   return wrap ? (
-    // TODO implement the wrapping logic
     <RPDFView>
       <ImageCore captionAlignment={alignment} {...coreImageProps}></ImageCore>
     </RPDFView>
