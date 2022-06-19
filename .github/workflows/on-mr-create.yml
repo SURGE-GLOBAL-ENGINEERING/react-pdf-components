@@ -52,6 +52,6 @@ jobs:
           DEPLOYURL: $(firebase hosting:channel:open $deployChannel)
         with:
           message: |
-            Deployed for preview channel ${{ env.DEPLOYURL }}
+            Deployed for preview channel $DEPLOYURL
           reactions: eyes, rocket
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
