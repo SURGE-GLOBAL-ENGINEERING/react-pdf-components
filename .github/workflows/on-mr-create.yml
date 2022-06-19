@@ -12,7 +12,7 @@ jobs:
   deploy-app-preview:
     runs-on: ubuntu-latest
     env:
-      deployChannel: rpc-${PR_NUMBER}
+      deployChannel: rpc-${{ github.event.number }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
