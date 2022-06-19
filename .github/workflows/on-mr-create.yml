@@ -14,10 +14,10 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
-      - name: Use Node.js latest
+      - name: Use Node.js 16.4.0
         uses: actions/setup-node@v1
         with:
-          node-version: latest
+          node-version: 16.4.0
 
       - name: config private registry
         run: npm config set '@paladin-analytics:registry' "https://npm.pkg.github.com"
