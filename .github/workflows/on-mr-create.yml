@@ -11,6 +11,8 @@ env:
 jobs:
   deploy-app-preview:
     runs-on: ubuntu-latest
+    env:
+      deployChannel:rpc-${PR_NUMBER}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -41,4 +43,6 @@ jobs:
       - name: building app and lib
         run: npm run build app
       - name: deploy for preview
-        run: npm run firebase:deploy:preview -- "rpc-${PR_NUMBER}" -P default --token $FIREBASE_TOKEN
+        run: npm run firebase:deploy:preview -- "$deployChannel" -P default --token $FIREBASE_TOKEN
+      - name: get deploy URL
+        run: firebase hosting:channel:open $deployChannel
