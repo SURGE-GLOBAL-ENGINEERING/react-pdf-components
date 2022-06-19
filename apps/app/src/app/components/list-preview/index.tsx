@@ -22,42 +22,7 @@ const ListPreview: FC = () => {
         }}
       >
         <List type="ol" style={{ fontSize: 11 }}>
-          {[...Array(SIZE)].map((x, i) => {
-            // if (i === 5) {
-            //   return (
-            //     <List type="ul">
-            //       {[...Array(SIZE / 2)].map((x, i) => {
-            //         if (i === 5) {
-            //           return (
-            //             <List type="ol">
-            //               {[...Array(SIZE / 2)].map((x) => {
-            //                 if (i === 5) {
-            //                   return (
-            //                     <ListItem>
-            //                       <TextNode>{lorem}</TextNode>
-            //                     </ListItem>
-            //                   );
-            //                 }
-            //                 return (
-            //                   <ListItem>
-            //                     <TextNode>{lorem}</TextNode>
-            //                   </ListItem>
-            //                 );
-            //               })}
-            //             </List>
-            //           );
-            //         }
-
-            //         return (
-            //           <ListItem>
-            //             <TextNode>{lorem}</TextNode>
-            //           </ListItem>
-            //         );
-            //       })}
-            //     </List>
-            //   );
-            // }
-
+          {[...Array(SIZE)].map(() => {
             return (
               <ListItem>
                 <TextNode>{lorem}</TextNode>
@@ -65,13 +30,6 @@ const ListPreview: FC = () => {
             );
           })}
         </List>
-        {/* <List type="ul" style={{ fontSize: 24 }}>
-          {[...Array(SIZE)].map((x) => (
-            <ListItem>
-              <TextNode>{lorem}</TextNode>
-            </ListItem>
-          ))}
-        </List> */}
       </View>
     </Page>
   );
