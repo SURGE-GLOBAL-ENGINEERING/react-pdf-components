@@ -44,5 +44,7 @@ jobs:
         run: npm run build app
       - name: deploy for preview
         run: npm run firebase:deploy:preview -- "$deployChannel" -P default --token $FIREBASE_TOKEN
-      - name: get deploy URL
-        run: firebase hosting:channel:open $deployChannel
+      - name: set deploy URL
+        run: DEPLOYURL=$(firebase hosting:channel:open $deployChannel)
+      - name: echo URL
+        run: echo $DEPLOYURL
