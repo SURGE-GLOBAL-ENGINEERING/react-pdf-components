@@ -1,5 +1,6 @@
 import {
   Image as RPDFImage,
+  StyleSheet,
   Text as RPDFText,
   View as RPDFView,
 } from '@paladin-analytics/rpdf-renderer';
@@ -11,15 +12,81 @@ import {
   ReactElement,
   useContext,
 } from 'react';
+import { addPropsToReactElement } from '../../utils';
 import { LevelContext, ListProps, StyleContext, TypeContext } from '../list';
-import { TextNodeProps } from '../text-node';
+import { TextNode, TextNodeProps } from '../text-node';
 
 const bulletCandidatesImageDataUrls = [
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAJVJREFUSInt0r0NwjAQQOEvMAk9CVtAzRpp2YBF+BmBBsEEVBSIHRAlCxCKpExkWxRp/KrT2c93ujOZTCYzPkXC3QrLLr7iESNNIx/fYI0zXqgxwy2hwUEWOPTkjyhD8iSiwAq7nvy+O/u7wFf/rgo0EX6QyvCI5iE5Zslv7UJrfLp4iztOITnlm5bamTe44JngZkbkBz74FFKIvkIXAAAAAElFTkSuQmCC',
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAI5JREFUSInt0rENwjAQheEPKFkAmIGELWAhxDysQAljEGp6JGpKQhHTICLHSqQ0/qWTrLPfvbuTyWQymfGZJLwtsQ3nC65DNnJAhWeICvuhim9CwfonKhQx8bSDwQ7LP/lFuOtt8G7JfyfpTal9ReuYeNbB4IE5VpqJX7jjiFNMnPJNC83Oa5xxS9BmRuQDI28dXM/cSMwAAAAASUVORK5CYII=',
 ];
 
-export const addListItemPrefix = (
+const styles = StyleSheet.create({
+  itemContainer: {
+    flexDirection: 'row',
+  },
+  elementContainer: {
+    flex: 1,
+  },
+  prefixContainer: {
+    alignItems: 'flex-end',
+  },
+});
+
+const getFontSize = (fontSize?: string | number): number => {
+  const DEFAULT_FONT_SIZE = 11;
+  if (!fontSize) return DEFAULT_FONT_SIZE;
+
+  if (typeof fontSize === 'string') {
+    const match = fontSize.match(/\d+/);
+    return match ? +match[0] : DEFAULT_FONT_SIZE;
+  }
+
+  return fontSize;
+};
+
+const Item: FC<{
+  prefix: string | ReactElement;
+  style?: RPDFStyles;
+  children: ReactElement;
+}> = ({ prefix, style, children }) => {
+  /**
+   * if the child is a text node, we should override the default orphans value to 0
+   * to prevent the line breaking of text node which causes the prefix and the content
+   * to render in different lines
+   */
+  if (children.type === TextNode) {
+    children = addPropsToReactElement(children, { orphans: 0 });
+  }
+
+  return (
+    <RPDFView
+      style={{
+        ...styles.itemContainer,
+        marginBottom: getFontSize(style?.fontSize),
+      }}
+    >
+      <RPDFView
+        style={{
+          ...styles.prefixContainer,
+          width: getFontSize(style?.fontSize) * 2, // TODO: Introduce font based fine tuning
+        }}
+      >
+        <RPDFText
+          style={{
+            fontFamily: style?.fontFamily,
+            fontSize: style?.fontSize,
+          }}
+        >
+          {prefix}{' '}
+        </RPDFText>
+      </RPDFView>
+      <RPDFView style={styles.elementContainer}>{children}</RPDFView>
+    </RPDFView>
+  );
+};
+
+const addListItemPrefix = (
   element: ReactElement,
   level: number,
   type: 'ol' | 'ul',
@@ -32,35 +99,30 @@ export const addListItemPrefix = (
 
   if (type === 'ol' && index) {
     return (
-      <RPDFText>
-        <RPDFText
-          style={{
-            fontFamily: style?.fontFamily,
-            fontSize: style?.fontSize,
-          }}
-        >
-          {index}.{' '}
-        </RPDFText>
+      <Item
+        prefix={`${index}.`}
+        style={{
+          fontFamily: style?.fontFamily,
+          fontSize: style?.fontSize,
+        }}
+      >
         {element}
-      </RPDFText>
+      </Item>
     );
   }
 
   const candidateIndex = level % bulletCandidatesImageDataUrls.length;
 
   return (
-    <RPDFText>
-      <RPDFText
-        style={{
-          fontSize: style?.fontSize,
-          width: style?.fontSize,
-        }}
-      >
-        <RPDFImage src={bulletCandidatesImageDataUrls[candidateIndex]} />
-        {'  '}
-      </RPDFText>
+    <Item
+      prefix={<RPDFImage src={bulletCandidatesImageDataUrls[candidateIndex]} />}
+      style={{
+        fontFamily: style?.fontFamily,
+        fontSize: style?.fontSize,
+      }}
+    >
       {element}
-    </RPDFText>
+    </Item>
   );
 };
 
