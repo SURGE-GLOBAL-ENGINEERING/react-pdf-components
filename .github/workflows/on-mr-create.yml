@@ -46,7 +46,9 @@ jobs:
 
       - name: deploy for preview
         run: npm run firebase:deploy:preview -- "$deployChannel" -P default --token $FIREBASE_TOKEN
-        
+
+      - run: echo "$(firebase hosting:channel:open $deployChannel)"
+
       - name: format deploy URL
         uses: JungWinter/split@v2.0.0
         with:
