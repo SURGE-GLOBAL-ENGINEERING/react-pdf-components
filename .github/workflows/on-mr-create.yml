@@ -49,7 +49,8 @@ jobs:
       - name: set deploy URL
         run: RAW_URL=$(firebase hosting:channel:open $deployChannel)
       - run: RAW_SPLITTED=(${RAW_URL//22m/ })
-      - run: echo FORMATTED_URL=${RAW_SPLITTED[1]} >> $GITHUB_ENV
+      - run: echo "${RAW_SPLITTED[*]}"
+      - run: echo FORMATTED_URL="${RAW_SPLITTED[1]}" >> $GITHUB_ENV
 
       - name: Comment preview URL on PR
         uses: thollander/actions-comment-pull-request@v1
