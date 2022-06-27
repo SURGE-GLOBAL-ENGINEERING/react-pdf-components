@@ -50,11 +50,12 @@ jobs:
       - name: format deploy URL
         uses: JungWinter/split@v2.0.0
         with:
-          msg: $(firebase hosting:channel:open $deployChannel)
+          msg: "$(firebase hosting:channel:open $deployChannel)"
           separator: "22m"
 
       - name: set deploy URL
         run: echo "DEPLOY_URL=${{ steps.split.outputs._1 }}" >> $GITHUB_ENV
+      - run: echo "DEPLOY_URL_0=${{ steps.split.outputs._0 }}" >> $GITHUB_ENV
 
       - name: comment preview URL on PR
         uses: thollander/actions-comment-pull-request@v1
