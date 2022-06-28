@@ -1,6 +1,7 @@
 export * from './chapter';
 export * from './document';
 export * from './float';
+export * from './footnotes';
 export * from './image';
 export * from './line';
 export * from './link';

@@ -1,5 +1,6 @@
 import * as ChapterPreview from './chapter-preview';
 import * as FloatPreview from './float-preview';
+import * as FootnotesPreview from './footnotes-preview';
 import * as ImagePreview from './image-preview';
 import * as LinkPreview from './link-preview';
 import * as ListPreview from './list-preview';
@@ -14,4 +15,5 @@ export default {
   ImagePreview,
   FloatPreview,
   ChapterPreview,
+  FootnotesPreview,
 };

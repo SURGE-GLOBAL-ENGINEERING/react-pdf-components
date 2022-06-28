@@ -45,7 +45,7 @@ const getFontSize = (fontSize?: string | number): number => {
   return fontSize;
 };
 
-const Item: FC<{
+export const Item: FC<{
   prefix: string | ReactElement;
   style?: RPDFStyles;
   children: ReactElement;
