@@ -17,7 +17,7 @@ export const FootnotePlaceholder: FC<FootnotePlaceholderProps> = ({
       position: 'absolute',
       top: '100%',
       width: '100%',
-      fontSize: style?.fontSize,
+      fontSize: style?.fontSize || 0,
       fontFamily: style?.fontFamily,
       marginTop,
     }}
