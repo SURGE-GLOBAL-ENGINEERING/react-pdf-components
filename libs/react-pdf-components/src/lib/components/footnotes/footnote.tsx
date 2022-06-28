@@ -21,7 +21,7 @@ export const Footnote: FC<FootnoteProps> = ({ reference, note, style }) => {
       )}
       style={{ ...style, fontVariant: 'superscript' }}
     >
-      {reference}
+      {reference}{' '}
     </RPDFText>
   );
 };
