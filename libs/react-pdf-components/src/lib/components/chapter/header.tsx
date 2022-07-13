@@ -140,7 +140,8 @@ const Header: FC<HeaderProps> = ({
           display: 'flex',
           flexDirection: 'row',
           // justifyContent: 'flex-end',
-          minHeight: styles?.minHeight,
+          minHeight: Number(styles?.fontSize)*1.5 || styles?.minHeight, 
+          height: Number(styles?.fontSize)*1.5,
         }}
       >
         {pageHeaderAlignment === 'outside' && (
@@ -148,6 +149,8 @@ const Header: FC<HeaderProps> = ({
             style={{
               fontFamily: styles?.fontFamily,
               fontSize: styles?.fontSize,
+              textOverflow: 'ellipsis',
+              marginRight: Number(styles?.fontSize)*4,
             }}
             fixed
             render={({ pageNumber, subPageNumber }) => {
