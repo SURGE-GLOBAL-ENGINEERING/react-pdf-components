@@ -63,7 +63,7 @@ export const Item: FC<{
     <RPDFView
       style={{
         ...styles.itemContainer,
-        marginBottom: getFontSize(style?.fontSize),
+        marginBottom: style?.lineHeight || getFontSize(style?.fontSize),
       }}
     >
       <RPDFView
