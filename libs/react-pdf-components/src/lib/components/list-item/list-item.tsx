@@ -25,7 +25,7 @@ const bulletCandidatesImageDataUrls = [
 
 const numberingFormatters = [
   (i: number) => i,
-  (i: number) => arabToAlphabetic(i),
+  (i: number) => arabToAlphabetic(i - 1),
   (i: number) => arabToRoman(i).toLowerCase(),
 ];
 
