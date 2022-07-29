@@ -167,7 +167,7 @@ const Header: FC<HeaderProps> = ({
                   textOverflow: 'ellipsis',
                 }}
                 fixed
-                render={({ pageNumber, subPageNumber }) => {
+                render={({ pageNumber }) => {
                   if (pageNumber % 2 === 0)
                     return "";
                   else {
@@ -312,7 +312,7 @@ const Header: FC<HeaderProps> = ({
           </RPDFView>
 
         </RPDFView>
-          
+
       </RPDFView>
            
     </>
