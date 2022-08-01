@@ -32,161 +32,289 @@ const Header: FC<HeaderProps> = ({
   oddPageHeaderText = '',
   pageHeaderAlignment = 'center',
   isPageNumberHidden,
-  pageNumberMargin = 30,
+  pageNumberMargin = 10,
   styles,
   blackListedPages = [],
 }) => {
   return (
-    <>
-      {/* even-outside */}
-
+    <>  
       <RPDFView
-        debug={IS_DEBUG}
+        fixed
         style={{
-          display: 'flex',
-          flexDirection: 'row',
-          minHeight: styles?.minHeight,
-        }}
-      >
-        {!isPageNumberHidden && (
-          <RPDFText
-            style={{
-              fontFamily: styles?.fontFamily,
-              fontSize: styles?.fontSize,
-              ...(pageHeaderAlignment === 'outside' && {
-                marginRight: pageNumberMargin,
-              }),
-            }}
-            fixed
-            render={({ pageNumber, subPageNumber }) => {
-              return appearOnGivenPage(
-                'even',
-                transformedPageNumber(pageNumber),
-                pageNumber,
-                subPageNumber,
-                blackListedPages
-              );
-            }}
-          />
-        )}
-
-        {pageHeaderAlignment === 'outside' && (
-          <RPDFText
-            style={{
-              fontFamily: styles?.fontFamily,
-              fontSize: styles?.fontSize,
-            }}
-            fixed
-            render={({ pageNumber, subPageNumber }) => {
-              return appearOnGivenPage(
-                'even',
-                evenPageHeaderText,
-                pageNumber,
-                subPageNumber,
-                blackListedPages
-              );
-            }}
-          />
-        )}
-      </RPDFView>
-
-      {/* center header */}
-
-      {pageHeaderAlignment === 'center' && (
-        <RPDFView
-          style={{
-            width: '100%',
-            display: 'flex',
-            minHeight: styles?.minHeight,
-          }}
-        >
-          <RPDFText
-            debug={IS_DEBUG}
-            style={{
-              fontFamily: styles?.fontFamily,
-              fontSize: styles?.fontSize,
-              textAlign: 'center',
-            }}
-            fixed
-            render={({ pageNumber, subPageNumber }) => {
-              if (pageNumber % 2 === 0)
-                return appearOnGivenPage(
-                  'all',
-                  evenPageHeaderText,
-                  pageNumber,
-                  subPageNumber,
-                  blackListedPages
-                );
-              else {
-                return appearOnGivenPage(
-                  'all',
-                  oddPageHeaderText,
-                  pageNumber,
-                  subPageNumber,
-                  blackListedPages
-                );
-              }
-            }}
-          />
-        </RPDFView>
-      )}
-
-      {/* odd - outside */}
-
-      <RPDFView
-        debug={IS_DEBUG}
-        style={{
-          // flex: 1,
-          display: 'flex',
-          flexDirection: 'row',
-          // justifyContent: 'flex-end',
           minHeight: Number(styles?.fontSize)*1.5 || styles?.minHeight, 
           height: Number(styles?.fontSize)*1.5,
         }}
       >
-        {pageHeaderAlignment === 'outside' && (
-          <RPDFText
-            style={{
-              fontFamily: styles?.fontFamily,
-              fontSize: styles?.fontSize,
-              textOverflow: 'ellipsis',
-              marginRight: Number(styles?.fontSize)*4,
-            }}
-            fixed
-            render={({ pageNumber, subPageNumber }) => {
-              return appearOnGivenPage(
-                'odd',
-                oddPageHeaderText,
-                pageNumber,
-                subPageNumber,
-                blackListedPages
-              );
-            }}
-          />
-        )}
 
-        {!isPageNumberHidden && (
-          <RPDFText
+        {/* Even Side */}
+
+        <RPDFView 
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            minHeight: Number(styles?.fontSize)*1.5 || styles?.minHeight, 
+            height: Number(styles?.fontSize)*1.5,
+            top: 0,
+            left: 0,
+          }}
+        >
+
+          {/* even-outside */}
+      
+          <RPDFView
+            debug={IS_DEBUG}
             style={{
-              fontFamily: styles?.fontFamily,
-              fontSize: styles?.fontSize,
-              ...(pageHeaderAlignment === 'outside' && {
-                marginLeft: pageNumberMargin,
-              }),
+              display: 'flex',
+              flexDirection: 'row',
+              minHeight: Number(styles?.fontSize)*1.5 || styles?.minHeight, 
+              height: Number(styles?.fontSize)*1.5,
             }}
-            fixed
-            render={({ pageNumber, subPageNumber }) => {
-              return appearOnGivenPage(
-                'odd',
-                transformedPageNumber(pageNumber),
-                pageNumber,
-                subPageNumber,
-                blackListedPages
-              );
+          >
+            {!isPageNumberHidden && (
+              <RPDFText
+                style={{
+                  fontFamily: styles?.fontFamily,
+                  fontSize: styles?.fontSize,
+                  marginRight: 5,
+                }}
+                fixed
+                render={({ pageNumber, subPageNumber }) => {
+                  return appearOnGivenPage(
+                    'even',
+                    transformedPageNumber(pageNumber),
+                    pageNumber,
+                    subPageNumber,
+                    blackListedPages
+                  );
+                }}
+              />
+            )}
+
+            {pageHeaderAlignment === 'outside' && (
+              <RPDFText
+                style={{
+                  fontFamily: styles?.fontFamily,
+                  fontSize: styles?.fontSize,
+                  textOverflow: 'ellipsis',
+                  marginRight: pageNumberMargin,
+                }}
+                fixed
+                render={({ pageNumber, subPageNumber }) => {
+                  return appearOnGivenPage(
+                    'even',
+                    evenPageHeaderText,
+                    pageNumber,
+                    subPageNumber,
+                    blackListedPages
+                  );
+                }}
+              />
+            )}
+          </RPDFView>
+
+          {/* center header */}
+
+          {pageHeaderAlignment === 'center' && (
+            <RPDFView
+              style={{
+                width: '100%',
+                display: 'flex',
+                minHeight: Number(styles?.fontSize)*1.5 || styles?.minHeight, 
+                height: Number(styles?.fontSize)*1.5,
+              }}
+            >
+              <RPDFText
+                debug={IS_DEBUG}
+                style={{
+                  fontFamily: styles?.fontFamily,
+                  fontSize: styles?.fontSize,
+                  textAlign: 'center',
+                  textOverflow: 'ellipsis',
+                }}
+                fixed
+                render={({ pageNumber, subPageNumber }) => {
+                  if (pageNumber % 2 === 0)
+                    return appearOnGivenPage(
+                      'all',
+                      evenPageHeaderText,
+                      pageNumber,
+                      subPageNumber,
+                      blackListedPages
+                    );
+                  else {
+                    return "";
+                  }
+                }}
+              />
+            </RPDFView>
+          )}
+
+          {pageHeaderAlignment === 'outside' && (
+            <RPDFView
+              style={{
+                width: '100%',
+                display: 'flex',
+                minHeight: Number(styles?.fontSize)*1.5 || styles?.minHeight, 
+                height: Number(styles?.fontSize)*1.5,
+              }}
+            >
+              <RPDFText
+                debug={IS_DEBUG}
+                style={{
+                  fontFamily: styles?.fontFamily,
+                  fontSize: styles?.fontSize,
+                  textAlign: 'center',
+                  textOverflow: 'ellipsis',
+                }}
+                fixed
+                render={({ pageNumber }) => {
+                  if (pageNumber % 2 === 0)
+                    return "";
+                  else {
+                    return "";
+                  }
+                }}
+              />
+            </RPDFView>
+          )}
+
+        </RPDFView>
+
+        {/* Odd Pages */}
+
+        <RPDFView 
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            minHeight: Number(styles?.fontSize)*1.5 || styles?.minHeight, 
+            height: Number(styles?.fontSize)*1.5,
+            top: 0,
+            left: 0,
+            position: 'absolute',
+            marginRight: 5,
+            width: '100%',
+          }}
+        >
+
+          {/* center header */}
+
+          {pageHeaderAlignment === 'center' && (
+            <RPDFView
+              style={{
+                width: '100%',
+                display: 'flex',
+                minHeight: Number(styles?.fontSize)*1.5 || styles?.minHeight, 
+                height: Number(styles?.fontSize)*1.5,
+              }}
+            >
+              <RPDFText
+                debug={IS_DEBUG}
+                style={{
+                  fontFamily: styles?.fontFamily,
+                  fontSize: styles?.fontSize,
+                  textAlign: 'center',
+                  textOverflow: 'ellipsis',
+                  marginRight: 10,
+                  ...(!isPageNumberHidden &&{
+                    marginRight: pageNumberMargin,
+                  }),
+                }}
+                fixed
+                render={({ pageNumber, subPageNumber }) => {
+                  if (pageNumber % 2 === 0)
+                    return '';
+                  else {
+                    return appearOnGivenPage(
+                      'all',
+                      oddPageHeaderText,
+                      pageNumber,
+                      subPageNumber,
+                      blackListedPages
+                    );
+                  }
+                }}
+              />
+            </RPDFView>
+          )}
+
+          {pageHeaderAlignment === 'outside' && (
+            <RPDFView
+              style={{
+                width: '100%',
+                display: 'flex',
+                minHeight: Number(styles?.fontSize)*1.5 || styles?.minHeight, 
+                height: Number(styles?.fontSize)*1.5,
+                ...(!isPageNumberHidden && {
+                  marginRight: pageNumberMargin,
+                }),
+                
+              }}
+            >
+              <RPDFText
+                debug={IS_DEBUG}
+                style={{
+                  fontFamily: styles?.fontFamily,
+                  fontSize: styles?.fontSize,
+                  textAlign: 'right',
+                  textOverflow: 'ellipsis',
+                }}
+                fixed
+                render={({ pageNumber, subPageNumber }) => {
+                  if (pageNumber % 2 === 0)
+                    return '';
+                  else {
+                    return appearOnGivenPage(
+                      'all',
+                      oddPageHeaderText,
+                      pageNumber,
+                      subPageNumber,
+                      blackListedPages
+                    );
+                  }
+                }}
+              />
+            </RPDFView>
+          )}
+
+          {/* odd - outside */}
+
+          <RPDFView
+            debug={IS_DEBUG}
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              minHeight: Number(styles?.fontSize)*1.5 || styles?.minHeight, 
+              height: Number(styles?.fontSize)*1.5,
             }}
-          />
-        )}
+          >
+            {!isPageNumberHidden && (
+              <RPDFText
+                style={{
+                  fontFamily: styles?.fontFamily,
+                  fontSize: styles?.fontSize,
+                  ...(pageHeaderAlignment === 'outside' && {
+                    marginLeft: pageNumberMargin,
+                    marginRight: 5,
+                  }),
+                }}
+                fixed
+                render={({ pageNumber, subPageNumber }) => {
+                  return appearOnGivenPage(
+                    'odd',
+                    transformedPageNumber(pageNumber),
+                    pageNumber,
+                    subPageNumber,
+                    blackListedPages
+                  );
+                }}
+              />
+            )}
+          </RPDFView>
+
+        </RPDFView>
+
       </RPDFView>
+           
     </>
   );
 };
