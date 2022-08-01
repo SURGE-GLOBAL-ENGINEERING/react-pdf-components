@@ -32,7 +32,7 @@ const Header: FC<HeaderProps> = ({
   oddPageHeaderText = '',
   pageHeaderAlignment = 'center',
   isPageNumberHidden,
-  pageNumberMargin = 30,
+  pageNumberMargin = 10,
   styles,
   blackListedPages = [],
 }) => {
@@ -75,7 +75,7 @@ const Header: FC<HeaderProps> = ({
                 style={{
                   fontFamily: styles?.fontFamily,
                   fontSize: styles?.fontSize,
-                  marginRight: pageNumberMargin,
+                  marginRight: 5,
                 }}
                 fixed
                 render={({ pageNumber, subPageNumber }) => {
@@ -96,7 +96,7 @@ const Header: FC<HeaderProps> = ({
                   fontFamily: styles?.fontFamily,
                   fontSize: styles?.fontSize,
                   textOverflow: 'ellipsis',
-                  marginRight: 35,
+                  marginRight: pageNumberMargin,
                 }}
                 fixed
                 render={({ pageNumber, subPageNumber }) => {
@@ -294,7 +294,7 @@ const Header: FC<HeaderProps> = ({
                   fontSize: styles?.fontSize,
                   ...(pageHeaderAlignment === 'outside' && {
                     marginLeft: pageNumberMargin,
-                    marginRight: 10,
+                    marginRight: 5,
                   }),
                 }}
                 fixed
