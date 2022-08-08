@@ -89,7 +89,9 @@ export const Item: FC<{
           {prefix}{' '}
         </RPDFText>
       </RPDFView>
-      <RPDFText style={styles.elementContainer}>{children}</RPDFText>
+      <RPDFText style={styles.elementContainer} orphans={0}>
+        {children}
+      </RPDFText>
     </RPDFView>
   );
 };
