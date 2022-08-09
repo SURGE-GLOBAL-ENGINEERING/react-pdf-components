@@ -75,7 +75,6 @@ const Header: FC<HeaderProps> = ({
                 style={{
                   fontFamily: styles?.fontFamily,
                   fontSize: styles?.fontSize,
-                  // marginRight: 5,
                   marginRight: pageNumberMargin,
                 }}
                 fixed
