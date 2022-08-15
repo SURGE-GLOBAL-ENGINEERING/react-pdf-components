@@ -51,10 +51,14 @@ export interface ChapterProps {
   /**
    * Header nad Footer styles for `fontFamily` and `fontSize`
    */
-  pageNumberMargin?: number | string;
   footerStyles?: Pick<FooterStyle, 'fontFamily' | 'fontSize' | 'minHeight'>;
   headerStyles?: Pick<HeaderStyle, 'fontFamily' | 'fontSize' | 'minHeight'> &
     Pick<Style, 'marginBottom'>;
+  /**
+   * Depreciated attribute. Use pageNumberContainerWidth instead
+   */
+  pageNumberMargin?: number | string;
+  pageNumberContainerWidth?: number | string;
   assumeUsingOnlyFirstPage?: boolean;
   firstPageLightText?: boolean;
 }
@@ -79,6 +83,7 @@ export const Chapter: FC<ChapterProps> = ({
   spaceBetweenBodyAndFooter = 10,
   paddingTop,
   pageNumberMargin,
+  pageNumberContainerWidth,
   footerStyles,
   headerStyles,
   children,
@@ -166,7 +171,9 @@ export const Chapter: FC<ChapterProps> = ({
           oddPageHeaderText={oddPageHeaderText}
           isPageNumberHidden={pageNumberPosition === 'bottom'}
           transformedPageNumber={getTransformedPageNumber}
-          pageNumberMargin={pageNumberMargin}
+          pageNumberContainerWidth={
+            pageNumberContainerWidth || pageNumberMargin
+          }
           blackListedPages={headerHiddenPages}
           styles={headerStyles}
         />
