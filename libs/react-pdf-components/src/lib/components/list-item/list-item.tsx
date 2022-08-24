@@ -57,7 +57,8 @@ export const Item: FC<{
   prefix: string | ReactElement;
   style?: RPDFStyles;
   children: ReactElement;
-}> = ({ prefix, style, children }) => {
+  wrap?: boolean;
+}> = ({ prefix, style, children, wrap = true }) => {
   /**
    * if the child is a text node, we should override the default orphans value to 0
    * to prevent the line breaking of text node which causes the prefix and the content
@@ -67,8 +68,11 @@ export const Item: FC<{
     children = addPropsToReactElement(children, { orphans: 0 });
   }
 
+  const prefixContainerWidth = getFontSize(style?.fontSize) * 2; // TODO: Introduce font based fine tuning
+
   return (
     <RPDFView
+      wrap={wrap}
       style={{
         ...styles.itemContainer,
         marginBottom: style?.lineHeight || getFontSize(style?.fontSize),
@@ -77,20 +81,28 @@ export const Item: FC<{
       <RPDFView
         style={{
           ...styles.prefixContainer,
-          width: getFontSize(style?.fontSize) * 2, // TODO: Introduce font based fine tuning
+          position: 'absolute',
+          width: prefixContainerWidth,
         }}
       >
         <RPDFText
           style={{
             fontFamily: style?.fontFamily,
             fontSize: style?.fontSize,
+            maxLines: 1,
           }}
         >
           {prefix}{' '}
         </RPDFText>
       </RPDFView>
-      <RPDFText style={styles.elementContainer} orphans={0}>
-        {children}
+      <RPDFText
+        style={{
+          ...styles.elementContainer,
+          paddingLeft: prefixContainerWidth,
+        }}
+        orphans={0}
+      >
+        {children}{' '}
       </RPDFText>
     </RPDFView>
   );
