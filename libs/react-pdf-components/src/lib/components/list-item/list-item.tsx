@@ -68,8 +68,6 @@ export const Item: FC<{
     children = addPropsToReactElement(children, { orphans: 0 });
   }
 
-  const prefixContainerWidth = getFontSize(style?.fontSize) * 2; // TODO: Introduce font based fine tuning
-
   return (
     <RPDFView
       wrap={wrap}
@@ -81,28 +79,20 @@ export const Item: FC<{
       <RPDFView
         style={{
           ...styles.prefixContainer,
-          position: 'absolute',
-          width: prefixContainerWidth,
+          width: getFontSize(style?.fontSize) * 2, // TODO: Introduce font based fine tuning
         }}
       >
         <RPDFText
           style={{
             fontFamily: style?.fontFamily,
             fontSize: style?.fontSize,
-            maxLines: 1,
           }}
         >
           {prefix}{' '}
         </RPDFText>
       </RPDFView>
-      <RPDFText
-        style={{
-          ...styles.elementContainer,
-          paddingLeft: prefixContainerWidth,
-        }}
-        orphans={0}
-      >
-        {children}{' '}
+      <RPDFText style={styles.elementContainer} orphans={0}>
+        {children}
       </RPDFText>
     </RPDFView>
   );
