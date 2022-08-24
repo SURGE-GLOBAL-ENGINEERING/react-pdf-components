@@ -57,7 +57,8 @@ export const Item: FC<{
   prefix: string | ReactElement;
   style?: RPDFStyles;
   children: ReactElement;
-}> = ({ prefix, style, children }) => {
+  wrap?: boolean;
+}> = ({ prefix, style, children, wrap = true }) => {
   /**
    * if the child is a text node, we should override the default orphans value to 0
    * to prevent the line breaking of text node which causes the prefix and the content
@@ -71,6 +72,7 @@ export const Item: FC<{
 
   return (
     <RPDFView
+      wrap={wrap}
       style={{
         ...styles.itemContainer,
         marginBottom: style?.lineHeight || getFontSize(style?.fontSize),
