@@ -95,8 +95,8 @@ export const Item: FC<{
             position: 'absolute',
             bottom: 0,
             left: 0,
-            height: '1px',
-            width: '1px',
+            height: 1,
+            width: 1,
           }} 
         >
         </RPDFView>
