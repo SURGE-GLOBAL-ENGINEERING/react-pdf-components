@@ -90,6 +90,16 @@ export const Item: FC<{
         >
           {prefix}{' '}
         </RPDFText>
+        <RPDFView
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            height: 1,
+            width: 1,
+          }} 
+        >
+        </RPDFView>
       </RPDFView>
       <RPDFText style={styles.elementContainer} orphans={0}>
         {children}
