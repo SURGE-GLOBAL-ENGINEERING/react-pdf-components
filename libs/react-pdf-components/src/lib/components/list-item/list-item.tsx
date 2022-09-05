@@ -101,7 +101,13 @@ export const Item: FC<{
         >
         </RPDFView>
       </RPDFView>
-      <RPDFText style={styles.elementContainer} orphans={0}>
+      <RPDFText
+        style={{
+          ...styles.elementContainer,
+          width: `calc(100% - ${getFontSize(style?.fontSize) * 2})`,
+        }}
+        orphans={0}
+      >
         {children}
       </RPDFText>
     </RPDFView>
