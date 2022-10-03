@@ -86,10 +86,15 @@ export const Item: FC<{
           style={{
             fontFamily: style?.fontFamily,
             fontSize: style?.fontSize,
+            lineHeight: style?.lineHeight,
           }}
         >
           {prefix}{' '}
         </RPDFText>
+        {/**
+         * The following view is introduced as a fix to ATT-344.
+         * (When the text portion of a list item goes beyond the page an onto the next page, the alignment is off.)
+         */}
         <RPDFView
           style={{
             position: 'absolute',
@@ -104,9 +109,11 @@ export const Item: FC<{
       <RPDFText
         style={{
           ...styles.elementContainer,
+          marginTop: -0.01,
           width: `calc(100% - ${getFontSize(style?.fontSize) * 2})`,
         }}
         orphans={0}
+        widows={0}
       >
         {children}
       </RPDFText>
