@@ -67,7 +67,9 @@ export const TextNode: FunctionComponent<TextNodeProps> = ({
   ...otherProps
 }) => {
   // used to get the list item type if the current is a list item
-  const composedStyles: { [key: string]: string | number | undefined }[] = [];
+  const composedStyles: {
+    [key: string]: string | number | boolean | undefined;
+  }[] = [];
 
   const composeStyles = () => {
     composedStyles.push({
