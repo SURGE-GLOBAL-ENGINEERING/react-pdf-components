@@ -3,7 +3,7 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import { RenderFunction } from 'react-pdf/dist/Page';
 
 pdfjs.GlobalWorkerOptions.workerSrc =
-  '//cdn.jsdelivr.net/npm/pdfjs-dist@2.12.313/build/pdf.worker.js';
+  '//cdn.jsdelivr.net/npm/pdfjs-dist@2.9.359/build/pdf.worker.js';
 
 type Doc = {
   numPages: number;
