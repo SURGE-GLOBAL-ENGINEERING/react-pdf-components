@@ -81,6 +81,7 @@ export const Item: FC<{
           ...styles.prefixContainer,
           width: getFontSize(style?.fontSize) * 2, // TODO: Introduce font based fine tuning
         }}
+        wrap={false}
       >
         <RPDFText
           style={{
@@ -102,7 +103,7 @@ export const Item: FC<{
             left: 0,
             height: 1,
             width: 1,
-          }} 
+          }}
         >
         </RPDFView>
       </RPDFView>
