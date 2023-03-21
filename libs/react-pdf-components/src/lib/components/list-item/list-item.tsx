@@ -73,7 +73,7 @@ export const Item: FC<{
       wrap={wrap}
       style={{
         ...styles.itemContainer,
-        marginBottom: style?.lineHeight || getFontSize(style?.fontSize),
+        marginBottom: getFontSize(style?.fontSize),
       }}
     >
       <RPDFView
@@ -102,9 +102,8 @@ export const Item: FC<{
             left: 0,
             height: 1,
             width: 1,
-          }} 
-        >
-        </RPDFView>
+          }}
+        ></RPDFView>
       </RPDFView>
       <RPDFText
         style={{
@@ -142,6 +141,7 @@ const addListItemPrefix = (
         style={{
           fontFamily: style?.fontFamily,
           fontSize: style?.fontSize,
+          lineHeight: style?.lineHeight,
         }}
       >
         {element}
@@ -157,6 +157,7 @@ const addListItemPrefix = (
       style={{
         fontFamily: style?.fontFamily,
         fontSize: style?.fontSize,
+        lineHeight: style?.lineHeight,
       }}
     >
       {element}
