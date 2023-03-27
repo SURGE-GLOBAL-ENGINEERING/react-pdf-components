@@ -22,8 +22,8 @@
   "dependencies": {
     "@paladin-analytics/rpdf-renderer": "^2.4.3",
     "core-js": "^3.6.5",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
     "react-pdf": "^5.4.0",
     "react-router-dom": "^5.3.0",
     "react-use": "^17.3.1",
