@@ -1,5 +1,4 @@
 import {
-  Footnote,
   FootnotePlaceholder,
   Page,
   TextNode,
@@ -20,7 +19,6 @@ const FootnotesPreview: FC = () => {
           pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
           culpa qui officia deserunt mollit anim id est laborum.
         </TextNode>
-        <Footnote reference="1" note="note 1" />
         <TextNode>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -57,7 +55,6 @@ const FootnotesPreview: FC = () => {
           pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
           culpa qui officia deserunt mollit anim id est laborum.
         </TextNode>
-        <Footnote reference="2" note="note 2" />
         <TextNode>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
