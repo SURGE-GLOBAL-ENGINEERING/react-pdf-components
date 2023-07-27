@@ -1,6 +1,6 @@
 import ReactPDF, {
-  StyleSheet,
   Text as RPDFText,
+  StyleSheet,
 } from '@paladin-analytics/rpdf-renderer';
 import { FunctionComponent } from 'react';
 
@@ -101,13 +101,13 @@ export const TextNode: FunctionComponent<TextNodeProps> = ({
   };
 
   composeStyles();
-  handleSpecialStyles();
+  handleSpecialStyles(); 
 
   return (
     <RPDFText
       widows={widows}
       orphans={orphans}
-      style={[...composedStyles]}
+      style={{ ...Object.assign({}, ...composedStyles) }}
       {...otherProps}
     >
       {otherProps.children}
