@@ -1,4 +1,4 @@
-import { Link as RPDFLink } from '@paladin-analytics/rpdf-renderer';
+import { Link as RPDFLink } from '@surge-global-engineering/rpdf-renderer';
 import { FC } from 'react';
 
 interface LinkProps {

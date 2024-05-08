@@ -1,10 +1,10 @@
 import {
-  StyleSheet,
-  Text as RPDFText,
-  View as RPDFView,
-} from '@paladin-analytics/rpdf-renderer';
-import { Style as RPDFStyle } from '@paladin-analytics/rpdf-types';
-import React, { FC } from 'react';
+    Text as RPDFText,
+    View as RPDFView,
+    StyleSheet,
+} from '@surge-global-engineering/rpdf-renderer';
+import { Style as RPDFStyle } from '@surge-global-engineering/rpdf-types';
+import { FC } from 'react';
 import { appearOnGivenPage } from './appearOnGivenPage';
 
 // const blackListedPages: number[] = [1, 2];

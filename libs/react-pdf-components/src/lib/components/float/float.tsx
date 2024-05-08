@@ -1,4 +1,4 @@
-import { View as RPDFView } from '@paladin-analytics/rpdf-renderer';
+import { View as RPDFView } from '@surge-global-engineering/rpdf-renderer';
 import { FunctionComponent } from 'react';
 import { ClearFloat } from './clear-float';
 

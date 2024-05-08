@@ -1,16 +1,16 @@
 import {
-  Image as RPDFImage,
-  StyleSheet,
-  Text as RPDFText,
-  View as RPDFView,
-} from '@paladin-analytics/rpdf-renderer';
-import { Style as RPDFStyles } from '@paladin-analytics/rpdf-types';
+    Image as RPDFImage,
+    Text as RPDFText,
+    View as RPDFView,
+    StyleSheet,
+} from '@surge-global-engineering/rpdf-renderer';
+import { Style as RPDFStyles } from '@surge-global-engineering/rpdf-types';
 import {
-  createElement,
-  FC,
-  isValidElement,
-  ReactElement,
-  useContext,
+    FC,
+    ReactElement,
+    createElement,
+    isValidElement,
+    useContext,
 } from 'react';
 import { arabToRoman } from 'roman-numbers';
 import { addPropsToReactElement } from '../../utils';

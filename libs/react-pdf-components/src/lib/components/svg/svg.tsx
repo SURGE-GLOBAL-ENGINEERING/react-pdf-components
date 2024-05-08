@@ -1,1 +1,1 @@
-export { Svg } from '@paladin-analytics/rpdf-renderer';
+export { Svg } from '@surge-global-engineering/rpdf-renderer';

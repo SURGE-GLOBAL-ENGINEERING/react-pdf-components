@@ -1,1 +1,1 @@
-export { Page } from '@paladin-analytics/rpdf-renderer';
+export { Page } from '@surge-global-engineering/rpdf-renderer';

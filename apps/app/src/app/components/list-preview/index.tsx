@@ -1,10 +1,10 @@
 import {
-  List,
-  ListItem,
-  Page,
-  TextNode,
-  View,
-} from '@paladin-analytics/react-pdf-components';
+    List,
+    ListItem,
+    Page,
+    TextNode,
+    View,
+} from '@surge-global-engineering/react-pdf-components';
 import { FC } from 'react';
 
 const SIZE = 20;

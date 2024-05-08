@@ -15,7 +15,7 @@ stages:
 test-apps:
   stage: test
   before_script:
-    - npm config set '@paladin-analytics:registry' "https://npm.pkg.github.com"
+    - npm config set '@surge-global-engineering:registry' "https://npm.pkg.github.com"
     - npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_NPM_TOKEN}"
     - npm i
   script:
@@ -29,7 +29,7 @@ test-apps:
 test-libs:
   stage: test
   before_script:
-    - npm config set '@paladin-analytics:registry' "https://npm.pkg.github.com"
+    - npm config set '@surge-global-engineering:registry' "https://npm.pkg.github.com"
     - npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_NPM_TOKEN}"
     - npm i
   script:
@@ -46,7 +46,7 @@ build:
   stage: build
   needs: ['test-apps', 'test-libs']
   before_script:
-    - npm config set '@paladin-analytics:registry' "https://npm.pkg.github.com"
+    - npm config set '@surge-global-engineering:registry' "https://npm.pkg.github.com"
     - npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_NPM_TOKEN}"
     - npm i
   script:
@@ -62,7 +62,7 @@ build:dev:
   stage: build
   needs: ['test-apps', 'test-libs']
   before_script:
-    - npm config set '@paladin-analytics:registry' "https://npm.pkg.github.com"
+    - npm config set '@surge-global-engineering:registry' "https://npm.pkg.github.com"
     - npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_NPM_TOKEN}"
     - npm i
   script:

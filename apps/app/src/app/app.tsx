@@ -1,10 +1,10 @@
-import { Viewer } from '@paladin-analytics/react-pdf-components';
+import { Viewer } from '@surge-global-engineering/react-pdf-components';
 import ReactPDF, {
   Document,
   Font,
   pdf,
   PDFViewer,
-} from '@paladin-analytics/rpdf-renderer';
+} from '@surge-global-engineering/rpdf-renderer';
 import {
   createElement,
   ReactElement,
@@ -12,7 +12,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import { Link, Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import styles from './app.module.scss';
 import ComponentPreviews from './components';
 import { editorFonts } from './fonts';

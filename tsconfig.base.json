@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@paladin-analytics/react-pdf-components": [
+      "@surge-global-engineering/react-pdf-components": [
         "libs/react-pdf-components/src/index.ts"
       ]
     }

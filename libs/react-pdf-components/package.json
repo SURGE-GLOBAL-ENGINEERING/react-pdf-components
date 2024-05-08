@@ -1,12 +1,12 @@
 {
-  "name": "@paladin-analytics/react-pdf-components",
+  "name": "@surge-global-engineering/react-pdf-components",
   "version": "11.0.2",
   "contributors": [
     "AIT Engineering"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Paladin-Analytics/react-pdf-components.git"
+    "url": "git+https://github.com/SURGE-GLOBAL-ENGINEERING/react-pdf-components.git"
   },
   "publishConfig": {
     "access": "restricted",
