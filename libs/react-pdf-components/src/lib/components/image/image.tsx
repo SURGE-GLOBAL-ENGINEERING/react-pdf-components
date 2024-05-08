@@ -1,11 +1,11 @@
 import ReactPDF, {
-  Image as RPDFImage,
-  Link as RPDFLink,
-  StyleSheet,
-  Text as RPDFText,
-  View as RPDFView,
-} from '@paladin-analytics/rpdf-renderer';
-import { Style } from '@paladin-analytics/rpdf-types';
+    Image as RPDFImage,
+    Link as RPDFLink,
+    Text as RPDFText,
+    View as RPDFView,
+    StyleSheet,
+} from '@surge-global-engineering/rpdf-renderer';
+import { Style } from '@surge-global-engineering/rpdf-types';
 import { FunctionComponent } from 'react';
 import { appendUrl } from '../../utils';
 

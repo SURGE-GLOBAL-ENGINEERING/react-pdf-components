@@ -1,8 +1,8 @@
 import {
-  Text as RPDFText,
-  View as RPDFView,
-} from '@paladin-analytics/rpdf-renderer';
-import { Style as RPDFStyle } from '@paladin-analytics/rpdf-types';
+    Text as RPDFText,
+    View as RPDFView,
+} from '@surge-global-engineering/rpdf-renderer';
+import { Style as RPDFStyle } from '@surge-global-engineering/rpdf-types';
 import { FC } from 'react';
 import { appearOnGivenPage } from './appearOnGivenPage';
 

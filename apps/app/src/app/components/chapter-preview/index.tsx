@@ -1,9 +1,9 @@
 import {
-  Chapter,
-  ChapterProps,
-  TextNode,
-} from '@paladin-analytics/react-pdf-components';
-import { Text, View } from '@paladin-analytics/rpdf-renderer';
+    Chapter,
+    ChapterProps,
+    TextNode,
+} from '@surge-global-engineering/react-pdf-components';
+import { Text, View } from '@surge-global-engineering/rpdf-renderer';
 import { FC } from 'react';
 import { getLayoutChapterProperties } from './layout-chapter-properties';
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

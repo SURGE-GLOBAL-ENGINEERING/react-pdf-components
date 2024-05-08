@@ -20,7 +20,7 @@
   },
   "private": true,
   "dependencies": {
-    "@paladin-analytics/rpdf-renderer": "^2.4.8",
+    "@surge-global-engineering/rpdf-renderer": "^2.4.14",
     "core-js": "^3.6.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

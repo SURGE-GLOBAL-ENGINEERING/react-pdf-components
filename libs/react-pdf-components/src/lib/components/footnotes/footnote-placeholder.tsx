@@ -1,5 +1,5 @@
-import { View as RPDFView } from '@paladin-analytics/rpdf-renderer';
-import { Style as RPDFStyles } from '@paladin-analytics/rpdf-types';
+import { View as RPDFView } from '@surge-global-engineering/rpdf-renderer';
+import { Style as RPDFStyles } from '@surge-global-engineering/rpdf-types';
 import { FC } from 'react';
 
 interface FootnotePlaceholderProps {

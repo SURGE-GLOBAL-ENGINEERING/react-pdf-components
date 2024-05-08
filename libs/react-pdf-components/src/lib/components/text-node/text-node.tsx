@@ -1,7 +1,7 @@
 import ReactPDF, {
-  Text as RPDFText,
-  StyleSheet,
-} from '@paladin-analytics/rpdf-renderer';
+    Text as RPDFText,
+    StyleSheet,
+} from '@surge-global-engineering/rpdf-renderer';
 import { FunctionComponent } from 'react';
 
 type Features = {

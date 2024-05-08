@@ -1,4 +1,4 @@
-import { ChapterProps } from '@paladin-analytics/react-pdf-components';
+import { ChapterProps } from '@surge-global-engineering/react-pdf-components';
 
 type LayoutChapterProperties = Pick<
   ChapterProps,

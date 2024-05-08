@@ -1,15 +1,15 @@
 import {
-  Image as RPDFImage,
-  Page as RPDFPage,
-  StyleSheet,
-  View as RPDFView,
-} from '@paladin-analytics/rpdf-renderer';
-import { Style } from '@paladin-analytics/rpdf-types';
+    Image as RPDFImage,
+    Page as RPDFPage,
+    View as RPDFView,
+    StyleSheet,
+} from '@surge-global-engineering/rpdf-renderer';
+import { Style } from '@surge-global-engineering/rpdf-types';
 import { FC } from 'react';
 import { appendUrl } from '../../utils';
 import {
-  calculateValues,
-  Calculator,
+    Calculator,
+    calculateValues,
 } from '../../utils/transform-layout-values';
 import Footer, { FooterStyle } from './footer';
 import Header, { HeaderStyle } from './header';

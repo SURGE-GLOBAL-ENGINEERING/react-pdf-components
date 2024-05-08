@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: 16.4.0
       - name: config private registry
-        run: npm config set '@paladin-analytics:registry' "https://npm.pkg.github.com"
+        run: npm config set '@surge-global-engineering:registry' "https://npm.pkg.github.com"
       - run: npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_TOKEN}"
       - uses: actions/cache@v2
         with:

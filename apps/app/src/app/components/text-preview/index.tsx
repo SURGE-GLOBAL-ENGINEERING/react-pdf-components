@@ -1,4 +1,4 @@
-import { Page, TextNode } from '@paladin-analytics/react-pdf-components';
+import { Page, TextNode } from '@surge-global-engineering/react-pdf-components';
 import { FC } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

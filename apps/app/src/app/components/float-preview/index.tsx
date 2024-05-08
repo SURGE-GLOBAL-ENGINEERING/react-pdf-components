@@ -1,10 +1,10 @@
 import {
-  ClearFloat,
-  Float,
-  Image,
-  Page,
-  TextNode,
-} from '@paladin-analytics/react-pdf-components';
+    ClearFloat,
+    Float,
+    Image,
+    Page,
+    TextNode,
+} from '@surge-global-engineering/react-pdf-components';
 import { FC } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

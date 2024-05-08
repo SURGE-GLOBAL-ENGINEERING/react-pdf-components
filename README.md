@@ -57,7 +57,7 @@ Scope could be anything specifying place of the commit change. For example $loca
 
 - Add following config to it.
 
-      @paladin-analytics:registry=https://npm.pkg.github.com
+      @surge-global-engineering:registry=https://npm.pkg.github.com
       //npm.pkg.github.com/:\_authToken=<TOKEN>
 
-- Then install packages : `yarn add @paladin-analytics/rpdf-renderer`
+- Then install packages : `yarn add @surge-global-engineering/rpdf-renderer`
