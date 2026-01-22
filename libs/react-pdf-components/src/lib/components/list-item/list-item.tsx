@@ -1,16 +1,16 @@
 import {
-    Image as RPDFImage,
-    Text as RPDFText,
-    View as RPDFView,
-    StyleSheet,
+  Image as RPDFImage,
+  Text as RPDFText,
+  View as RPDFView,
+  StyleSheet,
 } from '@surge-global-engineering/rpdf-renderer';
 import { Style as RPDFStyles } from '@surge-global-engineering/rpdf-types';
 import {
-    FC,
-    ReactElement,
-    createElement,
-    isValidElement,
-    useContext,
+  FC,
+  ReactElement,
+  createElement,
+  isValidElement,
+  useContext,
 } from 'react';
 import { arabToRoman } from 'roman-numbers';
 import { addPropsToReactElement } from '../../utils';
@@ -18,10 +18,18 @@ import { LevelContext, ListProps, StyleContext, TypeContext } from '../list';
 import { TextNode, TextNodeProps } from '../text-node';
 import { arabToAlphabetic } from './alphabetic';
 
-const bulletCandidatesImageDataUrls = [
-  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAJVJREFUSInt0r0NwjAQQOEvMAk9CVtAzRpp2YBF+BmBBsEEVBSIHRAlCxCKpExkWxRp/KrT2c93ujOZTCYzPkXC3QrLLr7iESNNIx/fYI0zXqgxwy2hwUEWOPTkjyhD8iSiwAq7nvy+O/u7wFf/rgo0EX6QyvCI5iE5Zslv7UJrfLp4iztOITnlm5bamTe44JngZkbkBz74FFKIvkIXAAAAAElFTkSuQmCC',
-  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAI5JREFUSInt0rENwjAQheEPKFkAmIGELWAhxDysQAljEGp6JGpKQhHTICLHSqQ0/qWTrLPfvbuTyWQymfGZJLwtsQ3nC65DNnJAhWeICvuhim9CwfonKhQx8bSDwQ7LP/lFuOtt8G7JfyfpTal9ReuYeNbB4IE5VpqJX7jjiFNMnPJNC83Oa5xxS9BmRuQDI28dXM/cSMwAAAAASUVORK5CYII=',
-];
+type BulletCandidateColor = 'default' | 'light';
+
+const bulletCandidatesImageDataUrls: Record<BulletCandidateColor, string[]> = {
+  default: [
+    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAJVJREFUSInt0r0NwjAQQOEvMAk9CVtAzRpp2YBF+BmBBsEEVBSIHRAlCxCKpExkWxRp/KrT2c93ujOZTCYzPkXC3QrLLr7iESNNIx/fYI0zXqgxwy2hwUEWOPTkjyhD8iSiwAq7nvy+O/u7wFf/rgo0EX6QyvCI5iE5Zslv7UJrfLp4iztOITnlm5bamTe44JngZkbkBz74FFKIvkIXAAAAAElFTkSuQmCC',
+    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAI5JREFUSInt0rENwjAQheEPKFkAmIGELWAhxDysQAljEGp6JGpKQhHTICLHSqQ0/qWTrLPfvbuTyWQymfGZJLwtsQ3nC65DNnJAhWeICvuhim9CwfonKhQx8bSDwQ7LP/lFuOtt8G7JfyfpTal9ReuYeNbB4IE5VpqJX7jjiFNMnPJNC83Oa5xxS9BmRuQDI28dXM/cSMwAAAAASUVORK5CYII=',
+  ],
+  light: [
+    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAA0ElEQVR4AeySwQkCQQxFHftxZC3Bi2WsLcjahKhoB4pWoRcrUEStx/EF5hRwEwQP4ix5ZCeT5C+f7Xa+/BQB0+BiUbHIdMBs+KO/KKUUYZqJpje5wWURSxv6hTNZaKhNeDfDFGBRny0xhFDDKVNTq7jrkVvDFGB6BBvQsaUgd6T34RF4Mh5Ah9SSLuqzR+DI0Bh0iE0HXdRnUwDPbwxd8XsHw8ye2oW7B7k1TAGZZtGKPIcBVDCjtiab4RKQLSy8wwKWYH65zAhuAWn+hN8XeAEAAP//iXg29QAAAAZJREFUAwCj0TwxR9r7RwAAAABJRU5ErkJggg==',
+    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAzklEQVR4AeySwQnCQBBFXVvwoj1oLMMaFMQmgliCQtKDHlKElqH2III1uL6BPQU2fxE8SDb8x2xmZ+aHIcPBj59sIBecV5RXJDcgC3r0F3nvCygDhdxNKEhaEUO31DewCzTkSs5S0oBBc6asYQqjgJ033M1475Q0oHsBE2hrTMLuCHGlGLwj7Z68QYgrxeBC+wPaepI4Q6ekgXPuyoQT3OEVsPORO4uk4pIG1sqgiriCA+xhSa4mSiUZ2BQG3qCCGuSXW4+RbGDF3/D/Bh8AAAD//4xhrR8AAAAGSURBVAMA2zExMfUd3dkAAAAASUVORK5CYII=',
+  ],
+};
 
 const numberingFormatters = [
   (i: number) => i,
@@ -125,7 +133,8 @@ const addListItemPrefix = (
   level: number,
   type: 'ol' | 'ul',
   index?: number,
-  style?: RPDFStyles
+  style?: RPDFStyles,
+  textColor?: string
 ) => {
   if (!isValidElement(element)) {
     throw new Error('Invalid react element found in the tree');
@@ -149,11 +158,21 @@ const addListItemPrefix = (
     );
   }
 
-  const candidateIndex = level % bulletCandidatesImageDataUrls.length;
+  const bulletCandidateColor: BulletCandidateColor =
+    textColor === 'light' ? 'light' : 'default';
+
+  const candidateIndex =
+    level % bulletCandidatesImageDataUrls[bulletCandidateColor].length;
 
   return (
     <Item
-      prefix={<RPDFImage src={bulletCandidatesImageDataUrls[candidateIndex]} />}
+      prefix={
+        <RPDFImage
+          src={
+            bulletCandidatesImageDataUrls[bulletCandidateColor][candidateIndex]
+          }
+        />
+      }
       style={{
         fontFamily: style?.fontFamily,
         fontSize: style?.fontSize,
@@ -171,14 +190,15 @@ const withListItemPrefix = (
   level: number,
   type: 'ol' | 'ul',
   index?: number,
-  style?: RPDFStyles
+  style?: RPDFStyles,
+  textColor?: string
 ) => {
   if (!Array.isArray(children)) {
-    return [addListItemPrefix(children, level, type, index, style)];
+    return [addListItemPrefix(children, level, type, index, style, textColor)];
   }
 
   return [
-    addListItemPrefix(children[0], level, type, index, style),
+    addListItemPrefix(children[0], level, type, index, style, textColor),
     ...children.slice(1),
   ];
 };
@@ -191,9 +211,15 @@ export interface ListItemProps {
   // index should be available if the list is ordered
   index?: number;
   style?: RPDFStyles;
+  textColor?: 'default' | 'light';
 }
 
-export const ListItem: FC<ListItemProps> = ({ children, index, style }) => {
+export const ListItem: FC<ListItemProps> = ({
+  children,
+  index,
+  style,
+  textColor = 'default',
+}) => {
   const level = useContext(LevelContext);
   const type = useContext(TypeContext);
   const parentStyle = useContext(StyleContext);
@@ -201,9 +227,16 @@ export const ListItem: FC<ListItemProps> = ({ children, index, style }) => {
   return createElement(
     RPDFView,
     {},
-    ...withListItemPrefix(children, level, type, index, {
-      ...parentStyle,
-      ...style,
-    })
+    ...withListItemPrefix(
+      children,
+      level,
+      type,
+      index,
+      {
+        ...parentStyle,
+        ...style,
+      },
+      textColor
+    )
   );
 };
