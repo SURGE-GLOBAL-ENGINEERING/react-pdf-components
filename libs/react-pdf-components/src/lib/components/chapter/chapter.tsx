@@ -61,6 +61,9 @@ export interface ChapterProps {
   pageNumberContainerWidth?: number | string;
   assumeUsingOnlyFirstPage?: boolean;
   firstPageLightText?: boolean;
+
+  isTwoPageSpread?: boolean;
+  twoPageSpreadSide?: 'left' | 'right';
 }
 
 export const Chapter: FC<ChapterProps> = ({
@@ -91,6 +94,8 @@ export const Chapter: FC<ChapterProps> = ({
   footerHiddenPages,
   assumeUsingOnlyFirstPage = false,
   firstPageLightText = false,
+  isTwoPageSpread = false,
+  twoPageSpreadSide,
 }) => {
   const getPagePaddingBottom = () => {
     const paddingBottomWithoutFooter = calculateValues(
@@ -136,7 +141,21 @@ export const Chapter: FC<ChapterProps> = ({
       justifyContent: 'space-between',
       marginBottom: headerStyles?.marginBottom || 0,
     },
+
+    twoPageImageLeft: {
+      width: '100%',
+      height: '100%',
+    },
+
+    twoPageImageRight: {
+      width: '100%',
+      height: '100%',
+    },
   });
+
+  if (isTwoPageSpread) {
+    disableImageSrcURLAppends = true;
+  }
 
   return (
     <RPDFPage
@@ -157,7 +176,15 @@ export const Chapter: FC<ChapterProps> = ({
                 ? appendUrl(backgroundImageSrc, { renderer: 'pdf' })
                 : backgroundImageSrc
             }
-            style={styleSheet.fullBleedImage}
+            style={{
+              ...styleSheet.fullBleedImage,
+              ...(isTwoPageSpread &&
+                twoPageSpreadSide === 'left' &&
+                styleSheet.twoPageImageLeft),
+              ...(isTwoPageSpread &&
+                twoPageSpreadSide === 'right' &&
+                styleSheet.twoPageImageRight),
+            }}
           />
         </RPDFView>
       )}
