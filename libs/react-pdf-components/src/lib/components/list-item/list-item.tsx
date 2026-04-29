@@ -66,7 +66,8 @@ export const Item: FC<{
   style?: RPDFStyles;
   children: ReactElement;
   wrap?: boolean;
-}> = ({ prefix, style, children, wrap = true }) => {
+  compact?: boolean;
+}> = ({ prefix, style, children, wrap = true, compact = false }) => {
   /**
    * if the child is a text node, we should override the default orphans value to 0
    * to prevent the line breaking of text node which causes the prefix and the content
@@ -81,7 +82,7 @@ export const Item: FC<{
       wrap={wrap}
       style={{
         ...styles.itemContainer,
-        marginBottom: getFontSize(style?.fontSize),
+        marginBottom: compact ? 0 : getFontSize(style?.fontSize),
       }}
     >
       <RPDFView
@@ -134,7 +135,8 @@ const addListItemPrefix = (
   type: 'ol' | 'ul',
   index?: number,
   style?: RPDFStyles,
-  textColor?: string
+  textColor?: string,
+  compact?: boolean
 ) => {
   if (!isValidElement(element)) {
     throw new Error('Invalid react element found in the tree');
@@ -152,6 +154,7 @@ const addListItemPrefix = (
           fontSize: style?.fontSize,
           lineHeight: style?.lineHeight,
         }}
+        compact={compact}
       >
         {element}
       </Item>
@@ -178,6 +181,7 @@ const addListItemPrefix = (
         fontSize: style?.fontSize,
         lineHeight: style?.lineHeight,
       }}
+      compact={compact}
     >
       {element}
     </Item>
@@ -191,14 +195,15 @@ const withListItemPrefix = (
   type: 'ol' | 'ul',
   index?: number,
   style?: RPDFStyles,
-  textColor?: string
+  textColor?: string,
+  compact?: boolean
 ) => {
   if (!Array.isArray(children)) {
-    return [addListItemPrefix(children, level, type, index, style, textColor)];
+    return [addListItemPrefix(children, level, type, index, style, textColor, compact)];
   }
 
   return [
-    addListItemPrefix(children[0], level, type, index, style, textColor),
+    addListItemPrefix(children[0], level, type, index, style, textColor, compact),
     ...children.slice(1),
   ];
 };
@@ -212,6 +217,7 @@ export interface ListItemProps {
   index?: number;
   style?: RPDFStyles;
   textColor?: 'default' | 'light';
+  compact?: boolean;
 }
 
 export const ListItem: FC<ListItemProps> = ({
@@ -219,6 +225,7 @@ export const ListItem: FC<ListItemProps> = ({
   index,
   style,
   textColor = 'default',
+  compact = false,
 }) => {
   const level = useContext(LevelContext);
   const type = useContext(TypeContext);
@@ -236,7 +243,8 @@ export const ListItem: FC<ListItemProps> = ({
         ...parentStyle,
         ...style,
       },
-      textColor
+      textColor,
+      compact
     )
   );
 };
